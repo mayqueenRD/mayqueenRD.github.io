@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台股支撐壓力 · 技術分析報告</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f0f1a;
+      color: #d0d0e0;
+      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+      font-size: 13px;
+      padding: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.4rem; color: #a0c4ff; margin-bottom: 4px; }
+    .meta { color: #555; font-size: 11px; margin-bottom: 24px; }
+
+    .summary-wrap { overflow-x: auto; margin-bottom: 36px; }
+    table.summary { border-collapse: collapse; width: 100%; min-width: 560px; }
+    table.summary th { background: #1e1e3a; color: #a0c4ff; padding: 8px 14px; text-align: left; border-bottom: 1px solid #333; font-size: 12px; }
+    table.summary td { padding: 8px 14px; border-bottom: 1px solid #1a1a2e; vertical-align: middle; }
+    table.summary tr:hover { background: #1a1a30; }
+
+    .stock-section { margin-bottom: 52px; }
+    .stock-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #2a2a44; }
+    .stock-header h2 { font-size: 1.2rem; color: #fbbf24; }
+    .price-badge { font-size: 0.95rem; font-weight: bold; padding: 2px 10px; border-radius: 4px; }
+    .price-badge.up { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid #f87171; }
+    .price-badge.dn { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid #4ade80; }
+    .date-label { font-size: 11px; color: #555; }
+
+    .chart-box { width: 100%; margin-bottom: 16px; border-radius: 8px; overflow: hidden; background: #1a1a2e; }
+
+    .analysis-card { background: #12122a; border-radius: 8px; padding: 18px 22px; margin-bottom: 16px; border-left: 3px solid #6366f1; }
+    .card-title { font-size: 11px; color: #6366f1; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; font-weight: bold; }
+    .verdict { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.92rem; margin-bottom: 14px; }
+    .verdict.bull    { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.5); }
+    .verdict.bear    { background: rgba(74,222,128,0.12);  color: #4ade80; border: 1px solid rgba(74,222,128,0.4); }
+    .verdict.neutral { background: rgba(251,191,36,0.12);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.4); }
+
+    .analysis-body { line-height: 1.9; color: #b8b8cc; font-size: 13px; }
+    .analysis-body p { margin-bottom: 10px; }
+    .analysis-body strong { color: #e0e0f0; }
+    .hi  { color: #fbbf24; font-weight: bold; }
+    .up  { color: #f87171; font-weight: bold; }
+    .dn  { color: #4ade80; font-weight: bold; }
+    .pur { color: #a78bfa; font-weight: bold; }
+    .key-line { display: flex; gap: 8px; margin: 4px 0; align-items: baseline; }
+    .key-line .kl-label { min-width: 75px; color: #888; font-size: 12px; flex-shrink: 0; }
+    .key-line .kl-val   { font-weight: bold; }
+    hr.divider { border: none; border-top: 1px solid #2a2a44; margin: 12px 0; }
+
+    table.level-table { border-collapse: collapse; width: 100%; font-size: 12px; }
+    table.level-table th { background: #1c1c38; color: #666; padding: 5px 12px; text-align: left; border-bottom: 1px solid #2a2a44; }
+    table.level-table td { padding: 5px 12px; border-bottom: 1px solid #16162a; }
+
+    .res { color: #4ade80; } .sup { color: #f87171; } .dim { color: #555; }
+    .price-c { color: #fbbf24; font-weight: bold; }
+    .sid { color: #60a5fa; text-decoration: none; font-weight: bold; }
+    .sid:hover { text-decoration: underline; }
+    .tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-right: 2px; font-weight: bold; }
+    .tag.r { background: rgba(74,222,128,0.15);  color: #4ade80; border: 1px solid rgba(74,222,128,0.4); }
+    .tag.s { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.4); }
+
+    @media (max-width: 600px) { body { padding: 10px; } .analysis-card { padding: 12px 14px; } .stock-header { flex-wrap: wrap; gap: 8px; } }
+  </style>
+</head>
+<body>
+
+<h1>📈 台股支撐壓力 · 技術分析報告</h1>
+<p class="meta">資料截至 2026-04-17 &nbsp;｜&nbsp; 分析產生：2026-04-19 23:32 &nbsp;｜&nbsp; 共 5 支</p>
+
+<!-- ════ 總覽表 ════════════════════════════════════════════════════════════ -->
+<div class="summary-wrap">
+  <table class="summary">
+    <thead><tr><th>代號</th><th>現價</th><th>最近壓力</th><th>最近支撐</th><th>操作判斷</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><a href="#sec_2330" class="sid">2330 台積電</a></td>
+        <td class="price-c">2030</td>
+        <td><span class="res">2048 (+0.9%)</span></td>
+        <td><span class="sup">2010 (-1.0%)</span></td>
+        <td><span style="color:#fbbf24">⚡ 守 2010，攻 2100</span></td>
+      </tr>
+      <tr>
+        <td><a href="#sec_6531" class="sid">6531 愛普</a></td>
+        <td class="price-c">644</td>
+        <td><span class="res">650 (+0.9%)</span></td>
+        <td><span class="sup">600 (-6.8%)</span></td>
+        <td><span style="color:#f87171">🔥 突破 652 積極追</span></td>
+      </tr>
+      <tr>
+        <td><a href="#sec_2344" class="sid">2344 華邦電</a></td>
+        <td class="price-c">87.8</td>
+        <td><span class="res">90 (+2.5%)</span></td>
+        <td><span class="sup">86.8 (-1.1%)</span></td>
+        <td><span style="color:#4ade80">🔻 偏空，均線全壓，反彈賣</span></td>
+      </tr>
+      <tr>
+        <td><a href="#sec_2408" class="sid">2408 南亞科</a></td>
+        <td class="price-c">210</td>
+        <td><span class="res">213 (+1.4%)</span></td>
+        <td><span class="sup">209 (-0.5%)</span></td>
+        <td><span style="color:#4ade80">🔻 均線壓頂，209 守住才觀望</span></td>
+      </tr>
+      <tr>
+        <td><a href="#sec_2454" class="sid">2454 聯發科</a></td>
+        <td class="price-c">1925</td>
+        <td><span class="res">1950 (+1.3%)</span></td>
+        <td><span class="sup">1900 (-1.3%)</span></td>
+        <td><span style="color:#f87171">🚀 突破 1975 看 2100+</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ════ 2330 台積電 ════════════════════════════════════════════════════════ -->
+<section class="stock-section" id="sec_2330">
+  <div class="stock-header">
+    <h2>2330 台積電</h2>
+    <span class="price-badge dn">▼ 2030 元</span>
+    <span class="date-label">2026-04-17</span>
+  </div>
+  <div id="chart_2330" class="chart-box"></div>
+  <div class="analysis-card">
+    <div class="card-title">🤖 技術分析 &amp; 操作建議（2330 台積電）</div>
+    <div class="verdict neutral">⚡ 短線整理 · 中線偏多</div>
+    <div class="analysis-body">
+      <p><strong>【近期走勢】</strong><br>
+      從 3 月底 <span class="hi">1760</span> V 形反轉，法人 4/08（46M）、4/14（39M）兩波大買，最高攻至 <span class="hi">2100</span>，漲幅 <strong>+19%</strong>。
+      4/17 黑 K（開 2055 收 2030），量 39M 帶量收低，短線動能出現轉折訊號。</p>
+      <hr class="divider">
+      <p><strong>【關鍵價位】</strong></p>
+      <div class="key-line"><span class="kl-label res">▲ P1</span><span class="kl-val res">2048（MA5）</span><span class="dim"> — 收復才算短線修正結束</span></div>
+      <div class="key-line"><span class="kl-label res">▲ P2</span><span class="kl-val res">2100（波段高點）</span><span class="dim"> — 突破進入新攻擊段</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S1</span><span class="kl-val sup">2010（法人 4/14 大買底）</span><span class="dim"> — <strong style="color:#f87171">多方生死線</strong></span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S2</span><span class="kl-val sup">1981（MA10）</span><span class="dim"> — 破 2010 後下一道防線</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S3</span><span class="kl-val sup">1925（法人 4/08 大買）</span><span class="dim"> — 波段大支撐，破了頭部確立</span></div>
+      <hr class="divider">
+      <p><strong>【操作建議】</strong><br>
+      <span class="up">● 積極：</span> 在 <strong>2010～2020</strong> 分批承接，停損 <strong>1980</strong>，目標 <strong>2048 → 2100</strong>，風報比約 1:4。<br>
+      <span class="pur">● 保守：</span> 等 MA5（2048）以上站穩連兩根陽 K 再追，目標 2100 突破後看 <strong>2150+</strong>。<br>
+      <span class="dn">● 中線：</span> 1925 不破則反彈趨勢完整，均線附近拉回都是加碼機會。</p>
+    </div>
+  </div>
+  <table class="level-table">
+    <thead><tr><th>#</th><th>類型</th><th>價格</th><th>距離%</th><th>觸發日期</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag r">P1</span></td><td class="res">MA5 位置</td><td class="res">2048.0</td><td class="res">+0.9%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P2</span></td><td class="res">波段相對高點</td><td class="res">2100.0</td><td class="res">+3.4%</td><td class="dim">2026-04-15</td></tr>
+      <tr><td><span class="tag s">S1</span></td><td class="sup">法人大買紅K底部</td><td class="sup">2010.0</td><td class="sup">−1.0%</td><td class="dim">2026-04-14</td></tr>
+      <tr><td><span class="tag s">S2</span></td><td class="sup">MA10 位置</td><td class="sup">1981.5</td><td class="sup">−2.4%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S3</span></td><td class="sup">法人大買紅K底部</td><td class="sup">1925.0</td><td class="sup">−5.2%</td><td class="dim">2026-04-08</td></tr>
+      <tr><td><span class="tag s">S4</span></td><td class="sup">MA20 位置</td><td class="sup">1901.3</td><td class="sup">−6.3%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S5</span></td><td class="sup">MA60 位置</td><td class="sup">1849.9</td><td class="sup">−8.9%</td><td class="dim">2026-04-17</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════ 6531 愛普 ════════════════════════════════════════════════════════ -->
+<section class="stock-section" id="sec_6531">
+  <div class="stock-header">
+    <h2>6531 愛普</h2>
+    <span class="price-badge up">▲ 644 元</span>
+    <span class="date-label">2026-04-17</span>
+  </div>
+  <div id="chart_6531" class="chart-box"></div>
+  <div class="analysis-card">
+    <div class="card-title">🤖 技術分析 &amp; 操作建議（6531 愛普）</div>
+    <div class="verdict bull">🔥 強勢突破架構 · 積極偏多</div>
+    <div class="analysis-body">
+      <p><strong>【近期走勢】</strong><br>
+      愛普（AP Memory，6531）從 2 月低點 <span class="hi">396</span> 長期沉寂後，3/12 爆量 <span class="hi">11M</span>（前均量 4 倍）跳空啟動，
+      3/13 再爆 17M，3/17 衝上 <span class="hi">580</span>，五個交易日漲逾 <strong>45%</strong>，主力介入明顯。
+      4/17 關鍵陽 K：開 593、低 591、收最高 <span class="hi">644</span>，法人在 591 強力撐盤。</p>
+      <hr class="divider">
+      <p><strong>【關鍵價位】</strong></p>
+      <div class="key-line"><span class="kl-label res">▲ P1</span><span class="kl-val res">650（整數關卡）</span><span class="dim"> — 距現價僅 0.9%，一步之遙</span></div>
+      <div class="key-line"><span class="kl-label res">▲ P2</span><span class="kl-val res">652（4/15 波段頂）</span><span class="dim"> — 突破即進入無壓區</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S1</span><span class="kl-val sup">600（整數關卡）</span><span class="dim"> — 短線成交密集，必有買盤</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S2</span><span class="kl-val sup">591（法人大買底，4/17 當日低）</span><span class="dim"> — <strong style="color:#f87171">停損參考點</strong></span></div>
+      <hr class="divider">
+      <p><strong>【操作建議】</strong><br>
+      <span class="up">● 積極：</span> 突破 <strong>652</strong> 直接追，目標 <strong>700 → 730～750</strong>，停損 590，風報比 1:3 以上。<br>
+      <span class="pur">● 次佳：</span> 拉回 <strong>610～620</strong> 接，同樣停損 590。<br>
+      <span class="dn">● 注意：</span> 3/18、4/15 都曾開高急拉回，建議分批出貨（三分之一在 700、三分之一在 730、最後在 750）。</p>
+    </div>
+  </div>
+  <table class="level-table">
+    <thead><tr><th>#</th><th>類型</th><th>價格</th><th>距離%</th><th>觸發日期</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag r">P1</span></td><td class="res">整數心理關卡</td><td class="res">650.0</td><td class="res">+0.9%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S1</span></td><td class="sup">整數心理關卡</td><td class="sup">600.0</td><td class="sup">−6.8%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S2</span></td><td class="sup">法人大買紅K底部</td><td class="sup">591.0</td><td class="sup">−8.2%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S3</span></td><td class="sup">法人大買紅K底部</td><td class="sup">555.0</td><td class="sup">−13.8%</td><td class="dim">2026-04-14</td></tr>
+      <tr><td><span class="tag s">S4</span></td><td class="sup">MA10 位置</td><td class="sup">538.0</td><td class="sup">−16.5%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S5</span></td><td class="sup">MA20 位置</td><td class="sup">521.1</td><td class="sup">−19.1%</td><td class="dim">2026-04-17</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════ 2344 華邦電 ════════════════════════════════════════════════════════ -->
+<section class="stock-section" id="sec_2344">
+  <div class="stock-header">
+    <h2>2344 華邦電</h2>
+    <span class="price-badge dn">▼ 87.8 元</span>
+    <span class="date-label">2026-04-17</span>
+  </div>
+  <div id="chart_2344" class="chart-box"></div>
+  <div class="analysis-card">
+    <div class="card-title">🤖 技術分析 &amp; 操作建議（2344 華邦電）</div>
+    <div class="verdict bear">🔻 均線全面壓制 · 偏空</div>
+    <div class="analysis-body">
+      <p><strong>【近期走勢】</strong><br>
+      華邦電從 1 月底高點 <span class="hi">135</span> 一路下跌，3/18 反彈至 <span class="hi">128.8</span> 後再破底，
+      4/15 法人大賣黑 K（高點 96.6），之後繼續探底至 <span class="hi">86.8</span>。
+      目前 MA5（91.1）、MA20（95.8）全部壓在上方，<strong>均線排列空頭</strong>，MA120（85.25）是唯一略低的均線支撐。</p>
+      <hr class="divider">
+      <p><strong>【關鍵價位】</strong></p>
+      <div class="key-line"><span class="kl-label res">▲ P1</span><span class="kl-val res">90（整數關卡）</span><span class="dim"> — 反彈首道壓力</span></div>
+      <div class="key-line"><span class="kl-label res">▲ P2</span><span class="kl-val res">91.1（MA5）</span><span class="dim"> — 均線壓，反彈賣點</span></div>
+      <div class="key-line"><span class="kl-label res">▲ P3</span><span class="kl-val res">95.8～96.6（MA20 / 法人大賣頂）</span><span class="dim"> — 強壓區，難突破</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S1</span><span class="kl-val sup">86.8（波段低點）</span><span class="dim"> — 近期最低，跌破看 85</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S2</span><span class="kl-val sup">85.25（MA120）</span><span class="dim"> — 最後防線，破了看 80</span></div>
+      <hr class="divider">
+      <p><strong>【操作建議】</strong><br>
+      <span class="dn">● 空手者：</span> <strong>不建議進場做多</strong>，均線全部在上方壓，反彈力道有限，短線逢彈出場是正確策略。<br>
+      <span class="up">● 持有者：</span> 若有部位，反彈到 <strong>90～91</strong>（MA5 附近）即是減碼點，不宜凹。<br>
+      <span class="pur">● 反轉訊號：</span> 唯有量能顯著放大且收復 <strong>95（MA20）以上</strong>，才考慮重新評估多方機會。在此之前維持空方觀察。</p>
+    </div>
+  </div>
+  <table class="level-table">
+    <thead><tr><th>#</th><th>類型</th><th>價格</th><th>距離%</th><th>觸發日期</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag r">P1</span></td><td class="res">整數心理關卡</td><td class="res">90.0</td><td class="res">+2.5%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P2</span></td><td class="res">MA5 位置</td><td class="res">91.1</td><td class="res">+3.8%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P3</span></td><td class="res">MA20 位置</td><td class="res">95.8</td><td class="res">+9.1%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P4</span></td><td class="res">法人大賣黑K頂部</td><td class="res">96.6</td><td class="res">+10.0%</td><td class="dim">2026-04-15</td></tr>
+      <tr><td><span class="tag r">P5</span></td><td class="res">波段相對高點</td><td class="res">98.0</td><td class="res">+11.6%</td><td class="dim">2026-04-14</td></tr>
+      <tr><td><span class="tag s">S1</span></td><td class="sup">波段相對低點</td><td class="sup">86.8</td><td class="sup">−1.1%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S2</span></td><td class="sup">MA120 位置</td><td class="sup">85.3</td><td class="sup">−2.9%</td><td class="dim">2026-04-17</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════ 2408 南亞科 ════════════════════════════════════════════════════════ -->
+<section class="stock-section" id="sec_2408">
+  <div class="stock-header">
+    <h2>2408 南亞科</h2>
+    <span class="price-badge dn">▼ 210 元</span>
+    <span class="date-label">2026-04-17</span>
+  </div>
+  <div id="chart_2408" class="chart-box"></div>
+  <div class="analysis-card">
+    <div class="card-title">🤖 技術分析 &amp; 操作建議（2408 南亞科）</div>
+    <div class="verdict bear">🔻 均線壓頂 · 底部訊號待確認</div>
+    <div class="analysis-body">
+      <p><strong>【近期走勢】</strong><br>
+      南亞科從 1 月底高點 <span class="hi">326.5</span> 一路重跌，3/09 觸底 <span class="hi">210</span>，
+      反彈至 3/18 的 288.5 後再度破底，3/31 低至 <span class="hi">198.5</span>，形成雙底型態。
+      4/08 從低點帶量反彈，4/10 法人大買紅 K（底 214.5），但 4/09 法人大賣黑 K 頂（222），
+      反彈空間受均線全面壓制（MA5 216、MA10 213、MA20 218 全在上方）。</p>
+      <hr class="divider">
+      <p><strong>【關鍵價位】</strong></p>
+      <div class="key-line"><span class="kl-label res">▲ P1</span><span class="kl-val res">213（MA10）</span><span class="dim"> — 最近均線壓力，突破才有機會</span></div>
+      <div class="key-line"><span class="kl-label res">▲ P2</span><span class="kl-val res">216.1（MA5）</span><span class="dim"> — 均線壓，反彈賣點區</span></div>
+      <div class="key-line"><span class="kl-label res">▲ P3</span><span class="kl-val res">218～222（MA20 / 法人大賣頂）</span><span class="dim"> — 強壓帶，短線難突破</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S1</span><span class="kl-val sup">209（法人 4/10 大買底）</span><span class="dim"> — <strong style="color:#f87171">關鍵支撐，守住才有機會築底</strong></span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S2</span><span class="kl-val sup">205（波段低點）</span><span class="dim"> — 次要支撐</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S3</span><span class="kl-val sup">198.5（3/31 底部）</span><span class="dim"> — 大底，破了則空頭延伸</span></div>
+      <hr class="divider">
+      <p><strong>【操作建議】</strong><br>
+      <span class="dn">● 空手者：</span> 目前是「底部打樁期」，<strong>不宜積極追多</strong>，先看 209 能否守住。
+      若 <strong>收復 220（MA20 以上）</strong> 且量能配合，才是真反轉訊號，那時再追不遲。<br>
+      <span class="up">● 短線搶反彈：</span> 守在 209 以上，目標 <strong>216（MA5）</strong> 出場，停損 205，屬短打操作。<br>
+      <span class="pur">● 風險提示：</span> 現在 MA5/10/20 全部壓在現價上方，<strong>是明顯的均線死亡交叉</strong>型態，不宜重押多方。</p>
+    </div>
+  </div>
+  <table class="level-table">
+    <thead><tr><th>#</th><th>類型</th><th>價格</th><th>距離%</th><th>觸發日期</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag r">P1</span></td><td class="res">MA10 位置</td><td class="res">213.0</td><td class="res">+1.4%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P2</span></td><td class="res">MA5 位置</td><td class="res">216.1</td><td class="res">+2.9%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P3</span></td><td class="res">MA20 位置</td><td class="res">218.3</td><td class="res">+3.9%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P4</span></td><td class="res">整數心理關卡</td><td class="res">220.0</td><td class="res">+4.8%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P5</span></td><td class="res">法人大賣黑K頂部</td><td class="res">222.0</td><td class="res">+5.7%</td><td class="dim">2026-04-09</td></tr>
+      <tr><td><span class="tag s">S1</span></td><td class="sup">法人大買紅K底部</td><td class="sup">209.0</td><td class="sup">−0.5%</td><td class="dim">2026-04-10</td></tr>
+      <tr><td><span class="tag s">S2</span></td><td class="sup">波段相對低點</td><td class="sup">205.0</td><td class="sup">−2.4%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S3</span></td><td class="sup">波段相對低點</td><td class="sup">198.5</td><td class="sup">−5.5%</td><td class="dim">2026-03-31</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════ 2454 聯發科 ════════════════════════════════════════════════════════ -->
+<section class="stock-section" id="sec_2454">
+  <div class="stock-header">
+    <h2>2454 聯發科</h2>
+    <span class="price-badge up">▲ 1925 元</span>
+    <span class="date-label">2026-04-17</span>
+  </div>
+  <div id="chart_2454" class="chart-box"></div>
+  <div class="analysis-card">
+    <div class="card-title">🤖 技術分析 &amp; 操作建議（2454 聯發科）</div>
+    <div class="verdict bull">🚀 強勢反彈接近前高 · 積極偏多</div>
+    <div class="analysis-body">
+      <p><strong>【近期走勢】</strong><br>
+      聯發科從 3 月底低點 <span class="hi">1430</span> 展開強力反彈，4/13 起連續三根陽 K 帶量急攻，
+      4/14 從 1620 一口氣拉到 1720（漲幅 6%），4/16 量增紅 K（低點 1810），
+      4/17 再衝至 <span class="hi">1925</span>，整段從 1430 到 1925 漲幅達 <strong>+34%</strong>，是近期最強的攻擊型態之一。
+      目前接近 2/26 的波段高點 <span class="hi">1975</span>，是關鍵突破測試點。</p>
+      <hr class="divider">
+      <p><strong>【關鍵價位】</strong></p>
+      <div class="key-line"><span class="kl-label res">▲ P1</span><span class="kl-val res">1950（整數關卡）</span><span class="dim"> — 距現價 1.3%，短線小阻力</span></div>
+      <div class="key-line"><span class="kl-label res">▲ P2</span><span class="kl-val res">1975（2/26 波段高點）</span><span class="dim"> — <strong style="color:#4ade80">關鍵突破線，過了則挑戰年內新高</strong></span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S1</span><span class="kl-val sup">1900（整數關卡）</span><span class="dim"> — 短線守盤參考</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S2</span><span class="kl-val sup">1810（4/16 量增紅K低點）</span><span class="dim"> — 強力支撐，法人剛在此買進</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S3</span><span class="kl-val sup">1790（MA5）</span><span class="dim"> — 均線支撐，跌破短線轉弱</span></div>
+      <div class="key-line"><span class="kl-label sup">▼ S4</span><span class="kl-val sup">1830（法人 2/25 大買）</span><span class="dim"> — 中期大支撐</span></div>
+      <hr class="divider">
+      <p><strong>【操作建議】</strong><br>
+      <span class="up">● 積極：</span> 現價 1925 正衝關前高，<strong>突破 1975 直接追</strong>，目標 <strong>2050 → 2100+</strong>（前高解套賣壓帶），停損 1890，風報比 1:4。<br>
+      <span class="pur">● 次佳進場：</span> 若未追到突破，回測 <strong>1900 整數關卡</strong>附近接，停損設 1860（波段低點連線），目標同樣 1975 突破後看 2100。<br>
+      <span class="dn">● 注意：</span> 短線急漲 34% 後難免有技術性回測需求，若遇獲利了結賣壓導致拉回，<strong>1810～1830 是強力蓄力帶</strong>，不要輕易停損，視為波段買點。</p>
+    </div>
+  </div>
+  <table class="level-table">
+    <thead><tr><th>#</th><th>類型</th><th>價格</th><th>距離%</th><th>觸發日期</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag r">P1</span></td><td class="res">整數心理關卡</td><td class="res">1950.0</td><td class="res">+1.3%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag r">P2</span></td><td class="res">波段相對高點</td><td class="res">1975.0</td><td class="res">+2.6%</td><td class="dim">2026-02-26</td></tr>
+      <tr><td><span class="tag s">S1</span></td><td class="sup">整數心理關卡</td><td class="sup">1900.0</td><td class="sup">−1.3%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S2</span></td><td class="sup">法人大買紅K底部</td><td class="sup">1830.0</td><td class="sup">−4.9%</td><td class="dim">2026-02-25</td></tr>
+      <tr><td><span class="tag s">S3</span></td><td class="sup">前一交易日低點(量增紅K)</td><td class="sup">1810.0</td><td class="sup">−6.0%</td><td class="dim">2026-04-16</td></tr>
+      <tr><td><span class="tag s">S4</span></td><td class="sup">MA5 位置</td><td class="sup">1790.0</td><td class="sup">−7.0%</td><td class="dim">2026-04-17</td></tr>
+      <tr><td><span class="tag s">S5</span></td><td class="sup">法人大買紅K底部</td><td class="sup">1760.0</td><td class="sup">−8.6%</td><td class="dim">2026-02-09</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ════ Plotly K 線圖 ════════════════════════════════════════════════════ -->
+<script>
+function makeChart(divId, dates, opens, highs, lows, closes, shapes, annotations) {
+  Plotly.newPlot(divId, [{
+    type: 'candlestick', x: dates,
+    open: opens, high: highs, low: lows, close: closes,
+    name: divId,
+    increasing: { line: { color: '#ff4b4b' }, fillcolor: '#ff4b4b' },
+    decreasing: { line: { color: '#26a269' }, fillcolor: '#26a269' }
+  }], {
+    paper_bgcolor: '#1a1a2e', plot_bgcolor: '#16213e',
+    font: { color: '#c0c0d8', size: 11 },
+    xaxis: { rangeslider: { visible: false }, showgrid: true, gridcolor: '#252540', type: 'category', tickangle: -35, nticks: 12 },
+    yaxis: { showgrid: true, gridcolor: '#252540', side: 'right' },
+    shapes: shapes, annotations: annotations,
+    margin: { l: 10, r: 105, t: 18, b: 48 }, height: 360,
+  }, { responsive: true, displayModeBar: false });
+}
+
+// ── 2330 台積電 ────────────────────────────────────────────────────────────
+(function(){
+  var D=["2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-09","2026-02-10","2026-02-11","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-23","2026-03-24","2026-03-25","2026-03-26","2026-03-27","2026-03-30","2026-03-31","2026-04-01","2026-04-02","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17"];
+  var O=[1694.5,1714.4,1699.5,1679.5,1729.4,1719.4,1734.3,1739.3,1759.3,1764.2,1759.3,1754.3,1784.2,1824.0,1784.2,1744.3,1804.1,1779.2,1759.3,1739.3,1824.0,1839.0,1873.9,1893.8,1908.8,1988.5,1993.5,1933.7,1963.6,1888.8,1933.7,1873.9,1769.2,1863.9,1878.9,1893.8,1834.0,1868.9,1875,1900,1875,1860,1790,1850,1865,1850,1805,1780,1775,1840,1865,1850,1935,1945,1975,1985,2015,2065,2080,2055];
+  var H=[1699.5,1714.4,1709.4,1694.5,1744.3,1774.2,1769.2,1759.3,1764.2,1769.2,1779.2,1779.2,1814.1,1829.0,1794.1,1759.3,1804.1,1799.1,1774.2,1774.2,1829.0,1873.9,1918.7,1928.7,1968.6,2018.4,2003.5,1988.5,1973.6,1903.8,1953.6,1893.8,1804.1,1883.9,1943.7,1908.8,1878.9,1873.9,1880,1910,1880,1870,1815,1850,1875,1865,1825,1800,1790,1855,1865,1860,1950,1955,2000,1995,2055,2100,2090,2060];
+  var L=[1684.5,1694.5,1694.5,1674.5,1704.4,1719.4,1734.3,1734.3,1744.3,1744.3,1749.3,1749.3,1784.2,1794.1,1769.2,1739.3,1779.2,1769.2,1754.3,1734.3,1809.1,1834.0,1868.9,1893.8,1908.8,1988.5,1988.5,1933.7,1928.7,1858.9,1888.8,1873.9,1764.2,1824.0,1868.9,1878.9,1834.0,1839,1860,1890,1850,1840,1785,1800,1845,1840,1800,1780,1760,1830,1805,1835,1925,1930,1970,1975,2010,2060,2055,2030];
+  var C=[1684.5,1704.4,1704.4,1684.5,1734.3,1754.3,1769.2,1734.3,1754.3,1764.2,1749.3,1774.2,1814.1,1799.1,1769.2,1759.3,1794.1,1779.2,1759.3,1774.2,1809.1,1873.9,1908.8,1893.8,1958.6,2008.4,1988.5,1968.6,1928.7,1858.9,1893.8,1883.9,1804.1,1844.0,1933.7,1878.9,1858.9,1839,1870,1905,1850,1840,1810,1810,1845,1840,1820,1780,1760,1855,1810,1860,1950,1955,2000,1990,2055,2080,2085,2030];
+  var x0=D[0],x1=D[D.length-1];
+  makeChart('chart_2330',D,O,H,L,C,[
+    {type:'line',x0:x0,x1:x1,y0:2048,  y1:2048,  line:{color:'rgba(74,222,128,0.6)', width:1.2,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:2100,  y1:2100,  line:{color:'rgba(74,222,128,0.3)', width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:2010,  y1:2010,  line:{color:'rgba(248,113,113,0.9)',width:1.8,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:1981.5,y1:1981.5,line:{color:'rgba(248,113,113,0.5)',width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:1925,  y1:1925,  line:{color:'rgba(248,113,113,0.4)',width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:2030,  y1:2030,  line:{color:'rgba(251,191,36,0.85)',width:1.5,dash:'dash'}},
+  ],[
+    {x:x1,y:2048,  xanchor:'left',yanchor:'middle',text:'P1 2048 MA5',    showarrow:false,font:{size:10,color:'#4ade80'}},
+    {x:x1,y:2100,  xanchor:'left',yanchor:'middle',text:'P2 2100 波高',   showarrow:false,font:{size:10,color:'rgba(74,222,128,0.55)'}},
+    {x:x1,y:2010,  xanchor:'left',yanchor:'middle',text:'S1 2010 法人買', showarrow:false,font:{size:10,color:'#f87171'}},
+    {x:x1,y:1981.5,xanchor:'left',yanchor:'middle',text:'S2 1981 MA10',   showarrow:false,font:{size:10,color:'rgba(248,113,113,0.65)'}},
+    {x:x1,y:1925,  xanchor:'left',yanchor:'middle',text:'S3 1925 法人買', showarrow:false,font:{size:10,color:'rgba(248,113,113,0.55)'}},
+    {x:x0,y:2030,  xanchor:'right',yanchor:'middle',text:'現價 2030',      showarrow:false,font:{size:10,color:'#fbbf24'}},
+  ]);
+})();
+
+// ── 6531 愛普 ──────────────────────────────────────────────────────────────
+(function(){
+  var D=["2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-09","2026-02-10","2026-02-11","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-23","2026-03-24","2026-03-25","2026-03-26","2026-03-27","2026-03-30","2026-03-31","2026-04-01","2026-04-02","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17"];
+  var O=[489,483,478.5,475,475.5,506,501,500,502,476,463,451,440,442,439,421,429.5,424.5,423,405,419,408.5,410,404,402.5,413.5,425.5,423,436,417.5,422,440.5,391.5,420,438,439,485.5,537,534,615,555,568,535,538,516,514,496,490,475.5,462,465.5,469,490,480,494,510,586,630,594,593];
+  var H=[489,483,482,482,494.5,525,508,514,504,485,469,457,451.5,453,447.5,431,436.5,435,433,417.5,419,411,410,407,415.5,432,449,438,445,429,442,446,405,434.5,445,485.5,534,547,580,623,568,582,543,542,525,531,509,497.5,489.5,468,473,484,496.5,502,528,567,614,652,596,644];
+  var L=[460.5,461,467.5,465,474,501,482.5,484,473,461.5,445,436.5,429.5,442,429.5,416.5,417.5,422,413,391.5,405.5,403,396,397,399.5,403,423,411,422,404,421.5,428,391.5,417,432,435.5,478.5,514,522,561,546,550,521,488,504,509,481.5,484.5,439.5,452,440,469,472.5,475,492,502,555,586,573,591];
+  var C=[472,476,468.5,470,481.5,515,506,490,476,466.5,450,438,436,443,429.5,420,430,426.5,413,407,405.5,410,396,402.5,412,427.5,433.5,433.5,422,404,440.5,434.5,403,427.5,441.5,485.5,531,528,580,572,551,553,523,501,511,509,507,485,442,460,440,471.5,478,480.5,516,567,606,591,586,644];
+  var x0=D[0],x1=D[D.length-1];
+  makeChart('chart_6531',D,O,H,L,C,[
+    {type:'line',x0:x0,x1:x1,y0:650,y1:650,line:{color:'rgba(74,222,128,0.75)', width:1.5,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:652,y1:652,line:{color:'rgba(74,222,128,0.3)',  width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:600,y1:600,line:{color:'rgba(248,113,113,0.55)',width:1.2,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:591,y1:591,line:{color:'rgba(248,113,113,0.85)',width:1.8,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:644,y1:644,line:{color:'rgba(251,191,36,0.85)', width:1.5,dash:'dash'}},
+  ],[
+    {x:x1,y:650,xanchor:'left',yanchor:'middle',text:'P1 650 整數',        showarrow:false,font:{size:10,color:'#4ade80'}},
+    {x:x1,y:652,xanchor:'left',yanchor:'middle',text:'P2 652 突破線',      showarrow:false,font:{size:10,color:'rgba(74,222,128,0.5)'}},
+    {x:x1,y:600,xanchor:'left',yanchor:'middle',text:'S1 600 整數',        showarrow:false,font:{size:10,color:'rgba(248,113,113,0.7)'}},
+    {x:x1,y:591,xanchor:'left',yanchor:'middle',text:'S2 591 法人買/停損', showarrow:false,font:{size:10,color:'#f87171'}},
+    {x:x0,y:644,xanchor:'right',yanchor:'middle',text:'現價 644',          showarrow:false,font:{size:10,color:'#fbbf24'}},
+  ]);
+})();
+
+// ── 2344 華邦電 ────────────────────────────────────────────────────────────
+(function(){
+  var D=["2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-09","2026-02-10","2026-02-11","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-23","2026-03-24","2026-03-25","2026-03-26","2026-03-27","2026-03-30","2026-03-31","2026-04-01","2026-04-02","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17"];
+  var O=[97.6,104,98.5,99.3,101.5,114.4,105,111.4,112.9,106.4,106.4,112.9,119.9,132.3,131.8,120.9,122.9,104.5,102,99.5,105.4,107.4,101,113.9,114.4,121.4,118.9,114.4,124.3,105.4,112.9,109.4,95.4,107.4,108.4,113.9,108.4,112.9,120.9,128.3,122.9,123.4,103,108.9,98.5,99.5,90.2,91.2,88,97.1,96,95,93.1,96,93,93.8,96.8,95.6,90.6,90];
+  var H=[102,104,100,99.5,107.4,116.4,113.9,111.4,112.9,106.4,112.4,119.9,126.3,135.3,135.3,121.9,122.9,110.9,106.9,101.5,106.9,108.4,108.4,115.4,122.9,123.4,123.4,126.3,124.3,108.9,113.4,112.4,100.5,108.4,114.4,116.9,113.9,117.4,125.3,128.8,124.8,123.9,108.9,108.9,102.5,104,92.4,96.8,95.5,97.2,97.6,95.8,95.8,96.2,97.5,95.2,98,96.6,90.9,90.7];
+  var L=[96,98,98.5,98.6,100,114.4,105,102.5,104,98.9,106.4,109.4,119.4,123.4,127.8,115.4,104,104,100.5,94.5,100.5,102,101,111.9,112.4,114.4,115.4,114.4,111.9,101.5,108.4,105,95.4,101,106.9,108.4,107.4,112.4,118.9,119.9,119.4,109.4,103,96.5,97.6,95.5,87.2,90.6,85.2,91.3,91.8,89.1,92.2,90.3,92.3,91.5,93.5,90.1,88.3,86.8];
+  var C=[101.5,99.3,99.3,98.7,105.9,115.9,112.4,105,104,102.5,112.4,114.9,126.3,129.3,127.8,115.4,105,107.9,102,97.3,106.9,103,105,114.4,121.4,117.4,121.9,123.9,111.9,103.5,111.4,105.9,100.5,105,113.4,108.4,108.4,116.4,122.9,127.3,121.4,109.4,106.9,99,97.7,95.5,92.4,93,90.2,93.1,91.8,89.4,95.6,91,93.5,94.4,93.5,90.2,89.6,87.8];
+  var x0=D[0],x1=D[D.length-1];
+  makeChart('chart_2344',D,O,H,L,C,[
+    {type:'line',x0:x0,x1:x1,y0:90,  y1:90,  line:{color:'rgba(74,222,128,0.6)', width:1.2,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:91.1,y1:91.1,line:{color:'rgba(74,222,128,0.5)', width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:95.8,y1:95.8,line:{color:'rgba(74,222,128,0.35)',width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:96.6,y1:96.6,line:{color:'rgba(74,222,128,0.25)',width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:86.8,y1:86.8,line:{color:'rgba(248,113,113,0.7)',width:1.5,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:85.25,y1:85.25,line:{color:'rgba(248,113,113,0.5)',width:1,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:87.8,y1:87.8,line:{color:'rgba(251,191,36,0.85)', width:1.5,dash:'dash'}},
+  ],[
+    {x:x1,y:90,  xanchor:'left',yanchor:'middle',text:'P1 90 整數',    showarrow:false,font:{size:10,color:'#4ade80'}},
+    {x:x1,y:91.1,xanchor:'left',yanchor:'middle',text:'P2 91.1 MA5',  showarrow:false,font:{size:10,color:'rgba(74,222,128,0.6)'}},
+    {x:x1,y:95.8,xanchor:'left',yanchor:'middle',text:'P3 95.8 MA20', showarrow:false,font:{size:10,color:'rgba(74,222,128,0.45)'}},
+    {x:x1,y:86.8,xanchor:'left',yanchor:'middle',text:'S1 86.8 波低', showarrow:false,font:{size:10,color:'#f87171'}},
+    {x:x1,y:85.25,xanchor:'left',yanchor:'middle',text:'S2 85.3 MA120',showarrow:false,font:{size:10,color:'rgba(248,113,113,0.65)'}},
+    {x:x0,y:87.8,xanchor:'right',yanchor:'middle',text:'現價 87.8',   showarrow:false,font:{size:10,color:'#fbbf24'}},
+  ]);
+})();
+
+// ── 2408 南亞科 ────────────────────────────────────────────────────────────
+(function(){
+  var D=["2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-09","2026-02-10","2026-02-11","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-23","2026-03-24","2026-03-25","2026-03-26","2026-03-27","2026-03-30","2026-03-31","2026-04-01","2026-04-02","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17"];
+  var O=[225.5,245,225,235.5,244.5,270,247.5,266,270,275,279.5,283,288,306,303.5,310,312,279.5,282,260,282.5,276.5,266.5,295,292,298,290,268,287,238,257.5,259,210,220,245,257,237.5,247,267,284.5,268.5,264.5,217.5,226.5,226.5,249,217,215,207.5,211.5,217,210.5,217,222,211,218.5,238.5,227.5,212.5,215];
+  var H=[239,245,236.5,242.5,255,275,274,267,276,282.5,295,286,299.5,313,326.5,310,314.5,298,286,277.5,283,281,281,298.5,303,298,291.5,291,288,246.5,257.5,262,210,231,254,261.5,245.5,261.5,284.5,288.5,272.5,264.5,230,227,229.5,249,220,227,210,213,219,212,223.5,222,220,227.5,240,229.5,216.5,217];
+  var L=[222,224.5,225,235.5,244.5,270,247.5,245,262,256,274.5,274,285,287,303.5,294,265,273.5,269,251,269,263.5,264.5,286.5,286,283,277,267.5,256.5,231,257.5,232.5,210,215,240,239,235,245.5,266.5,271.5,260,234,217.5,204,218.5,225,207,213.5,198.5,205,200,202.5,214.5,204,209,214.5,220,211.5,208.5,205];
+  var C=[239,230,236.5,237.5,250,275,272,251,266.5,271.5,286,277,297,297,326.5,294,277.5,295,275,264,274.5,271,278,289,298,288,285.5,285,256.5,234.5,257.5,233,210,231,254,239.5,238,261.5,271.5,276,260,234,223,216.5,226.5,225.5,219.5,220.5,198.5,211,200.5,206,223,205,215,225.5,220,211.5,213.5,210];
+  var x0=D[0],x1=D[D.length-1];
+  makeChart('chart_2408',D,O,H,L,C,[
+    {type:'line',x0:x0,x1:x1,y0:213,  y1:213,  line:{color:'rgba(74,222,128,0.55)',width:1.2,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:216.1,y1:216.1,line:{color:'rgba(74,222,128,0.45)',width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:220,  y1:220,  line:{color:'rgba(74,222,128,0.35)',width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:209,  y1:209,  line:{color:'rgba(248,113,113,0.85)',width:1.8,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:205,  y1:205,  line:{color:'rgba(248,113,113,0.55)',width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:198.5,y1:198.5,line:{color:'rgba(248,113,113,0.4)', width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:210,  y1:210,  line:{color:'rgba(251,191,36,0.85)', width:1.5,dash:'dash'}},
+  ],[
+    {x:x1,y:213,  xanchor:'left',yanchor:'middle',text:'P1 213 MA10',   showarrow:false,font:{size:10,color:'#4ade80'}},
+    {x:x1,y:216.1,xanchor:'left',yanchor:'middle',text:'P2 216 MA5',    showarrow:false,font:{size:10,color:'rgba(74,222,128,0.6)'}},
+    {x:x1,y:220,  xanchor:'left',yanchor:'middle',text:'P3 220 整數',   showarrow:false,font:{size:10,color:'rgba(74,222,128,0.45)'}},
+    {x:x1,y:209,  xanchor:'left',yanchor:'middle',text:'S1 209 法人買', showarrow:false,font:{size:10,color:'#f87171'}},
+    {x:x1,y:205,  xanchor:'left',yanchor:'middle',text:'S2 205 波低',   showarrow:false,font:{size:10,color:'rgba(248,113,113,0.65)'}},
+    {x:x1,y:198.5,xanchor:'left',yanchor:'middle',text:'S3 198.5 大底', showarrow:false,font:{size:10,color:'rgba(248,113,113,0.5)'}},
+    {x:x0,y:210,  xanchor:'right',yanchor:'middle',text:'現價 210',     showarrow:false,font:{size:10,color:'#fbbf24'}},
+  ]);
+})();
+
+// ── 2454 聯發科 ────────────────────────────────────────────────────────────
+(function(){
+  var D=["2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-09","2026-02-10","2026-02-11","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-23","2026-03-24","2026-03-25","2026-03-26","2026-03-27","2026-03-30","2026-03-31","2026-04-01","2026-04-02","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17"];
+  var O=[1445,1455,1485,1500,1500,1510,1480,1470,1495,1525,1740,1755,1755,1780,1770,1715,1740,1760,1750,1745,1760,1860,1795,1880,1810,1840,1895,1945,1900,1760,1760,1745,1620,1730,1760,1745,1730,1720,1730,1730,1700,1685,1630,1655,1665,1610,1560,1540,1525,1550,1500,1480,1520,1600,1600,1645,1645,1805,1850,1930];
+  var H=[1450,1485,1500,1500,1525,1510,1500,1495,1525,1630,1790,1820,1800,1815,1775,1740,1805,1810,1800,1755,1870,1865,1865,1880,1825,1870,1975,1945,1910,1780,1800,1790,1665,1730,1780,1815,1745,1740,1740,1745,1705,1715,1645,1665,1665,1640,1585,1555,1540,1550,1510,1480,1585,1600,1605,1665,1745,1845,1930,1955];
+  var L=[1425,1450,1480,1465,1490,1465,1470,1450,1465,1525,1720,1750,1740,1770,1735,1685,1720,1740,1740,1690,1760,1820,1795,1790,1795,1830,1850,1880,1815,1715,1750,1735,1610,1685,1720,1735,1720,1710,1715,1725,1665,1655,1600,1600,1620,1590,1545,1505,1490,1460,1445,1430,1505,1550,1570,1620,1640,1770,1810,1885];
+  var C=[1445,1485,1500,1490,1505,1485,1485,1465,1485,1630,1770,1775,1780,1780,1760,1705,1795,1800,1770,1710,1830,1845,1855,1795,1825,1870,1945,1900,1815,1720,1775,1765,1665,1705,1765,1785,1720,1710,1730,1730,1680,1700,1625,1620,1620,1590,1585,1510,1490,1465,1465,1470,1580,1575,1575,1620,1720,1790,1895,1925];
+  var x0=D[0],x1=D[D.length-1];
+  makeChart('chart_2454',D,O,H,L,C,[
+    {type:'line',x0:x0,x1:x1,y0:1950,y1:1950,line:{color:'rgba(74,222,128,0.55)',width:1.2,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:1975,y1:1975,line:{color:'rgba(74,222,128,0.8)', width:1.8,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:1900,y1:1900,line:{color:'rgba(248,113,113,0.65)',width:1.2,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:1810,y1:1810,line:{color:'rgba(248,113,113,0.85)',width:1.8,dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:1790,y1:1790,line:{color:'rgba(248,113,113,0.5)', width:1,  dash:'dot'}},
+    {type:'line',x0:x0,x1:x1,y0:1925,y1:1925,line:{color:'rgba(251,191,36,0.85)', width:1.5,dash:'dash'}},
+  ],[
+    {x:x1,y:1950,xanchor:'left',yanchor:'middle',text:'P1 1950 整數',      showarrow:false,font:{size:10,color:'rgba(74,222,128,0.65)'}},
+    {x:x1,y:1975,xanchor:'left',yanchor:'middle',text:'P2 1975 前高突破線',showarrow:false,font:{size:10,color:'#4ade80'}},
+    {x:x1,y:1900,xanchor:'left',yanchor:'middle',text:'S1 1900 整數',      showarrow:false,font:{size:10,color:'rgba(248,113,113,0.7)'}},
+    {x:x1,y:1810,xanchor:'left',yanchor:'middle',text:'S2 1810 量增紅K低', showarrow:false,font:{size:10,color:'#f87171'}},
+    {x:x1,y:1790,xanchor:'left',yanchor:'middle',text:'S3 1790 MA5',       showarrow:false,font:{size:10,color:'rgba(248,113,113,0.55)'}},
+    {x:x0,y:1925,xanchor:'right',yanchor:'middle',text:'現價 1925',        showarrow:false,font:{size:10,color:'#fbbf24'}},
+  ]);
+})();
+</script>
+
+</body>
+</html>
