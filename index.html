@@ -3,1109 +3,406 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>台股支撐壓力分析報告 2026-04-20</title>
+<title>台股支撐壓力分析報告 - 2026/04/27</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0f0f1a; color: #e2e8f0; font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif; }
-  .header { background: linear-gradient(135deg,#1a1a3e,#0f0f1a); padding: 28px 20px 20px; text-align: center; border-bottom: 1px solid #2d2d5e; }
-  .header h1 { font-size: 1.8rem; color: #fbbf24; letter-spacing: 2px; }
-  .header p { color: #94a3b8; margin-top: 6px; font-size: .95rem; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
-  /* Summary table */
-  .summary-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
-  .summary-table th { background: #1e1e3f; color: #fbbf24; padding: 10px 12px; text-align: center; font-size: .85rem; border-bottom: 2px solid #3d3d7e; }
-  .summary-table td { padding: 10px 12px; text-align: center; border-bottom: 1px solid #1e1e3f; font-size: .9rem; }
-  .summary-table tr:hover td { background: #1a1a2e; }
-  .summary-table .sym { font-weight: bold; color: #60a5fa; }
-  .summary-table .price { color: #fbbf24; font-weight: bold; }
-  .resist { color: #4ade80; }
-  .support { color: #f87171; }
-  .verdict-bull { color: #ff4b4b; font-weight: bold; }
-  .verdict-mid { color: #fbbf24; font-weight: bold; }
-  .verdict-bear { color: #4ade80; font-weight: bold; }
-  /* Stock section */
-  .stock-section { margin-bottom: 56px; border: 1px solid #2d2d5e; border-radius: 12px; overflow: hidden; }
-  .stock-header { background: #1a1a3e; padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
-  .stock-header .sid { font-size: 1.5rem; font-weight: bold; color: #60a5fa; }
-  .stock-header .sname { font-size: 1.1rem; color: #94a3b8; }
-  .stock-header .sprice { margin-left: auto; font-size: 1.4rem; color: #fbbf24; font-weight: bold; }
-  .stock-header .sverdict { margin-left: 16px; font-size: 1rem; font-weight: bold; }
-  .chart-container { background: #16213e; padding: 4px 0; }
-  /* Analysis card */
-  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 20px; background: #0f0f1a; }
-  @media (max-width: 700px) { .analysis-grid { grid-template-columns: 1fr; } }
-  .acard { background: #16213e; border-radius: 8px; padding: 16px; }
-  .acard h3 { font-size: .85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; border-bottom: 1px solid #2d2d5e; padding-bottom: 6px; }
-  .acard p { font-size: .88rem; line-height: 1.65; color: #cbd5e1; }
-  .acard .action-item { margin: 6px 0; font-size: .88rem; }
-  .acard .action-item span { color: #fbbf24; font-weight: bold; }
-  .acard .action-item.aggressive { color: #ff4b4b; }
-  .acard .action-item.conservative { color: #60a5fa; }
-  .acard .action-item.risk { color: #f87171; }
-  /* Level table */
-  .level-table-wrap { padding: 0 20px 20px; background: #0f0f1a; }
-  .level-table { width: 100%; border-collapse: collapse; font-size: .83rem; }
-  .level-table th { background: #1a1a3e; color: #94a3b8; padding: 7px 10px; text-align: left; }
-  .level-table td { padding: 6px 10px; border-bottom: 1px solid #1a1a3e; }
-  .level-table .resist-row td:first-child { color: #4ade80; font-weight: bold; }
-  .level-table .support-row td:first-child { color: #f87171; font-weight: bold; }
-  .level-table .pct-pos { color: #4ade80; }
-  .level-table .pct-neg { color: #f87171; }
-  .divider { height: 1px; background: #2d2d5e; margin: 0 20px; }
-  .section-title { color: #94a3b8; font-size: .8rem; text-transform: uppercase; letter-spacing: 1px; padding: 10px 20px 4px; background: #0f0f1a; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f0f1a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:16px}
+h1{text-align:center;font-size:1.8rem;padding:24px 0 8px;background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{text-align:center;color:#94a3b8;margin-bottom:24px;font-size:0.9rem}
+table{width:100%;border-collapse:collapse;margin-bottom:32px;font-size:0.9rem}
+th{background:#1e293b;color:#fbbf24;padding:10px 12px;text-align:left;position:sticky;top:0}
+td{padding:8px 12px;border-bottom:1px solid #1e293b}
+tr:hover{background:#1e293b88}
+.r-price{color:#4ade80}.s-price{color:#f87171}.cur-price{color:#fbbf24;font-weight:700}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:0.8rem;font-weight:600}
+.badge-bull{background:#22543d;color:#4ade80}.badge-bear{background:#7f1d1d;color:#f87171}.badge-neutral{background:#713f12;color:#fbbf24}
+.stock-section{background:#16213e;border-radius:12px;padding:20px;margin-bottom:28px;border:1px solid #1e3a5f}
+.stock-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.stock-header h2{font-size:1.4rem;color:#e2e8f0}
+.stock-header .price-tag{font-size:1.5rem;color:#fbbf24;font-weight:700}
+.chart-container{width:100%;height:480px;margin-bottom:16px}
+.analysis-card{background:#0f172a;border-radius:8px;padding:16px;margin-bottom:16px;border-left:4px solid #fbbf24}
+.analysis-card h3{color:#fbbf24;margin-bottom:8px;font-size:1rem}
+.analysis-card p,.analysis-card li{font-size:0.9rem;color:#cbd5e1}
+.analysis-card ul{padding-left:20px}
+.analysis-card li{margin-bottom:4px}
+.op-card{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:16px}
+.op-item{background:#0f172a;border-radius:8px;padding:14px;border-top:3px solid}
+.op-item.aggressive{border-color:#4ade80}.op-item.conservative{border-color:#60a5fa}.op-item.risk{border-color:#f87171}
+.op-item h4{font-size:0.85rem;margin-bottom:6px}
+.op-item p{font-size:0.85rem;color:#94a3b8}
+.level-table{width:100%;font-size:0.85rem}
+.level-table th{background:#0f172a;font-size:0.8rem}
+.level-table td{padding:6px 10px}
+.footer{text-align:center;color:#475569;padding:24px 0;font-size:0.8rem}
+@media(max-width:768px){
+.container{padding:8px}
+.chart-container{height:350px}
+h1{font-size:1.3rem}
+.stock-header{flex-direction:column;align-items:flex-start}
+.op-card{grid-template-columns:1fr}
+table{font-size:0.8rem}
+}
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>📊 台股支撐壓力分析報告</h1>
-  <p>分析日期：2026-04-20　｜　共 5 支股票　｜　資料來源：FinMind</p>
-</div>
 <div class="container">
+<h1>台股支撐壓力分析報告</h1>
+<p class="subtitle">資料日期：2026/04/27 ｜ 分析時間：10:49 ｜ 共 6 支股票</p>
 
-<table class="summary-table">
-<thead><tr>
-  <th>代號</th><th>名稱</th><th>現價</th><th>最近壓力</th><th>最近支撐</th><th>操作判斷</th>
-</tr></thead><tbody>
-
-<tr>
-  <td class="sym">2330</td>
-  <td>台積電</td>
-  <td class="price">2,025.0</td>
-  <td class="resist">2,050.00 整數心理關卡</td>
-  <td class="support">2,010.00 法人大買紅K底部</td>
-  <td class="verdict-mid">⚡ 短線整理、中線偏多</td>
-</tr>
-<tr>
-  <td class="sym">6531</td>
-  <td>愛普</td>
-  <td class="price">682.0</td>
-  <td class="resist">700.00 整數心理關卡</td>
-  <td class="support">656.00 帶量紅K底部</td>
-  <td class="verdict-mid">🔥 積極偏多（強勢）</td>
-</tr>
-<tr>
-  <td class="sym">2344</td>
-  <td>華邦電</td>
-  <td class="price">85.7</td>
-  <td class="resist">89.36 MA5位置</td>
-  <td class="support">85.64 MA120位置</td>
-  <td class="verdict-mid">🔻 偏空、反彈賣</td>
-</tr>
-<tr>
-  <td class="sym">2408</td>
-  <td>南亞科</td>
-  <td class="price">207.0</td>
-  <td class="resist">210.00 整數心理關卡</td>
-  <td class="support">204.58 MA120位置</td>
-  <td class="verdict-mid">🔻 偏空、反彈賣</td>
-</tr>
-<tr>
-  <td class="sym">2454</td>
-  <td>聯發科</td>
-  <td class="price">1,900.0</td>
-  <td class="resist">1,910.00 法人大賣黑K頂部</td>
-  <td class="support">1,846.00 MA5位置</td>
-  <td class="verdict-mid">⚡ 短線整理、中線偏多</td>
-</tr>
-</tbody></table>
-
-<div class="stock-section">
-<div class="stock-header">
-  <span class="sid">2330</span>
-  <span class="sname">台積電</span>
-  <span class="sprice">▶ 2,025.0</span>
-  <span class="sverdict verdict-mid">⚡ 短線整理、中線偏多</span>
-</div>
-<div class="chart-container">
-  <div id="chart_2330" style="width:100%;height:480px;"></div>
-</div>
-<div class="analysis-grid">
-  <div class="acard">
-    <h3>📈 走勢回顧</h3>
-    <p>近60日從1684低點V形反彈至2085高點，漲幅達23%。近10日突破2000整數關卡，帶量（46~40百萬）連續攻高，創波段新高2085後量縮（27百萬）收黑至2025，形成短線高檔震盪。4/8低點1925、4/14低點2010均有法人大買訊號，顯示法人積極接轎。</p>
-  </div>
-  <div class="acard">
-    <h3>🏦 法人動向</h3>
-    <p>支撐側有兩個「法人大買紅K底部」（2010、1925、1834），代表法人3波買進，護盤意願強烈。均線（MA60=1855）在支撐側，顯示中線仍偏多。</p>
-  </div>
-  <div class="acard">
-    <h3>📊 均線多空判斷</h3>
-    <p>MA60=1855在支撐側偏多。上方無均線壓力，但需注意近10日上漲後短線均線向上，量縮意味休息蓄力。</p>
-  </div>
-  <div class="acard">
-    <h3>🎯 操作建議</h3>
-    <div class="action-item aggressive">🔥 積極做法：<span>進場價：2025~2010分批買入；目標一2050，目標二2100；停損2000（整數心理支撐下破）。</span></div>
-    <div class="action-item conservative">🛡 保守做法：<span>等待量能再度放大（>35百萬）且站回2030以上再進場，確認攻擊格局延續。</span></div>
-    <div class="action-item risk">⚠️ 風險提示：<span>若跌破2010（法人買進成本）且收黑，法人止損賣壓將湧出，可能回測1925；外資匯率風險需注意。</span></div>
-  </div>
-</div>
-<div class="section-title">支撐壓力詳細列表</div>
-<div class="level-table-wrap">
-<table class="level-table">
-<thead><tr><th>類型</th><th>價格</th><th>距現價%</th><th>說明</th><th>日期</th></tr></thead>
+<!-- 總覽表 -->
+<table>
+<thead><tr><th>代號</th><th>現價</th><th>最近壓力</th><th>最近支撐</th><th>操作判斷</th></tr></thead>
 <tbody>
+<tr><td>2330 台積電</td><td class="cur-price">2,310</td><td class="r-price">2,330 (+0.9%)</td><td class="s-price">2,300 (-0.4%)</td><td><span class="badge badge-bull">🔥 積極偏多</span></td></tr>
+<tr><td>6531 愛普</td><td class="cur-price">738</td><td class="r-price">750 (+1.6%)</td><td class="s-price">700 (-5.1%)</td><td><span class="badge badge-bear">🔻 偏空反彈賣</span></td></tr>
+<tr><td>2344 華邦電</td><td class="cur-price">93.4</td><td class="r-price">94.2 (+0.9%)</td><td class="s-price">91.1 (-2.5%)</td><td><span class="badge badge-neutral">⚡ 短線整理偏多</span></td></tr>
+<tr><td>2408 南亞科</td><td class="cur-price">226.5</td><td class="r-price">230 (+1.5%)</td><td class="s-price">220 (-2.9%)</td><td><span class="badge badge-neutral">⚡ 短線整理偏多</span></td></tr>
+<tr><td>2454 聯發科</td><td class="cur-price">2,425</td><td class="r-price">2,450 (+1.0%)</td><td class="s-price">2,400 (-1.0%)</td><td><span class="badge badge-bull">🔥 積極偏多</span></td></tr>
+<tr><td>3556 禾瑞亞</td><td class="cur-price">50.9</td><td class="r-price">51.82 (+1.8%)</td><td class="s-price">50.0 (-1.8%)</td><td><span class="badge badge-bear">🔻 偏空反彈賣</span></td></tr>
+</tbody>
+</table>
 
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">2,050.00</td>
-  <td class="pct-pos">+1.2%</td>
-  <td>整數心理關卡</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">2,100.00</td>
-  <td class="pct-pos">+3.7%</td>
-  <td>波段相對高點</td>
-  <td>2026-04-15</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">2,010.00</td>
-  <td class="pct-neg">-0.7%</td>
-  <td>法人大買紅K底部</td>
-  <td>2026-04-14</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,925.00</td>
-  <td class="pct-neg">-4.9%</td>
-  <td>法人大買紅K底部</td>
-  <td>2026-04-08</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,855.58</td>
-  <td class="pct-neg">-8.4%</td>
-  <td>MA60位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,834.02</td>
-  <td class="pct-neg">-9.4%</td>
-  <td>法人大買紅K底部</td>
-  <td>2026-02-10</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,764.24</td>
-  <td class="pct-neg">-12.9%</td>
-  <td>波段相對低點</td>
-  <td>2026-03-09</td>
-</tr>
-</tbody></table>
+<!-- ===== 2330 台積電 ===== -->
+<div class="stock-section" id="s2330">
+<div class="stock-header">
+<h2>2330 台積電</h2>
+<div class="price-tag">2,310</div>
+<span class="badge badge-bull">🔥 積極偏多（強勢）</span>
+</div>
+<div class="chart-container" id="chart-2330"></div>
+
+<div class="analysis-card">
+<h3>走勢回顧</h3>
+<p>自 3 月底 1,760 低點開始反攻，4/8 跳空站上 1,950 確認多方主導。4/14 帶量長紅突破 2,000 大關（成交量 3,911 萬張），此後連續三天守穩 2,025~2,085。4/24 再度帶量跳空長紅收 2,185（+5%），4/27 更跳空大漲收 2,310（+5.7%），成交量維持 4,498 萬張高水位。短短三週從 1,760 飆升至 2,310，漲幅達 31%，為今年最強攻勢。</p>
+</div>
+
+<div class="analysis-card">
+<h3>關鍵價位解讀</h3>
+<ul>
+<li><strong>法人動向</strong>：法人大買紅 K 底部在 2,010（4/14），代表法人進場成本區，為最重要的中線防線</li>
+<li><strong>均線多空</strong>：MA5（2,135）、MA20（1,986.5）全數在支撐側且距離現價極遠 → 短期嚴重乖離但多頭排列完好</li>
+<li><strong>壓力極少</strong>：僅 2,330 波段高點（今日盤中高點）與 2,350 整數關卡，壓力真空帶明顯</li>
+<li><strong>2,300 整數心理關卡</strong>為最近支撐，跌破則看 2,135 MA5 回測</li>
+</ul>
+</div>
+
+<div class="op-card">
+<div class="op-item aggressive"><h4>積極做法</h4><p>回測 2,275~2,300 不破可進場，目標 2,350→2,400，停損 2,250 以下</p></div>
+<div class="op-item conservative"><h4>保守做法</h4><p>等回測 MA5 約 2,135 附近或出現紅 K 止跌訊號再佈局，短線乖離過大不宜追高</p></div>
+<div class="op-item risk"><h4>風險提示</h4><p>短線漲幅已達 31%，乖離率偏高，若跌破 2,300 伴隨大量可能引發獲利回吐至 2,100 附近</p></div>
+</div>
+
+<table class="level-table">
+<thead><tr><th>類型</th><th>價位</th><th>距現價</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td class="r-price">壓力</td><td>2,330</td><td>+0.9%</td><td>波段相對高點</td></tr>
+<tr><td class="r-price">壓力</td><td>2,350</td><td>+1.7%</td><td>整數心理關卡</td></tr>
+<tr><td class="s-price">支撐</td><td>2,300</td><td>-0.4%</td><td>整數心理關卡</td></tr>
+<tr><td class="s-price">支撐</td><td>2,135</td><td>-7.6%</td><td>MA5 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>2,105</td><td>-8.9%</td><td>前一交易日低點(量增紅K)</td></tr>
+<tr><td class="s-price">支撐</td><td>2,010</td><td>-13.0%</td><td>法人大買紅K底部</td></tr>
+<tr><td class="s-price">支撐</td><td>1,986.5</td><td>-14.0%</td><td>MA20 位置</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 6531 愛普 ===== -->
+<div class="stock-section" id="s6531">
+<div class="stock-header">
+<h2>6531 愛普</h2>
+<div class="price-tag">738</div>
+<span class="badge badge-bear">🔻 偏空、反彈賣</span>
+</div>
+<div class="chart-container" id="chart-6531"></div>
+
+<div class="analysis-card">
+<h3>走勢回顧</h3>
+<p>3 月中從 440 暴漲至 580，4 月延續飆漲態勢，4/13 帶量漲停收 567，4/17 再收 644，4/20~4/22 連續大漲至 792。但 4/23 出現致命巨量黑 K（開 852 高 871 低 713 收 785，量 2,693 萬張），4/24 再收黑 788，4/27 開高走低暴跌收 738（低點觸及 710），形成典型的「高檔巨量長黑反轉」型態。</p>
+</div>
+
+<div class="analysis-card">
+<h3>關鍵價位解讀</h3>
+<ul>
+<li><strong>法人動向</strong>：法人大買紅 K 底部在 591（4/17），距現價 -19.9%，法人成本區已遠離</li>
+<li><strong>均線多空</strong>：MA5（764.6）在壓力側 → 短均線翻空，股價已跌破五日線，轉空確認</li>
+<li><strong>帶量黑 K 頂 871、量增黑 K 高 863</strong>形成強壓力帶，短期難以突破</li>
+<li><strong>700 整數關卡</strong>與 MA10（693.2）為最近支撐群</li>
+</ul>
+</div>
+
+<div class="op-card">
+<div class="op-item aggressive"><h4>積極做法</h4><p>空手觀望為主，若反彈至 750~765（MA5 附近）出現黑 K 可短空，目標 700，停損 790</p></div>
+<div class="op-item conservative"><h4>保守做法</h4><p>等待跌破 700 後回測確認再考慮佈空，或等 656 帶量紅 K 底部有止穩訊號再低接</p></div>
+<div class="op-item risk"><h4>風險提示</h4><p>高檔巨量反轉後通常有第二波殺盤，700 若失守恐直接測 656~591 法人成本區</p></div>
+</div>
+
+<table class="level-table">
+<thead><tr><th>類型</th><th>價位</th><th>距現價</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td class="r-price">壓力</td><td>750</td><td>+1.6%</td><td>整數心理關卡</td></tr>
+<tr><td class="r-price">壓力</td><td>764.6</td><td>+3.6%</td><td>MA5 位置</td></tr>
+<tr><td class="r-price">壓力</td><td>863</td><td>+16.9%</td><td>前一交易日高點(量增黑K)</td></tr>
+<tr><td class="r-price">壓力</td><td>871</td><td>+18.0%</td><td>帶量黑K頂部</td></tr>
+<tr><td class="s-price">支撐</td><td>700</td><td>-5.1%</td><td>整數心理關卡</td></tr>
+<tr><td class="s-price">支撐</td><td>693.2</td><td>-6.1%</td><td>MA10 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>656</td><td>-11.1%</td><td>帶量紅K底部</td></tr>
+<tr><td class="s-price">支撐</td><td>591</td><td>-19.9%</td><td>法人大買紅K底部</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 2344 華邦電 ===== -->
+<div class="stock-section" id="s2344">
+<div class="stock-header">
+<h2>2344 華邦電</h2>
+<div class="price-tag">93.4</div>
+<span class="badge badge-neutral">⚡ 短線整理、中線偏多</span>
+</div>
+<div class="chart-container" id="chart-2344"></div>
+
+<div class="analysis-card">
+<h3>走勢回顧</h3>
+<p>1 月底衝高至 135 後暴跌，3 月下旬持續破底至 85~90 區間震盪。4/14 曾反彈至 98 但隨即回落，4/20 觸及波段低點 83.8。4/21 起連三紅反彈（91.1→90.6→87.8→88.2），4/27 爆量大漲收 93.4（開 89.8 高 94.2），成交量 1.5 億張大增，一舉站回 MA20（91.1）之上，為近期最強攻訊號。</p>
+</div>
+
+<div class="analysis-card">
+<h3>關鍵價位解讀</h3>
+<ul>
+<li><strong>法人動向</strong>：法人大賣黑 K 頂部在 96.6（4/15）和 102.5（3/25），代表法人出貨位，反彈至此會有賣壓</li>
+<li><strong>法人大買紅 K 底部</strong>在 85.2（3/31），為多方重要防線</li>
+<li><strong>均線多空</strong>：MA20（91.1）與 MA5（90.2）都在支撐側，今日已站上 → 正在由空翻多</li>
+<li><strong>MA120（87.5）</strong>在下方提供中長線支撐</li>
+<li><strong>94.2 波段高點</strong>為今日盤中高點，突破後看 95~96.6</li>
+</ul>
+</div>
+
+<div class="op-card">
+<div class="op-item aggressive"><h4>積極做法</h4><p>回測 91~92（MA20 附近）不破可進場，目標 96.6→98，停損 89 以下</p></div>
+<div class="op-item conservative"><h4>保守做法</h4><p>等突破 94.2 帶量確認後追進，或等回測 MA120（87.5）止穩再低接</p></div>
+<div class="op-item risk"><h4>風險提示</h4><p>上方 96.6、98 為法人大賣區間，密集壓力帶，需放量才能突破。若無法站穩 91 恐再測 85.2</p></div>
+</div>
+
+<table class="level-table">
+<thead><tr><th>類型</th><th>價位</th><th>距現價</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td class="r-price">壓力</td><td>94.2</td><td>+0.9%</td><td>波段相對高點</td></tr>
+<tr><td class="r-price">壓力</td><td>95.0</td><td>+1.7%</td><td>整數心理關卡</td></tr>
+<tr><td class="r-price">壓力</td><td>96.6</td><td>+3.4%</td><td>法人大賣黑K頂部</td></tr>
+<tr><td class="r-price">壓力</td><td>98.0</td><td>+4.9%</td><td>波段相對高點</td></tr>
+<tr><td class="r-price">壓力</td><td>102.5</td><td>+9.7%</td><td>法人大賣黑K頂部</td></tr>
+<tr><td class="s-price">支撐</td><td>91.1</td><td>-2.5%</td><td>MA20 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>90.2</td><td>-3.4%</td><td>MA5 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>87.5</td><td>-6.3%</td><td>MA120 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>85.2</td><td>-8.8%</td><td>法人大買紅K底部</td></tr>
+<tr><td class="s-price">支撐</td><td>83.8</td><td>-10.3%</td><td>波段相對低點</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 2408 南亞科 ===== -->
+<div class="stock-section" id="s2408">
+<div class="stock-header">
+<h2>2408 南亞科</h2>
+<div class="price-tag">226.5</div>
+<span class="badge badge-neutral">⚡ 短線整理、中線偏多</span>
+</div>
+<div class="chart-container" id="chart-2408"></div>
+
+<div class="analysis-card">
+<h3>走勢回顧</h3>
+<p>1 月底衝高 326.5 後一路崩跌，3/9 跌停鎖 210，3/31 再破底至 198.5。4 月初在 200~211 築底，4/8 帶量反彈至 223，但 4/9 又回落至 205。4/13 收 225.5 後，4/14 法人大賣（開 238.5 高 240 收 220），形成黑 K 壓力。4/23~4/24 再度破底（204→199），但 4/27 爆量大漲收 226.5（量 1.25 億張），為 4/14 以來最高收盤價。</p>
+</div>
+
+<div class="analysis-card">
+<h3>關鍵價位解讀</h3>
+<ul>
+<li><strong>法人動向</strong>：法人大賣黑 K 頂部密集出現在 240（4/14）、261.5（3/12）、264.5（3/20）→ 法人持續出貨，上方壓力沉重</li>
+<li><strong>均線多空</strong>：MA5（215.9）、MA10（214.15）在支撐側 → 今日強勢站上短均線，短線翻多</li>
+<li><strong>MA60（247.2）</strong>在壓力側距離 +9.1% → 中線仍偏空</li>
+<li><strong>230 整數關卡</strong>為最近壓力，突破後才有機會挑戰 240 法人大賣區</li>
+</ul>
+</div>
+
+<div class="op-card">
+<div class="op-item aggressive"><h4>積極做法</h4><p>回測 220 不破可短多，目標 230→240，停損 214 以下</p></div>
+<div class="op-item conservative"><h4>保守做法</h4><p>等站穩 230 並突破 240 法人大賣區確認後再追進，或等回測 210 波段低點止穩再佈局</p></div>
+<div class="op-item risk"><h4>風險提示</h4><p>上方 240~265 有三道法人大賣壓力，中線仍偏空，反彈可能是逃命波，跌破 199 將創新低</p></div>
+</div>
+
+<table class="level-table">
+<thead><tr><th>類型</th><th>價位</th><th>距現價</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td class="r-price">壓力</td><td>230</td><td>+1.5%</td><td>整數心理關卡</td></tr>
+<tr><td class="r-price">壓力</td><td>240</td><td>+6.0%</td><td>法人大賣黑K頂部</td></tr>
+<tr><td class="r-price">壓力</td><td>247.2</td><td>+9.1%</td><td>MA60 位置</td></tr>
+<tr><td class="r-price">壓力</td><td>261.5</td><td>+15.5%</td><td>法人大賣黑K頂部</td></tr>
+<tr><td class="r-price">壓力</td><td>264.5</td><td>+16.8%</td><td>法人大賣黑K頂部</td></tr>
+<tr><td class="s-price">支撐</td><td>220</td><td>-2.9%</td><td>整數心理關卡</td></tr>
+<tr><td class="s-price">支撐</td><td>215.9</td><td>-4.7%</td><td>MA5 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>214.2</td><td>-5.5%</td><td>MA10 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>210</td><td>-7.3%</td><td>波段相對低點</td></tr>
+<tr><td class="s-price">支撐</td><td>199</td><td>-12.1%</td><td>波段相對低點</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 2454 聯發科 ===== -->
+<div class="stock-section" id="s2454">
+<div class="stock-header">
+<h2>2454 聯發科</h2>
+<div class="price-tag">2,425</div>
+<span class="badge badge-bull">🔥 積極偏多（強勢）</span>
+</div>
+<div class="chart-container" id="chart-2454"></div>
+
+<div class="analysis-card">
+<h3>走勢回顧</h3>
+<p>3 月持續下跌至 4/1 低點 1,460，4/7 觸及 1,430 後開始反轉。4/8 帶量長紅收 1,580（量 1,297 萬張），4/14 再度帶量突破收 1,720。關鍵轉折在 4/21~4/22 連續兩天飆漲：4/21 開 1,930 收 2,090（+10%），4/22 更爆量衝至 2,295（量 2,304 萬張）。4/24 帶量長紅收 2,435，4/27 盤中衝至 2,575 歷史新高後回落收 2,425。三週從 1,430 飆升至 2,575，漲幅達 80%。</p>
+</div>
+
+<div class="analysis-card">
+<h3>關鍵價位解讀</h3>
+<ul>
+<li><strong>法人動向</strong>：壓力位中無法人大賣訊號 → 法人未見出貨跡象</li>
+<li><strong>均線多空</strong>：MA5（2,292）、MA10（2,069）全在支撐側且距離極遠 → 超級多頭排列但乖離巨大</li>
+<li><strong>帶量紅 K 底部 2,110（4/22）</strong>為強力支撐，代表大量換手成本區</li>
+<li><strong>2,575 波段高點</strong>（今日盤中高點）為唯一實質壓力，突破即再創高</li>
+<li><strong>2,400~2,450</strong>為整數心理關卡密集區</li>
+</ul>
+</div>
+
+<div class="op-card">
+<div class="op-item aggressive"><h4>積極做法</h4><p>回測 2,330~2,400 不破可進場，目標 2,575→2,700，停損 2,290（MA5）以下</p></div>
+<div class="op-item conservative"><h4>保守做法</h4><p>等回測 MA5（2,292）或 2,110 帶量紅 K 底部附近再低接，短線乖離過大不宜追高</p></div>
+<div class="op-item risk"><h4>風險提示</h4><p>三週漲幅 80% 極度乖離，4/27 盤中 2,575 衝高回落收長上影線，短線見高回檔風險大，跌破 2,330 恐快速修正至 2,100</p></div>
+</div>
+
+<table class="level-table">
+<thead><tr><th>類型</th><th>價位</th><th>距現價</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td class="r-price">壓力</td><td>2,450</td><td>+1.0%</td><td>整數心理關卡</td></tr>
+<tr><td class="r-price">壓力</td><td>2,575</td><td>+6.2%</td><td>波段相對高點</td></tr>
+<tr><td class="s-price">支撐</td><td>2,400</td><td>-1.0%</td><td>整數心理關卡</td></tr>
+<tr><td class="s-price">支撐</td><td>2,330</td><td>-3.9%</td><td>前一交易日低點(量增紅K)</td></tr>
+<tr><td class="s-price">支撐</td><td>2,292</td><td>-5.5%</td><td>MA5 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>2,110</td><td>-13.0%</td><td>帶量紅K底部</td></tr>
+<tr><td class="s-price">支撐</td><td>2,069</td><td>-14.7%</td><td>MA10 位置</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 3556 禾瑞亞 ===== -->
+<div class="stock-section" id="s3556">
+<div class="stock-header">
+<h2>3556 禾瑞亞</h2>
+<div class="price-tag">50.9</div>
+<span class="badge badge-bear">🔻 偏空、反彈賣</span>
+</div>
+<div class="chart-container" id="chart-3556"></div>
+
+<div class="analysis-card">
+<h3>走勢回顧</h3>
+<p>長期在 38~46 區間整理，4/7 起帶量突破至 45.7，4/13 法人大買推升至 48.9（量 95.9 萬張大增）。4/20~4/21 進入主升段：4/20 漲至 52.9，4/21 爆量漲至 58.1（量 330 萬張為近三個月天量）。但 4/22 開始反轉，收長上影黑 K（高 58.6 收 56.3），4/23 再跌至 53，4/24 小反彈 54，4/27 開高走低暴跌收 50.9（低點 49.55）。高檔爆量後連續四天下殺，空頭趨勢確立。</p>
+</div>
+
+<div class="analysis-card">
+<h3>關鍵價位解讀</h3>
+<ul>
+<li><strong>法人動向</strong>：法人大買紅 K 底部在 44.1（4/13），為法人成本區，距現價 -13.4%</li>
+<li><strong>均線多空</strong>：MA10（51.82）、MA5（54.46）都在壓力側 → 短均線全面翻空</li>
+<li><strong>帶量黑 K 頂部 58.6（4/22）</strong>與量增黑 K 高 57.5（4/24）形成強壓力帶</li>
+<li><strong>50 整數關卡</strong>與 49.55 波段低點為最近支撐，失守將測 MA20（48.26）</li>
+</ul>
+</div>
+
+<div class="op-card">
+<div class="op-item aggressive"><h4>積極做法</h4><p>反彈至 52~54.5（MA10~MA5 附近）出現黑 K 可短空，目標 48.3（MA20），停損 55.5</p></div>
+<div class="op-item conservative"><h4>保守做法</h4><p>等跌至 44~44.7（MA60 與法人大買底部）附近出現止穩訊號再低接</p></div>
+<div class="op-item risk"><h4>風險提示</h4><p>高檔爆量反轉後量能快速萎縮，50 整數關卡若失守，下一支撐在 48.26，中期恐回測 44 起漲區</p></div>
+</div>
+
+<table class="level-table">
+<thead><tr><th>類型</th><th>價位</th><th>距現價</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td class="r-price">壓力</td><td>51.82</td><td>+1.8%</td><td>MA10 位置</td></tr>
+<tr><td class="r-price">壓力</td><td>54.46</td><td>+7.0%</td><td>MA5 位置</td></tr>
+<tr><td class="r-price">壓力</td><td>55.0</td><td>+8.1%</td><td>整數心理關卡</td></tr>
+<tr><td class="r-price">壓力</td><td>57.5</td><td>+13.0%</td><td>前一交易日高點(量增黑K)</td></tr>
+<tr><td class="r-price">壓力</td><td>58.6</td><td>+15.1%</td><td>帶量黑K頂部</td></tr>
+<tr><td class="s-price">支撐</td><td>50.0</td><td>-1.8%</td><td>整數心理關卡</td></tr>
+<tr><td class="s-price">支撐</td><td>49.55</td><td>-2.7%</td><td>波段相對低點</td></tr>
+<tr><td class="s-price">支撐</td><td>48.26</td><td>-5.2%</td><td>MA20 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>44.67</td><td>-12.2%</td><td>MA60 位置</td></tr>
+<tr><td class="s-price">支撐</td><td>44.1</td><td>-13.4%</td><td>法人大買紅K底部</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+台股支撐壓力分析系統 &copy; 2026 ｜ 資料僅供參考，投資請自行判斷風險
 </div>
 </div>
 
 <script>
-(function(){
-  var dates = ["2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20"];
-  var opens = [1714.4065669544957, 1699.455346893846, 1679.5202885915542, 1729.357690920775, 1719.3901894309304, 1734.3414818992078, 1739.32517040735, 1759.2601068670099, 1764.243896484375, 1759.2602045216793, 1754.2764659410113, 1784.1788598364526, 1824.0488267724202, 1784.1788808043575, 1744.308912585207, 1804.113842095269, 1779.195068359375, 1759.2601318359375, 1739.3252460608321, 1824.0487534704287, 1839.0000506461936, 1873.8861603500327, 1893.8211669921875, 1908.7723432157482, 1988.51218431345, 1993.4959468984962, 1933.691091030459, 1963.5934534984658, 1888.837375180651, 1933.6910862972861, 1873.8861581307872, 1769.2275916673862, 1863.9187242662586, 1878.8699023059962, 1893.821092195789, 1834.0162376424262, 1868.90243902439, 1875.0, 1900.0, 1875.0, 1860.0, 1790.0, 1850.0, 1865.0, 1850.0, 1805.0, 1780.0, 1775.0, 1840.0, 1865.0, 1850.0, 1935.0, 1945.0, 1975.0, 1985.0, 2015.0, 2065.0, 2080.0, 2055.0, 2030.0];
-  var highs = [1714.4065669544957, 1709.422826934279, 1694.4715077778292, 1744.3089101506375, 1774.2113259055398, 1769.2276611328125, 1759.2601293805, 1764.2438465465198, 1769.2276363049523, 1779.1951643462874, 1779.1951657413097, 1814.081298828125, 1829.0325667362793, 1794.1463605853874, 1759.2601318359375, 1804.113842095269, 1799.1300271084997, 1774.2113510866677, 1774.21142578125, 1829.0324932340093, 1873.88623046875, 1918.7398184435174, 1928.7073463841489, 1968.5772208099752, 2018.4146231753064, 2003.4634266329888, 1988.5122302091575, 1973.5609329578488, 1903.7885945092576, 1953.6260459498355, 1893.821117259838, 1804.11376953125, 1883.8536838840794, 1943.6585196268927, 1908.7723113447032, 1878.8698956282465, 1873.8861788617885, 1880.0, 1910.0, 1880.0, 1870.0, 1815.0, 1850.0, 1875.0, 1865.0, 1825.0, 1800.0, 1790.0, 1855.0, 1865.0, 1860.0, 1950.0, 1955.0, 2000.0, 1995.0, 2055.0, 2100.0, 2090.0, 2060.0, 2055.0];
-  var lows = [1694.4716068736295, 1694.4716068736295, 1674.536548862796, 1704.4389922043372, 1719.3901894309304, 1734.3414818992078, 1734.3414306640625, 1744.30888782848, 1744.3089372020656, 1749.292724609375, 1749.2927259809514, 1784.1788598364526, 1794.146386989266, 1769.2276611328125, 1739.3251728349637, 1779.195142618815, 1769.2275889848127, 1754.276392085694, 1734.3415061007724, 1809.0975341796875, 1834.0163106715427, 1868.9024205618675, 1893.8211669921875, 1908.7723432157482, 1988.51218431345, 1988.51220703125, 1933.691091030459, 1928.707275390625, 1858.9349365234375, 1888.8374270790503, 1873.8861581307872, 1764.2438519725483, 1824.0488050306167, 1868.902422718166, 1878.869873046875, 1834.0162376424262, 1839.0, 1860.0, 1890.0, 1850.0, 1840.0, 1785.0, 1800.0, 1845.0, 1840.0, 1800.0, 1780.0, 1760.0, 1830.0, 1805.0, 1835.0, 1925.0, 1930.0, 1970.0, 1975.0, 2010.0, 2060.0, 2055.0, 2030.0, 2025.0];
-  var closes = [1704.4390869140625, 1704.4390869140625, 1684.5040283203125, 1734.3414306640625, 1754.2763671875, 1769.2276611328125, 1734.3414306640625, 1754.2763671875, 1764.243896484375, 1749.292724609375, 1774.21142578125, 1814.081298828125, 1799.130126953125, 1769.2276611328125, 1759.2601318359375, 1794.1463623046875, 1779.195068359375, 1759.2601318359375, 1774.21142578125, 1809.0975341796875, 1873.88623046875, 1908.7723388671875, 1893.8211669921875, 1958.6097412109375, 2008.4471435546875, 1988.51220703125, 1968.5772705078125, 1928.707275390625, 1858.9349365234375, 1893.8211669921875, 1883.8536376953125, 1804.11376953125, 1843.9837646484375, 1933.6910400390625, 1878.869873046875, 1858.9349365234375, 1839.0, 1870.0, 1905.0, 1850.0, 1840.0, 1810.0, 1810.0, 1845.0, 1840.0, 1820.0, 1780.0, 1760.0, 1855.0, 1810.0, 1860.0, 1950.0, 1955.0, 2000.0, 1990.0, 2055.0, 2080.0, 2085.0, 2030.0, 2025.0];
-  var vols = [30171800, 29100816, 36391886, 53551629, 29580038, 29401234, 45192749, 32069478, 27601167, 22960198, 28985200, 29301156, 32224002, 40825139, 28251381, 26744162, 26952301, 26299986, 33263592, 36529289, 41859169, 40488310, 69816209, 40961679, 40832607, 58561388, 48884884, 43090471, 68160943, 48120463, 30082724, 76459172, 41375691, 36167313, 34040589, 31214304, 31249086, 23812211, 23068156, 31040569, 46312322, 34902948, 27001025, 40964040, 20958470, 28974140, 39889700, 49221091, 35537379, 25132417, 17953562, 46515921, 31835073, 28637625, 28968757, 39113405, 40343568, 32038524, 39260244, 27165172];
-  var resistances = [{"Price": 2050.0, "Pct": 1.2, "Type": "\u6574\u6578\u5fc3\u7406\u95dc\u5361", "Date": "2026-04-20"}, {"Price": 2100.0, "Pct": 3.7, "Type": "\u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "Date": "2026-04-15"}];
-  var supports = [{"Price": 2010.0, "Pct": -0.7, "Type": "\u6cd5\u4eba\u5927\u8cb7\u7d05K\u5e95\u90e8", "Date": "2026-04-14"}, {"Price": 1925.0, "Pct": -4.9, "Type": "\u6cd5\u4eba\u5927\u8cb7\u7d05K\u5e95\u90e8", "Date": "2026-04-08"}, {"Price": 1855.58, "Pct": -8.4, "Type": "MA60\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 1834.0163106715427, "Pct": -9.4, "Type": "\u6cd5\u4eba\u5927\u8cb7\u7d05K\u5e95\u90e8", "Date": "2026-02-10"}, {"Price": 1764.2438519725483, "Pct": -12.9, "Type": "\u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "Date": "2026-03-09"}];
-  var curPrice = 2025.0;
+const darkLayout={paper_bgcolor:'#16213e',plot_bgcolor:'#0d1b2a',font:{color:'#e2e8f0',size:11},xaxis:{gridcolor:'#1e3a5f',linecolor:'#1e3a5f',rangeslider:{visible:false}},yaxis:{gridcolor:'#1e3a5f',linecolor:'#1e3a5f',side:'right'},margin:{l:10,r:60,t:30,b:40},showlegend:false};
+const config={responsive:true,displayModeBar:false};
 
-  var candleColors = closes.map((c,i) => c >= opens[i] ? '#ff4b4b' : '#26a269');
-  var candleBorderColors = candleColors;
+function makeShapes(res,sup,cur,dates){
+const x0=dates[0],x1=dates[dates.length-1],shapes=[],annotations=[];
+res.forEach((r,i)=>{shapes.push({type:'line',x0,x1,y0:r.Price,y1:r.Price,line:{color:'rgba(74,222,128,0.6)',width:1,dash:'dash'}});annotations.push({x:x1,y:r.Price,xanchor:'left',text:' P'+(i+1)+' '+r.Price+' '+r.Type,font:{color:'#4ade80',size:10},showarrow:false});});
+sup.forEach((s,i)=>{shapes.push({type:'line',x0,x1,y0:s.Price,y1:s.Price,line:{color:'rgba(248,113,113,0.8)',width:1,dash:'dash'}});annotations.push({x:x1,y:s.Price,xanchor:'left',text:' S'+(i+1)+' '+s.Price+' '+s.Type,font:{color:'#f87171',size:10},showarrow:false});});
+shapes.push({type:'line',x0,x1,y0:cur,y1:cur,line:{color:'rgba(251,191,36,0.85)',width:2,dash:'dash'}});
+annotations.push({x:x0,y:cur,xanchor:'right',text:'現價 '+cur+' ',font:{color:'#fbbf24',size:11},showarrow:false});
+return{shapes,annotations};}
 
-  var shapes = [];
-  var annotations = [];
+function plotStock(divId,ohlcv,res,sup,cur){
+const dates=ohlcv.map(d=>d.Date);
+const trace={type:'candlestick',x:dates,open:ohlcv.map(d=>d.Open),high:ohlcv.map(d=>d.High),low:ohlcv.map(d=>d.Low),close:ohlcv.map(d=>d.Close),increasing:{line:{color:'#ff4b4b'},fillcolor:'#ff4b4b'},decreasing:{line:{color:'#26a269'},fillcolor:'#26a269'}};
+const volTrace={type:'bar',x:dates,y:ohlcv.map(d=>d.Volume),yaxis:'y2',marker:{color:ohlcv.map(d=>d.Close>=d.Open?'rgba(255,75,75,0.3)':'rgba(38,162,105,0.3)')},hoverinfo:'skip'};
+const{shapes,annotations}=makeShapes(res,sup,cur,dates);
+const layout=JSON.parse(JSON.stringify(darkLayout));
+layout.shapes=shapes;layout.annotations=annotations;
+layout.yaxis2={overlaying:'y',side:'left',showgrid:false,showticklabels:false,range:[0,Math.max(...ohlcv.map(d=>d.Volume))*4]};
+Plotly.newPlot(divId,[trace,volTrace],layout,config);}
 
-  // Current price line
-  shapes.push({
-    type:'line', xref:'paper', yref:'y',
-    x0:0, x1:1, y0:curPrice, y1:curPrice,
-    line:{color:'rgba(251,191,36,0.85)', width:1.5, dash:'dash'}
-  });
-  annotations.push({
-    xref:'paper', yref:'y', x:0.01, y:curPrice,
-    text:'現價 '+curPrice.toLocaleString(), showarrow:false,
-    font:{color:'#fbbf24', size:11}, bgcolor:'rgba(15,15,26,0.7)',
-    bordercolor:'#fbbf24', borderwidth:1, xanchor:'left'
-  });
+plotStock('chart-2330',
+[{"Date":"2026-01-20","Open":1734.34,"High":1769.23,"Low":1734.34,"Close":1769.23,"Volume":29401234},{"Date":"2026-01-21","Open":1739.33,"High":1759.26,"Low":1734.34,"Close":1734.34,"Volume":45192749},{"Date":"2026-01-22","Open":1759.26,"High":1764.24,"Low":1744.31,"Close":1754.28,"Volume":32069478},{"Date":"2026-01-23","Open":1764.24,"High":1769.23,"Low":1744.31,"Close":1764.24,"Volume":27601167},{"Date":"2026-01-26","Open":1759.26,"High":1779.2,"Low":1749.29,"Close":1749.29,"Volume":22960198},{"Date":"2026-01-27","Open":1754.28,"High":1779.2,"Low":1749.29,"Close":1774.21,"Volume":28985200},{"Date":"2026-01-28","Open":1784.18,"High":1814.08,"Low":1784.18,"Close":1814.08,"Volume":29301156},{"Date":"2026-01-29","Open":1824.05,"High":1829.03,"Low":1794.15,"Close":1799.13,"Volume":32224002},{"Date":"2026-01-30","Open":1784.18,"High":1794.15,"Low":1769.23,"Close":1769.23,"Volume":40825139},{"Date":"2026-02-02","Open":1744.31,"High":1759.26,"Low":1739.33,"Close":1759.26,"Volume":28251381},{"Date":"2026-02-03","Open":1804.11,"High":1804.11,"Low":1779.2,"Close":1794.15,"Volume":26744162},{"Date":"2026-02-04","Open":1779.2,"High":1799.13,"Low":1769.23,"Close":1779.2,"Volume":26952301},{"Date":"2026-02-05","Open":1759.26,"High":1774.21,"Low":1754.28,"Close":1759.26,"Volume":26299986},{"Date":"2026-02-06","Open":1739.33,"High":1774.21,"Low":1734.34,"Close":1774.21,"Volume":33263592},{"Date":"2026-02-09","Open":1824.05,"High":1829.03,"Low":1809.1,"Close":1809.1,"Volume":36529289},{"Date":"2026-02-10","Open":1839,"High":1873.89,"Low":1834.02,"Close":1873.89,"Volume":41859169},{"Date":"2026-02-11","Open":1873.89,"High":1918.74,"Low":1868.9,"Close":1908.77,"Volume":40488310},{"Date":"2026-02-23","Open":1893.82,"High":1928.71,"Low":1893.82,"Close":1893.82,"Volume":69816209},{"Date":"2026-02-24","Open":1908.77,"High":1968.58,"Low":1908.77,"Close":1958.61,"Volume":40961679},{"Date":"2026-02-25","Open":1988.51,"High":2018.41,"Low":1988.51,"Close":2008.45,"Volume":40832607},{"Date":"2026-02-26","Open":1993.5,"High":2003.46,"Low":1988.51,"Close":1988.51,"Volume":58561388},{"Date":"2026-03-02","Open":1933.69,"High":1988.51,"Low":1933.69,"Close":1968.58,"Volume":48884884},{"Date":"2026-03-03","Open":1963.59,"High":1973.56,"Low":1928.71,"Close":1928.71,"Volume":43090471},{"Date":"2026-03-04","Open":1888.84,"High":1903.79,"Low":1858.93,"Close":1858.93,"Volume":68160943},{"Date":"2026-03-05","Open":1933.69,"High":1953.63,"Low":1888.84,"Close":1893.82,"Volume":48120463},{"Date":"2026-03-06","Open":1873.89,"High":1893.82,"Low":1873.89,"Close":1883.85,"Volume":30082724},{"Date":"2026-03-09","Open":1769.23,"High":1804.11,"Low":1764.24,"Close":1804.11,"Volume":76459172},{"Date":"2026-03-10","Open":1863.92,"High":1883.85,"Low":1824.05,"Close":1843.98,"Volume":41375691},{"Date":"2026-03-11","Open":1878.87,"High":1943.66,"Low":1868.9,"Close":1933.69,"Volume":36167313},{"Date":"2026-03-12","Open":1893.82,"High":1908.77,"Low":1878.87,"Close":1878.87,"Volume":34040589},{"Date":"2026-03-13","Open":1834.02,"High":1878.87,"Low":1834.02,"Close":1858.93,"Volume":31214304},{"Date":"2026-03-16","Open":1868.9,"High":1873.89,"Low":1839,"Close":1839,"Volume":31249086},{"Date":"2026-03-17","Open":1875,"High":1880,"Low":1860,"Close":1870,"Volume":23812211},{"Date":"2026-03-18","Open":1900,"High":1910,"Low":1890,"Close":1905,"Volume":23068156},{"Date":"2026-03-19","Open":1875,"High":1880,"Low":1850,"Close":1850,"Volume":31040569},{"Date":"2026-03-20","Open":1860,"High":1870,"Low":1840,"Close":1840,"Volume":46312322},{"Date":"2026-03-23","Open":1790,"High":1815,"Low":1785,"Close":1810,"Volume":34902948},{"Date":"2026-03-24","Open":1850,"High":1850,"Low":1800,"Close":1810,"Volume":27001025},{"Date":"2026-03-25","Open":1865,"High":1875,"Low":1845,"Close":1845,"Volume":40964040},{"Date":"2026-03-26","Open":1850,"High":1865,"Low":1840,"Close":1840,"Volume":20958470},{"Date":"2026-03-27","Open":1805,"High":1825,"Low":1800,"Close":1820,"Volume":28974140},{"Date":"2026-03-30","Open":1780,"High":1800,"Low":1780,"Close":1780,"Volume":39889700},{"Date":"2026-03-31","Open":1775,"High":1790,"Low":1760,"Close":1760,"Volume":49221091},{"Date":"2026-04-01","Open":1840,"High":1855,"Low":1830,"Close":1855,"Volume":35537379},{"Date":"2026-04-02","Open":1865,"High":1865,"Low":1805,"Close":1810,"Volume":25132417},{"Date":"2026-04-07","Open":1850,"High":1860,"Low":1835,"Close":1860,"Volume":17953562},{"Date":"2026-04-08","Open":1935,"High":1950,"Low":1925,"Close":1950,"Volume":46515921},{"Date":"2026-04-09","Open":1945,"High":1955,"Low":1930,"Close":1955,"Volume":31835073},{"Date":"2026-04-10","Open":1975,"High":2000,"Low":1970,"Close":2000,"Volume":28637625},{"Date":"2026-04-13","Open":1985,"High":1995,"Low":1975,"Close":1990,"Volume":28968757},{"Date":"2026-04-14","Open":2015,"High":2055,"Low":2010,"Close":2055,"Volume":39113405},{"Date":"2026-04-15","Open":2065,"High":2100,"Low":2060,"Close":2080,"Volume":40343568},{"Date":"2026-04-16","Open":2080,"High":2090,"Low":2055,"Close":2085,"Volume":32038524},{"Date":"2026-04-17","Open":2055,"High":2060,"Low":2030,"Close":2030,"Volume":39260244},{"Date":"2026-04-20","Open":2030,"High":2055,"Low":2025,"Close":2025,"Volume":25407621},{"Date":"2026-04-21","Open":2050,"High":2075,"Low":2045,"Close":2050,"Volume":25783476},{"Date":"2026-04-22","Open":2045,"High":2070,"Low":2040,"Close":2050,"Volume":24762881},{"Date":"2026-04-23","Open":2090,"High":2135,"Low":2055,"Close":2080,"Volume":48682193},{"Date":"2026-04-24","Open":2110,"High":2190,"Low":2105,"Close":2185,"Volume":45088050},{"Date":"2026-04-27","Open":2280,"High":2330,"Low":2275,"Close":2310,"Volume":44989229}],
+[{"Price":2330,"Type":"波段相對高點"},{"Price":2350,"Type":"整數心理關卡"}],
+[{"Price":2300,"Type":"整數心理關卡"},{"Price":2135,"Type":"MA5位置"},{"Price":2105,"Type":"量增紅K低點"},{"Price":2010,"Type":"法人大買紅K底部"},{"Price":1986.5,"Type":"MA20位置"}],
+2310);
 
-  // Resistance lines
-  resistances.forEach((r,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:r.Price, y1:r.Price,
-      line:{color:'rgba(74,222,128,0.6)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:r.Price,
-      text:'P'+(i+1)+' '+r.Price.toFixed(0)+' '+r.Type,
-      showarrow:false, font:{color:'#4ade80', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
+plotStock('chart-6531',
+[{"Date":"2026-01-20","Open":501,"High":508,"Low":482.5,"Close":506,"Volume":7504860},{"Date":"2026-01-21","Open":500,"High":514,"Low":484,"Close":490,"Volume":8271914},{"Date":"2026-01-22","Open":502,"High":504,"Low":473,"Close":476,"Volume":5940076},{"Date":"2026-01-23","Open":476,"High":485,"Low":461.5,"Close":466.5,"Volume":5314471},{"Date":"2026-01-26","Open":463,"High":469,"Low":445,"Close":450,"Volume":5158445},{"Date":"2026-01-27","Open":451,"High":457,"Low":436.5,"Close":438,"Volume":4072474},{"Date":"2026-01-28","Open":440,"High":451.5,"Low":429.5,"Close":436,"Volume":6829984},{"Date":"2026-01-29","Open":442,"High":453,"Low":442,"Close":443,"Volume":4412559},{"Date":"2026-01-30","Open":439,"High":447.5,"Low":429.5,"Close":429.5,"Volume":4332770},{"Date":"2026-02-02","Open":421,"High":431,"Low":416.5,"Close":420,"Volume":2887864},{"Date":"2026-02-03","Open":429.5,"High":436.5,"Low":417.5,"Close":430,"Volume":3734499},{"Date":"2026-02-04","Open":424.5,"High":435,"Low":422,"Close":426.5,"Volume":2018599},{"Date":"2026-02-05","Open":423,"High":433,"Low":413,"Close":413,"Volume":2983332},{"Date":"2026-02-06","Open":405,"High":417.5,"Low":391.5,"Close":407,"Volume":3044275},{"Date":"2026-02-09","Open":419,"High":419,"Low":405.5,"Close":405.5,"Volume":1377682},{"Date":"2026-02-10","Open":408.5,"High":411,"Low":403,"Close":410,"Volume":1161340},{"Date":"2026-02-11","Open":410,"High":410,"Low":396,"Close":396,"Volume":1671946},{"Date":"2026-02-23","Open":404,"High":407,"Low":397,"Close":402.5,"Volume":1561121},{"Date":"2026-02-24","Open":402.5,"High":415.5,"Low":399.5,"Close":412,"Volume":1815335},{"Date":"2026-02-25","Open":413.5,"High":432,"Low":403,"Close":427.5,"Volume":4248564},{"Date":"2026-02-26","Open":425.5,"High":449,"Low":423,"Close":433.5,"Volume":4816593},{"Date":"2026-03-02","Open":423,"High":438,"Low":411,"Close":433.5,"Volume":2272090},{"Date":"2026-03-03","Open":436,"High":445,"Low":422,"Close":422,"Volume":3081532},{"Date":"2026-03-04","Open":417.5,"High":429,"Low":404,"Close":404,"Volume":2546829},{"Date":"2026-03-05","Open":422,"High":442,"Low":421.5,"Close":440.5,"Volume":3347796},{"Date":"2026-03-06","Open":440.5,"High":446,"Low":428,"Close":434.5,"Volume":3506900},{"Date":"2026-03-09","Open":391.5,"High":405,"Low":391.5,"Close":403,"Volume":2929501},{"Date":"2026-03-10","Open":420,"High":434.5,"Low":417,"Close":427.5,"Volume":2268881},{"Date":"2026-03-11","Open":438,"High":445,"Low":432,"Close":441.5,"Volume":2680722},{"Date":"2026-03-12","Open":439,"High":485.5,"Low":435.5,"Close":485.5,"Volume":11320282},{"Date":"2026-03-13","Open":485.5,"High":534,"Low":478.5,"Close":531,"Volume":17699745},{"Date":"2026-03-16","Open":537,"High":547,"Low":514,"Close":528,"Volume":9164253},{"Date":"2026-03-17","Open":534,"High":580,"Low":522,"Close":580,"Volume":12545601},{"Date":"2026-03-18","Open":615,"High":623,"Low":561,"Close":572,"Volume":13122833},{"Date":"2026-03-19","Open":555,"High":568,"Low":546,"Close":551,"Volume":6852345},{"Date":"2026-03-20","Open":568,"High":582,"Low":550,"Close":553,"Volume":6648672},{"Date":"2026-03-23","Open":535,"High":543,"Low":521,"Close":523,"Volume":4212487},{"Date":"2026-03-24","Open":538,"High":542,"Low":488,"Close":501,"Volume":6890935},{"Date":"2026-03-25","Open":516,"High":525,"Low":504,"Close":511,"Volume":3456345},{"Date":"2026-03-26","Open":514,"High":531,"Low":509,"Close":509,"Volume":4280781},{"Date":"2026-03-27","Open":496,"High":509,"Low":481.5,"Close":507,"Volume":3947574},{"Date":"2026-03-30","Open":490,"High":497.5,"Low":484.5,"Close":485,"Volume":2586787},{"Date":"2026-03-31","Open":475.5,"High":489.5,"Low":439.5,"Close":442,"Volume":5071908},{"Date":"2026-04-01","Open":462,"High":468,"Low":452,"Close":460,"Volume":2793086},{"Date":"2026-04-02","Open":465.5,"High":473,"Low":440,"Close":440,"Volume":2496333},{"Date":"2026-04-07","Open":469,"High":484,"Low":469,"Close":471.5,"Volume":3336279},{"Date":"2026-04-08","Open":490,"High":496.5,"Low":472.5,"Close":478,"Volume":4579512},{"Date":"2026-04-09","Open":480,"High":502,"Low":475,"Close":480.5,"Volume":4761302},{"Date":"2026-04-10","Open":494,"High":528,"Low":492,"Close":516,"Volume":5700815},{"Date":"2026-04-13","Open":510,"High":567,"Low":502,"Close":567,"Volume":7107841},{"Date":"2026-04-14","Open":586,"High":614,"Low":555,"Close":606,"Volume":15055312},{"Date":"2026-04-15","Open":630,"High":652,"Low":586,"Close":591,"Volume":10442327},{"Date":"2026-04-16","Open":594,"High":596,"Low":573,"Close":586,"Volume":6325551},{"Date":"2026-04-17","Open":593,"High":644,"Low":591,"Close":644,"Volume":8073358},{"Date":"2026-04-20","Open":670,"High":708,"Low":656,"Close":682,"Volume":12122369},{"Date":"2026-04-21","Open":725,"High":750,"Low":707,"Close":720,"Volume":9429520},{"Date":"2026-04-22","Open":788,"High":792,"Low":787,"Close":792,"Volume":3810124},{"Date":"2026-04-23","Open":852,"High":871,"Low":713,"Close":785,"Volume":26932818},{"Date":"2026-04-24","Open":850,"High":863,"Low":785,"Close":788,"Volume":14180457},{"Date":"2026-04-27","Open":792,"High":793,"Low":710,"Close":738,"Volume":2771663}],
+[{"Price":750,"Type":"整數心理關卡"},{"Price":764.6,"Type":"MA5位置"},{"Price":863,"Type":"量增黑K高點"},{"Price":871,"Type":"帶量黑K頂部"}],
+[{"Price":700,"Type":"整數心理關卡"},{"Price":693.2,"Type":"MA10位置"},{"Price":656,"Type":"帶量紅K底部"},{"Price":591,"Type":"法人大買紅K底部"}],
+738);
 
-  // Support lines
-  supports.forEach((s,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:s.Price, y1:s.Price,
-      line:{color:'rgba(248,113,113,0.8)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:s.Price,
-      text:'S'+(i+1)+' '+s.Price.toFixed(0)+' '+s.Type,
-      showarrow:false, font:{color:'#f87171', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
+plotStock('chart-2344',
+[{"Date":"2026-01-20","Open":104.95,"High":113.9,"Low":104.95,"Close":112.41,"Volume":50919746},{"Date":"2026-01-21","Open":111.42,"High":111.42,"Low":102.46,"Close":104.95,"Volume":63561383},{"Date":"2026-01-22","Open":112.91,"High":112.91,"Low":103.96,"Close":103.96,"Volume":56609929},{"Date":"2026-01-23","Open":106.44,"High":106.44,"Low":98.88,"Close":102.46,"Volume":48889584},{"Date":"2026-01-26","Open":106.44,"High":112.41,"Low":106.44,"Close":112.41,"Volume":58355135},{"Date":"2026-01-27","Open":112.91,"High":119.87,"Low":109.43,"Close":114.9,"Volume":278718118},{"Date":"2026-01-28","Open":119.87,"High":126.34,"Low":119.38,"Close":126.34,"Volume":181306216},{"Date":"2026-01-29","Open":132.31,"High":135.29,"Low":123.35,"Close":129.32,"Volume":387822875},{"Date":"2026-01-30","Open":131.81,"High":135.29,"Low":127.83,"Close":127.83,"Volume":248256361},{"Date":"2026-02-02","Open":120.87,"High":121.86,"Low":115.4,"Close":115.4,"Volume":162798671},{"Date":"2026-02-03","Open":122.86,"High":122.86,"Low":103.96,"Close":104.95,"Volume":446395429},{"Date":"2026-02-04","Open":104.45,"High":110.92,"Low":103.96,"Close":107.93,"Volume":208672622},{"Date":"2026-02-05","Open":101.97,"High":106.94,"Low":100.47,"Close":101.97,"Volume":145713292},{"Date":"2026-02-06","Open":99.48,"High":101.47,"Low":94.51,"Close":97.29,"Volume":231242639},{"Date":"2026-02-09","Open":105.45,"High":106.94,"Low":100.47,"Close":106.94,"Volume":153756321},{"Date":"2026-02-10","Open":107.44,"High":108.43,"Low":101.97,"Close":102.96,"Volume":197884652},{"Date":"2026-02-11","Open":100.97,"High":108.43,"Low":100.97,"Close":104.95,"Volume":201852742},{"Date":"2026-02-23","Open":113.9,"High":115.4,"Low":111.91,"Close":114.4,"Volume":170398493},{"Date":"2026-02-24","Open":114.4,"High":122.86,"Low":112.41,"Close":121.36,"Volume":247211557},{"Date":"2026-02-25","Open":121.36,"High":123.35,"Low":114.4,"Close":117.39,"Volume":168820084},{"Date":"2026-02-26","Open":118.88,"High":123.35,"Low":115.4,"Close":121.86,"Volume":179034587},{"Date":"2026-03-02","Open":114.4,"High":126.34,"Low":114.4,"Close":123.85,"Volume":154454824},{"Date":"2026-03-03","Open":124.35,"High":124.35,"Low":111.91,"Close":111.91,"Volume":187993914},{"Date":"2026-03-04","Open":105.45,"High":108.93,"Low":101.47,"Close":103.46,"Volume":180166754},{"Date":"2026-03-05","Open":112.91,"High":113.41,"Low":108.43,"Close":111.42,"Volume":164400380},{"Date":"2026-03-06","Open":109.43,"High":112.41,"Low":104.95,"Close":105.95,"Volume":121644964},{"Date":"2026-03-09","Open":95.4,"High":100.47,"Low":95.4,"Close":100.47,"Volume":166319493},{"Date":"2026-03-10","Open":107.44,"High":108.43,"Low":100.97,"Close":104.95,"Volume":162997237},{"Date":"2026-03-11","Open":108.43,"High":114.4,"Low":106.94,"Close":113.41,"Volume":180693023},{"Date":"2026-03-12","Open":113.9,"High":116.89,"Low":108.43,"Close":108.43,"Volume":166186883},{"Date":"2026-03-13","Open":108.43,"High":113.9,"Low":107.44,"Close":108.43,"Volume":171591816},{"Date":"2026-03-16","Open":112.91,"High":117.39,"Low":112.41,"Close":116.39,"Volume":199547521},{"Date":"2026-03-17","Open":120.87,"High":125.34,"Low":118.88,"Close":122.86,"Volume":234411445},{"Date":"2026-03-18","Open":128.33,"High":128.83,"Low":119.87,"Close":127.33,"Volume":294009796},{"Date":"2026-03-19","Open":122.86,"High":124.85,"Low":119.38,"Close":121.36,"Volume":196236526},{"Date":"2026-03-20","Open":123.35,"High":123.85,"Low":109.43,"Close":109.43,"Volume":333969259},{"Date":"2026-03-23","Open":102.96,"High":108.93,"Low":102.96,"Close":106.94,"Volume":146975829},{"Date":"2026-03-24","Open":108.93,"High":108.93,"Low":96.49,"Close":98.98,"Volume":219474874},{"Date":"2026-03-25","Open":98.48,"High":102.46,"Low":97.59,"Close":97.69,"Volume":197568906},{"Date":"2026-03-26","Open":99.48,"High":103.96,"Low":95.5,"Close":95.5,"Volume":187684038},{"Date":"2026-03-27","Open":90.2,"High":92.4,"Low":87.2,"Close":92.4,"Volume":156697189},{"Date":"2026-03-30","Open":91.2,"High":96.8,"Low":90.6,"Close":93,"Volume":151065269},{"Date":"2026-03-31","Open":88,"High":95.5,"Low":85.2,"Close":90.2,"Volume":246396898},{"Date":"2026-04-01","Open":97.1,"High":97.2,"Low":91.3,"Close":93.1,"Volume":204494213},{"Date":"2026-04-02","Open":96,"High":97.6,"Low":91.8,"Close":91.8,"Volume":182614532},{"Date":"2026-04-07","Open":95,"High":95.8,"Low":89.1,"Close":89.4,"Volume":168420585},{"Date":"2026-04-08","Open":93.1,"High":95.8,"Low":92.2,"Close":95.6,"Volume":170255203},{"Date":"2026-04-09","Open":96,"High":96.2,"Low":90.3,"Close":91,"Volume":133744895},{"Date":"2026-04-10","Open":93,"High":97.5,"Low":92.3,"Close":93.5,"Volume":165392603},{"Date":"2026-04-13","Open":93.8,"High":95.2,"Low":91.5,"Close":94.4,"Volume":95066611},{"Date":"2026-04-14","Open":96.8,"High":98,"Low":93.5,"Close":93.5,"Volume":166319361},{"Date":"2026-04-15","Open":95.6,"High":96.6,"Low":90.1,"Close":90.2,"Volume":126143808},{"Date":"2026-04-16","Open":90.6,"High":90.9,"Low":88.3,"Close":89.6,"Volume":110222111},{"Date":"2026-04-17","Open":90,"High":90.7,"Low":86.8,"Close":87.8,"Volume":118916574},{"Date":"2026-04-20","Open":87.5,"High":88.4,"Low":83.8,"Close":85.7,"Volume":162330262},{"Date":"2026-04-21","Open":88.1,"High":92.8,"Low":88,"Close":91.1,"Volume":184027211},{"Date":"2026-04-22","Open":91.5,"High":91.5,"Low":88.9,"Close":90.6,"Volume":93783269},{"Date":"2026-04-23","Open":93,"High":93.4,"Low":84.3,"Close":87.8,"Volume":169558383},{"Date":"2026-04-24","Open":88.6,"High":88.9,"Low":84,"Close":88.2,"Volume":121480957},{"Date":"2026-04-27","Open":89.8,"High":94.2,"Low":89.1,"Close":93.4,"Volume":150861105}],
+[{"Price":94.2,"Type":"波段相對高點"},{"Price":95,"Type":"整數心理關卡"},{"Price":96.6,"Type":"法人大賣黑K頂部"},{"Price":98,"Type":"波段相對高點"},{"Price":102.46,"Type":"法人大賣黑K頂部"}],
+[{"Price":91.11,"Type":"MA20位置"},{"Price":90.22,"Type":"MA5位置"},{"Price":87.54,"Type":"MA120位置"},{"Price":85.2,"Type":"法人大買紅K底部"},{"Price":83.8,"Type":"波段相對低點"}],
+93.4);
 
-  var candleTrace = {
-    type:'candlestick',
-    x: dates,
-    open: opens, high: highs, low: lows, close: closes,
-    increasing:{line:{color:'#ff4b4b'}, fillcolor:'#ff4b4b'},
-    decreasing:{line:{color:'#26a269'}, fillcolor:'#26a269'},
-    name:'K線', yaxis:'y'
-  };
+plotStock('chart-2408',
+[{"Date":"2026-01-20","Open":247.5,"High":274,"Low":247.5,"Close":272,"Volume":26189068},{"Date":"2026-01-21","Open":266,"High":267,"Low":245,"Close":251,"Volume":27644945},{"Date":"2026-01-22","Open":270,"High":276,"Low":262,"Close":266.5,"Volume":22120755},{"Date":"2026-01-23","Open":275,"High":282.5,"Low":256,"Close":271.5,"Volume":165232150},{"Date":"2026-01-26","Open":279.5,"High":295,"Low":274.5,"Close":286,"Volume":111161380},{"Date":"2026-01-27","Open":283,"High":286,"Low":274,"Close":277,"Volume":75560007},{"Date":"2026-01-28","Open":288,"High":299.5,"Low":285,"Close":297,"Volume":117090721},{"Date":"2026-01-29","Open":306,"High":313,"Low":287,"Close":297,"Volume":126434701},{"Date":"2026-01-30","Open":303.5,"High":326.5,"Low":303.5,"Close":326.5,"Volume":126113999},{"Date":"2026-02-02","Open":310,"High":310,"Low":294,"Close":294,"Volume":97058085},{"Date":"2026-02-03","Open":312,"High":314.5,"Low":265,"Close":277.5,"Volume":175086747},{"Date":"2026-02-04","Open":279.5,"High":298,"Low":273.5,"Close":295,"Volume":101351124},{"Date":"2026-02-05","Open":282,"High":286,"Low":269,"Close":275,"Volume":86466349},{"Date":"2026-02-06","Open":260,"High":277.5,"Low":251,"Close":264,"Volume":131687996},{"Date":"2026-02-09","Open":282.5,"High":283,"Low":269,"Close":274.5,"Volume":87673937},{"Date":"2026-02-10","Open":276.5,"High":281,"Low":263.5,"Close":271,"Volume":95685271},{"Date":"2026-02-11","Open":266.5,"High":281,"Low":264.5,"Close":278,"Volume":90906529},{"Date":"2026-02-23","Open":295,"High":298.5,"Low":286.5,"Close":289,"Volume":91296194},{"Date":"2026-02-24","Open":292,"High":303,"Low":286,"Close":298,"Volume":92986109},{"Date":"2026-02-25","Open":298,"High":298,"Low":283,"Close":288,"Volume":66784821},{"Date":"2026-02-26","Open":290,"High":291.5,"Low":277,"Close":285.5,"Volume":64832341},{"Date":"2026-03-02","Open":268,"High":291,"Low":267.5,"Close":285,"Volume":52496960},{"Date":"2026-03-03","Open":287,"High":288,"Low":256.5,"Close":256.5,"Volume":87454156},{"Date":"2026-03-04","Open":238,"High":246.5,"Low":231,"Close":234.5,"Volume":105278188},{"Date":"2026-03-05","Open":257.5,"High":257.5,"Low":257.5,"Close":257.5,"Volume":21082824},{"Date":"2026-03-06","Open":259,"High":262,"Low":232.5,"Close":233,"Volume":158410557},{"Date":"2026-03-09","Open":210,"High":210,"Low":210,"Close":210,"Volume":20638661},{"Date":"2026-03-10","Open":220,"High":231,"Low":215,"Close":231,"Volume":114034338},{"Date":"2026-03-11","Open":245,"High":254,"Low":240,"Close":254,"Volume":89192007},{"Date":"2026-03-12","Open":257,"High":261.5,"Low":239,"Close":239.5,"Volume":149941247},{"Date":"2026-03-13","Open":237.5,"High":245.5,"Low":235,"Close":238,"Volume":94195866},{"Date":"2026-03-16","Open":247,"High":261.5,"Low":245.5,"Close":261.5,"Volume":91624503},{"Date":"2026-03-17","Open":267,"High":284.5,"Low":266.5,"Close":271.5,"Volume":130911740},{"Date":"2026-03-18","Open":284.5,"High":288.5,"Low":271.5,"Close":276,"Volume":100661642},{"Date":"2026-03-19","Open":268.5,"High":272.5,"Low":260,"Close":260,"Volume":81924960},{"Date":"2026-03-20","Open":264.5,"High":264.5,"Low":234,"Close":234,"Volume":154684660},{"Date":"2026-03-23","Open":217.5,"High":230,"Low":217.5,"Close":223,"Volume":76862997},{"Date":"2026-03-24","Open":226.5,"High":227,"Low":204,"Close":216.5,"Volume":147786363},{"Date":"2026-03-25","Open":226.5,"High":229.5,"Low":218.5,"Close":226.5,"Volume":96516285},{"Date":"2026-03-26","Open":249,"High":249,"Low":225,"Close":225.5,"Volume":181359174},{"Date":"2026-03-27","Open":217,"High":220,"Low":207,"Close":219.5,"Volume":131297286},{"Date":"2026-03-30","Open":215,"High":227,"Low":213.5,"Close":220.5,"Volume":124793584},{"Date":"2026-03-31","Open":207.5,"High":210,"Low":198.5,"Close":198.5,"Volume":144693809},{"Date":"2026-04-01","Open":211.5,"High":213,"Low":205,"Close":211,"Volume":120891443},{"Date":"2026-04-02","Open":217,"High":219,"Low":200,"Close":200.5,"Volume":118678529},{"Date":"2026-04-07","Open":210.5,"High":212,"Low":202.5,"Close":206,"Volume":72854559},{"Date":"2026-04-08","Open":217,"High":223.5,"Low":214.5,"Close":223,"Volume":94079973},{"Date":"2026-04-09","Open":222,"High":222,"Low":204,"Close":205,"Volume":88390863},{"Date":"2026-04-10","Open":211,"High":220,"Low":209,"Close":215,"Volume":92689098},{"Date":"2026-04-13","Open":218.5,"High":227.5,"Low":214.5,"Close":225.5,"Volume":96214475},{"Date":"2026-04-14","Open":238.5,"High":240,"Low":220,"Close":220,"Volume":159108831},{"Date":"2026-04-15","Open":227.5,"High":229.5,"Low":211.5,"Close":211.5,"Volume":104925775},{"Date":"2026-04-16","Open":212.5,"High":216.5,"Low":208.5,"Close":213.5,"Volume":52221009},{"Date":"2026-04-17","Open":215,"High":217,"Low":205,"Close":210,"Volume":67233540},{"Date":"2026-04-20","Open":206,"High":209,"Low":202,"Close":207,"Volume":66688062},{"Date":"2026-04-21","Open":211,"High":223.5,"Low":210,"Close":220,"Volume":107973183},{"Date":"2026-04-22","Open":218.5,"High":220.5,"Low":214,"Close":219,"Volume":70266440},{"Date":"2026-04-23","Open":228.5,"High":230,"Low":204,"Close":208,"Volume":139289252},{"Date":"2026-04-24","Open":209.5,"High":210.5,"Low":199,"Close":206,"Volume":98138631},{"Date":"2026-04-27","Open":216.5,"High":226.5,"Low":216,"Close":226.5,"Volume":125648675}],
+[{"Price":230,"Type":"整數心理關卡"},{"Price":240,"Type":"法人大賣黑K頂部"},{"Price":247.22,"Type":"MA60位置"},{"Price":261.5,"Type":"法人大賣黑K頂部"},{"Price":264.5,"Type":"法人大賣黑K頂部"}],
+[{"Price":220,"Type":"整數心理關卡"},{"Price":215.9,"Type":"MA5位置"},{"Price":214.15,"Type":"MA10位置"},{"Price":210,"Type":"波段相對低點"},{"Price":199,"Type":"波段相對低點"}],
+226.5);
 
-  var volTrace = {
-    type:'bar',
-    x: dates,
-    y: vols,
-    marker:{color: closes.map((c,i)=>c>=opens[i]?'rgba(255,75,75,0.5)':'rgba(38,162,105,0.5)')},
-    name:'成交量', yaxis:'y2'
-  };
+plotStock('chart-2454',
+[{"Date":"2026-01-20","Open":1480,"High":1500,"Low":1470,"Close":1485,"Volume":5623268},{"Date":"2026-01-21","Open":1470,"High":1495,"Low":1450,"Close":1465,"Volume":8433519},{"Date":"2026-01-22","Open":1495,"High":1525,"Low":1465,"Close":1485,"Volume":7732602},{"Date":"2026-01-23","Open":1525,"High":1630,"Low":1525,"Close":1630,"Volume":21949189},{"Date":"2026-01-26","Open":1740,"High":1790,"Low":1720,"Close":1770,"Volume":23813770},{"Date":"2026-01-27","Open":1755,"High":1820,"Low":1750,"Close":1775,"Volume":11706065},{"Date":"2026-01-28","Open":1755,"High":1800,"Low":1740,"Close":1780,"Volume":9806198},{"Date":"2026-01-29","Open":1780,"High":1815,"Low":1770,"Close":1780,"Volume":9803415},{"Date":"2026-01-30","Open":1770,"High":1775,"Low":1735,"Close":1760,"Volume":10669850},{"Date":"2026-02-02","Open":1715,"High":1740,"Low":1685,"Close":1705,"Volume":8793337},{"Date":"2026-02-03","Open":1740,"High":1805,"Low":1720,"Close":1795,"Volume":11037015},{"Date":"2026-02-04","Open":1760,"High":1810,"Low":1740,"Close":1800,"Volume":11261034},{"Date":"2026-02-05","Open":1750,"High":1800,"Low":1740,"Close":1770,"Volume":15699947},{"Date":"2026-02-06","Open":1745,"High":1755,"Low":1690,"Close":1710,"Volume":10786108},{"Date":"2026-02-09","Open":1760,"High":1870,"Low":1760,"Close":1830,"Volume":11613075},{"Date":"2026-02-10","Open":1860,"High":1865,"Low":1820,"Close":1845,"Volume":10813438},{"Date":"2026-02-11","Open":1795,"High":1865,"Low":1795,"Close":1855,"Volume":8232637},{"Date":"2026-02-23","Open":1880,"High":1880,"Low":1790,"Close":1795,"Volume":15948909},{"Date":"2026-02-24","Open":1810,"High":1825,"Low":1795,"Close":1825,"Volume":6740003},{"Date":"2026-02-25","Open":1840,"High":1870,"Low":1830,"Close":1870,"Volume":7857623},{"Date":"2026-02-26","Open":1895,"High":1975,"Low":1850,"Close":1945,"Volume":13692370},{"Date":"2026-03-02","Open":1945,"High":1945,"Low":1880,"Close":1900,"Volume":8811661},{"Date":"2026-03-03","Open":1900,"High":1910,"Low":1815,"Close":1815,"Volume":9621376},{"Date":"2026-03-04","Open":1760,"High":1780,"Low":1715,"Close":1720,"Volume":11024269},{"Date":"2026-03-05","Open":1760,"High":1800,"Low":1750,"Close":1775,"Volume":7826693},{"Date":"2026-03-06","Open":1745,"High":1790,"Low":1735,"Close":1765,"Volume":4418206},{"Date":"2026-03-09","Open":1620,"High":1665,"Low":1610,"Close":1665,"Volume":11475137},{"Date":"2026-03-10","Open":1730,"High":1730,"Low":1685,"Close":1705,"Volume":5273491},{"Date":"2026-03-11","Open":1760,"High":1780,"Low":1720,"Close":1765,"Volume":5783121},{"Date":"2026-03-12","Open":1745,"High":1815,"Low":1735,"Close":1785,"Volume":6354849},{"Date":"2026-03-13","Open":1730,"High":1745,"Low":1720,"Close":1720,"Volume":6467628},{"Date":"2026-03-16","Open":1720,"High":1740,"Low":1710,"Close":1710,"Volume":4423319},{"Date":"2026-03-17","Open":1730,"High":1740,"Low":1715,"Close":1730,"Volume":4260491},{"Date":"2026-03-18","Open":1730,"High":1745,"Low":1725,"Close":1730,"Volume":6009078},{"Date":"2026-03-19","Open":1700,"High":1705,"Low":1665,"Close":1680,"Volume":6764438},{"Date":"2026-03-20","Open":1685,"High":1715,"Low":1655,"Close":1700,"Volume":7874444},{"Date":"2026-03-23","Open":1630,"High":1645,"Low":1600,"Close":1625,"Volume":6372639},{"Date":"2026-03-24","Open":1655,"High":1665,"Low":1600,"Close":1620,"Volume":5324085},{"Date":"2026-03-25","Open":1665,"High":1665,"Low":1620,"Close":1620,"Volume":5839950},{"Date":"2026-03-26","Open":1610,"High":1640,"Low":1590,"Close":1590,"Volume":7031916},{"Date":"2026-03-27","Open":1560,"High":1585,"Low":1545,"Close":1585,"Volume":6833766},{"Date":"2026-03-30","Open":1540,"High":1555,"Low":1505,"Close":1510,"Volume":7235491},{"Date":"2026-03-31","Open":1525,"High":1540,"Low":1490,"Close":1490,"Volume":10218910},{"Date":"2026-04-01","Open":1550,"High":1550,"Low":1460,"Close":1465,"Volume":10756280},{"Date":"2026-04-02","Open":1500,"High":1510,"Low":1445,"Close":1465,"Volume":8691522},{"Date":"2026-04-07","Open":1480,"High":1480,"Low":1430,"Close":1470,"Volume":6910617},{"Date":"2026-04-08","Open":1520,"High":1585,"Low":1505,"Close":1580,"Volume":12976420},{"Date":"2026-04-09","Open":1600,"High":1600,"Low":1550,"Close":1575,"Volume":8061675},{"Date":"2026-04-10","Open":1600,"High":1605,"Low":1570,"Close":1575,"Volume":5381936},{"Date":"2026-04-13","Open":1645,"High":1665,"Low":1620,"Close":1620,"Volume":8802674},{"Date":"2026-04-14","Open":1645,"High":1745,"Low":1640,"Close":1720,"Volume":11909857},{"Date":"2026-04-15","Open":1805,"High":1845,"Low":1770,"Close":1790,"Volume":20848384},{"Date":"2026-04-16","Open":1850,"High":1930,"Low":1810,"Close":1895,"Volume":16504496},{"Date":"2026-04-17","Open":1930,"High":1955,"Low":1885,"Close":1925,"Volume":15450213},{"Date":"2026-04-20","Open":1960,"High":1965,"Low":1895,"Close":1900,"Volume":11027820},{"Date":"2026-04-21","Open":1930,"High":2090,"Low":1925,"Close":2090,"Volume":17347421},{"Date":"2026-04-22","Open":2120,"High":2295,"Low":2110,"Close":2295,"Volume":23044579},{"Date":"2026-04-23","Open":2325,"High":2335,"Low":2170,"Close":2215,"Volume":28172336},{"Date":"2026-04-24","Open":2340,"High":2435,"Low":2330,"Close":2435,"Volume":21684950},{"Date":"2026-04-27","Open":2470,"High":2575,"Low":2410,"Close":2425,"Volume":17051094}],
+[{"Price":2450,"Type":"整數心理關卡"},{"Price":2575,"Type":"波段相對高點"}],
+[{"Price":2400,"Type":"整數心理關卡"},{"Price":2330,"Type":"量增紅K低點"},{"Price":2292,"Type":"MA5位置"},{"Price":2110,"Type":"帶量紅K底部"},{"Price":2069,"Type":"MA10位置"}],
+2425);
 
-  var layout = {
-    paper_bgcolor:'#16213e',
-    plot_bgcolor:'#16213e',
-    font:{color:'#e2e8f0', size:11},
-    margin:{l:60, r:160, t:20, b:40},
-    xaxis:{
-      rangeslider:{visible:false},
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:10}
-    },
-    yaxis:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8'},
-      domain:[0.25,1]
-    },
-    yaxis2:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:9},
-      domain:[0,0.22]
-    },
-    legend:{font:{color:'#94a3b8'}, bgcolor:'rgba(0,0,0,0)'},
-    shapes: shapes,
-    annotations: annotations
-  };
-
-  Plotly.newPlot('chart_2330', [candleTrace, volTrace], layout, {responsive:true, displayModeBar:false});
-})();
+plotStock('chart-3556',
+[{"Date":"2026-01-20","Open":38.5,"High":38.5,"Low":37.95,"Close":38.15,"Volume":186368},{"Date":"2026-01-21","Open":38,"High":38.2,"Low":38,"Close":38.15,"Volume":127536},{"Date":"2026-01-22","Open":39,"High":41.95,"Low":38.9,"Close":41.95,"Volume":615747},{"Date":"2026-01-23","Open":42.5,"High":43.9,"Low":41,"Close":41.7,"Volume":1670678},{"Date":"2026-01-26","Open":41.8,"High":42.4,"Low":41,"Close":41.15,"Volume":240881},{"Date":"2026-01-27","Open":41.4,"High":41.95,"Low":41.2,"Close":41.45,"Volume":167160},{"Date":"2026-01-28","Open":41.5,"High":45.55,"Low":41.5,"Close":45.55,"Volume":1189745},{"Date":"2026-01-29","Open":45.5,"High":46.8,"Low":42.75,"Close":45,"Volume":1143301},{"Date":"2026-01-30","Open":44.25,"High":44.9,"Low":43,"Close":44.5,"Volume":320275},{"Date":"2026-02-02","Open":43.75,"High":43.75,"Low":42.05,"Close":42.05,"Volume":193311},{"Date":"2026-02-03","Open":42.55,"High":43.7,"Low":42.3,"Close":42.3,"Volume":137206},{"Date":"2026-02-04","Open":43.2,"High":43.7,"Low":42.7,"Close":43.65,"Volume":125095},{"Date":"2026-02-05","Open":43.6,"High":43.6,"Low":42.95,"Close":43.5,"Volume":99634},{"Date":"2026-02-06","Open":46.5,"High":47.25,"Low":44.8,"Close":46,"Volume":1216253},{"Date":"2026-02-09","Open":47,"High":47,"Low":44.8,"Close":45.05,"Volume":410112},{"Date":"2026-02-10","Open":44.85,"High":45.4,"Low":44,"Close":44.8,"Volume":199065},{"Date":"2026-02-11","Open":45.8,"High":45.8,"Low":42.85,"Close":42.95,"Volume":386164},{"Date":"2026-02-23","Open":43.2,"High":45.3,"Low":43.2,"Close":44.4,"Volume":223189},{"Date":"2026-02-24","Open":44.85,"High":44.85,"Low":43.8,"Close":43.85,"Volume":152537},{"Date":"2026-02-25","Open":44.5,"High":44.6,"Low":43,"Close":43.95,"Volume":294500},{"Date":"2026-02-26","Open":44.1,"High":44.7,"Low":44.05,"Close":44.6,"Volume":179940},{"Date":"2026-03-02","Open":44.6,"High":46.4,"Low":43.15,"Close":45.6,"Volume":308291},{"Date":"2026-03-03","Open":46.05,"High":46.05,"Low":43.85,"Close":43.9,"Volume":176190},{"Date":"2026-03-04","Open":43.1,"High":43.75,"Low":42.1,"Close":42.5,"Volume":260178},{"Date":"2026-03-05","Open":42.7,"High":44.5,"Low":42.7,"Close":43.85,"Volume":123168},{"Date":"2026-03-06","Open":40.8,"High":42.45,"Low":40.8,"Close":42.25,"Volume":297240},{"Date":"2026-03-09","Open":40.95,"High":41.25,"Low":40,"Close":40.55,"Volume":156084},{"Date":"2026-03-10","Open":41,"High":41,"Low":40.2,"Close":40.6,"Volume":113031},{"Date":"2026-03-11","Open":40.7,"High":42.7,"Low":40.7,"Close":42.2,"Volume":124161},{"Date":"2026-03-12","Open":42,"High":42.5,"Low":41.9,"Close":42,"Volume":60071},{"Date":"2026-03-13","Open":42,"High":42.15,"Low":41.7,"Close":41.8,"Volume":59300},{"Date":"2026-03-16","Open":42,"High":42.3,"Low":41.3,"Close":41.9,"Volume":137361},{"Date":"2026-03-17","Open":42.7,"High":43.35,"Low":42.35,"Close":42.65,"Volume":130143},{"Date":"2026-03-18","Open":42.8,"High":43.2,"Low":42.55,"Close":43.05,"Volume":157271},{"Date":"2026-03-19","Open":42.45,"High":42.85,"Low":42.1,"Close":42.15,"Volume":83020},{"Date":"2026-03-20","Open":42.15,"High":43.2,"Low":42,"Close":42.75,"Volume":88038},{"Date":"2026-03-23","Open":42,"High":42,"Low":40.9,"Close":41.15,"Volume":169356},{"Date":"2026-03-24","Open":41.8,"High":42.5,"Low":41.25,"Close":41.95,"Volume":80021},{"Date":"2026-03-25","Open":42.05,"High":45.95,"Low":42.05,"Close":45.25,"Volume":499235},{"Date":"2026-03-26","Open":45.25,"High":45.6,"Low":44.05,"Close":44.05,"Volume":231430},{"Date":"2026-03-27","Open":44.05,"High":45,"Low":43.25,"Close":44.7,"Volume":126165},{"Date":"2026-03-30","Open":44.2,"High":44.6,"Low":43.3,"Close":43.4,"Volume":107148},{"Date":"2026-03-31","Open":43.2,"High":43.5,"Low":42.2,"Close":42.3,"Volume":128189},{"Date":"2026-04-01","Open":42.5,"High":43.5,"Low":42.5,"Close":42.7,"Volume":119176},{"Date":"2026-04-02","Open":43,"High":44.3,"Low":42.7,"Close":43.85,"Volume":190163},{"Date":"2026-04-07","Open":44.55,"High":46,"Low":44.55,"Close":45.7,"Volume":344006},{"Date":"2026-04-08","Open":46.5,"High":46.8,"Low":45.8,"Close":45.8,"Volume":412459},{"Date":"2026-04-09","Open":46,"High":46,"Low":44.75,"Close":44.75,"Volume":172792},{"Date":"2026-04-10","Open":45.35,"High":45.8,"Low":44.6,"Close":44.75,"Volume":355086},{"Date":"2026-04-13","Open":44.75,"High":48.9,"Low":44.1,"Close":48.9,"Volume":959088},{"Date":"2026-04-14","Open":49.55,"High":49.65,"Low":48,"Close":48.05,"Volume":595925},{"Date":"2026-04-15","Open":49.25,"High":49.7,"Low":48.2,"Close":48.65,"Volume":533129},{"Date":"2026-04-16","Open":49,"High":49.3,"Low":48.1,"Close":48.25,"Volume":260275},{"Date":"2026-04-17","Open":48,"High":48.45,"Low":47.5,"Close":48.1,"Volume":230190},{"Date":"2026-04-20","Open":49.8,"High":52.9,"Low":49.8,"Close":52.9,"Volume":1802614},{"Date":"2026-04-21","Open":54.6,"High":58.1,"Low":54.5,"Close":58.1,"Volume":3304965},{"Date":"2026-04-22","Open":58.1,"High":58.6,"Low":56.1,"Close":56.3,"Volume":2147205},{"Date":"2026-04-23","Open":57.1,"High":57.9,"Low":51.1,"Close":53,"Volume":1517527},{"Date":"2026-04-24","Open":54.2,"High":57.5,"Low":53.3,"Close":54,"Volume":996383},{"Date":"2026-04-27","Open":54,"High":54,"Low":49.55,"Close":50.9,"Volume":488516}],
+[{"Price":51.82,"Type":"MA10位置"},{"Price":54.46,"Type":"MA5位置"},{"Price":55,"Type":"整數心理關卡"},{"Price":57.5,"Type":"量增黑K高點"},{"Price":58.6,"Type":"帶量黑K頂部"}],
+[{"Price":50,"Type":"整數心理關卡"},{"Price":49.55,"Type":"波段相對低點"},{"Price":48.26,"Type":"MA20位置"},{"Price":44.67,"Type":"MA60位置"},{"Price":44.1,"Type":"法人大買紅K底部"}],
+50.9);
 </script>
-
-<div class="stock-section">
-<div class="stock-header">
-  <span class="sid">6531</span>
-  <span class="sname">愛普</span>
-  <span class="sprice">▶ 682.0</span>
-  <span class="sverdict verdict-mid">🔥 積極偏多（強勢）</span>
-</div>
-<div class="chart-container">
-  <div id="chart_6531" style="width:100%;height:480px;"></div>
-</div>
-<div class="analysis-grid">
-  <div class="acard">
-    <h3>📈 走勢回顧</h3>
-    <p>近60日從396元低點大幅反彈，近10日更從471元飆漲至682元（+44%），4/15單日爆量15百萬（平均量5.3百萬近3倍）帶動強勢突破，創波段新高。近2日縮量整理在680附近，攻擊格局完整。</p>
-  </div>
-  <div class="acard">
-    <h3>🏦 法人動向</h3>
-    <p>支撐側無法人訊號，但帶量紅K（656）顯示主力積極買進；壓力側也無法人大賣，顯示目前無大戶出貨跡象。</p>
-  </div>
-  <div class="acard">
-    <h3>📊 均線多空判斷</h3>
-    <p>MA5=621、MA10=562均在支撐側（遠低於現價），形成完美多頭排列。均線發散代表趨勢強勁。</p>
-  </div>
-  <div class="acard">
-    <h3>🎯 操作建議</h3>
-    <div class="action-item aggressive">🔥 積極做法：<span>進場價：現價682直接買，或拉回656~665支撐買更優；目標一700整數，目標二708，突破後目標三750+；停損650跌破（整數+帶量支撐雙重保護）。</span></div>
-    <div class="action-item conservative">🛡 保守做法：<span>等拉回至MA5=621~650區間再進場，風險報酬更佳；或突破708確認後追漲。</span></div>
-    <div class="action-item risk">⚠️ 風險提示：<span>已累積大漲44%，獲利了結賣壓大；若無法突破700整數關，可能拉回測試MA5=621；須注意大盤系統性風險。</span></div>
-  </div>
-</div>
-<div class="section-title">支撐壓力詳細列表</div>
-<div class="level-table-wrap">
-<table class="level-table">
-<thead><tr><th>類型</th><th>價格</th><th>距現價%</th><th>說明</th><th>日期</th></tr></thead>
-<tbody>
-
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">700.00</td>
-  <td class="pct-pos">+2.6%</td>
-  <td>整數心理關卡</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">708.00</td>
-  <td class="pct-pos">+3.8%</td>
-  <td>波段相對高點</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">656.00</td>
-  <td class="pct-neg">-3.8%</td>
-  <td>帶量紅K底部</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">650.00</td>
-  <td class="pct-neg">-4.7%</td>
-  <td>整數心理關卡</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">621.80</td>
-  <td class="pct-neg">-8.8%</td>
-  <td>MA5位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">591.00</td>
-  <td class="pct-neg">-13.3%</td>
-  <td>前一交易日低點(量增紅K)</td>
-  <td>2026-04-17</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">562.20</td>
-  <td class="pct-neg">-17.6%</td>
-  <td>MA10位置</td>
-  <td>2026-04-20</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-
-<script>
-(function(){
-  var dates = ["2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20"];
-  var opens = [483.0, 478.5, 475.0, 475.5, 506.0, 501.0, 500.0, 502.0, 476.0, 463.0, 451.0, 440.0, 442.0, 439.0, 421.0, 429.5, 424.5, 423.0, 405.0, 419.0, 408.5, 410.0, 404.0, 402.5, 413.5, 425.5, 423.0, 436.0, 417.5, 422.0, 440.5, 391.5, 420.0, 438.0, 439.0, 485.5, 537.0, 534.0, 615.0, 555.0, 568.0, 535.0, 538.0, 516.0, 514.0, 496.0, 490.0, 475.5, 462.0, 465.5, 469.0, 490.0, 480.0, 494.0, 510.0, 586.0, 630.0, 594.0, 593.0, 670.0];
-  var highs = [483.0, 482.0, 482.0, 494.5, 525.0, 508.0, 514.0, 504.0, 485.0, 469.0, 457.0, 451.5, 453.0, 447.5, 431.0, 436.5, 435.0, 433.0, 417.5, 419.0, 411.0, 410.0, 407.0, 415.5, 432.0, 449.0, 438.0, 445.0, 429.0, 442.0, 446.0, 405.0, 434.5, 445.0, 485.5, 534.0, 547.0, 580.0, 623.0, 568.0, 582.0, 543.0, 542.0, 525.0, 531.0, 509.0, 497.5, 489.5, 468.0, 473.0, 484.0, 496.5, 502.0, 528.0, 567.0, 614.0, 652.0, 596.0, 644.0, 708.0];
-  var lows = [461.0, 467.5, 465.0, 474.0, 501.0, 482.5, 484.0, 473.0, 461.5, 445.0, 436.5, 429.5, 442.0, 429.5, 416.5, 417.5, 422.0, 413.0, 391.5, 405.5, 403.0, 396.0, 397.0, 399.5, 403.0, 423.0, 411.0, 422.0, 404.0, 421.5, 428.0, 391.5, 417.0, 432.0, 435.5, 478.5, 514.0, 522.0, 561.0, 546.0, 550.0, 521.0, 488.0, 504.0, 509.0, 481.5, 484.5, 439.5, 452.0, 440.0, 469.0, 472.5, 475.0, 492.0, 502.0, 555.0, 586.0, 573.0, 591.0, 656.0];
-  var closes = [476.0, 468.5, 470.0, 481.5, 515.0, 506.0, 490.0, 476.0, 466.5, 450.0, 438.0, 436.0, 443.0, 429.5, 420.0, 430.0, 426.5, 413.0, 407.0, 405.5, 410.0, 396.0, 402.5, 412.0, 427.5, 433.5, 433.5, 422.0, 404.0, 440.5, 434.5, 403.0, 427.5, 441.5, 485.5, 531.0, 528.0, 580.0, 572.0, 551.0, 553.0, 523.0, 501.0, 511.0, 509.0, 507.0, 485.0, 442.0, 460.0, 440.0, 471.5, 478.0, 480.5, 516.0, 567.0, 606.0, 591.0, 586.0, 644.0, 682.0];
-  var vols = [4018158, 2841468, 4057921, 5070565, 8817700, 7504860, 8271914, 5940076, 5314471, 5158445, 4072474, 6829984, 4412559, 4332770, 2887864, 3734499, 2018599, 2983332, 3044275, 1377682, 1161340, 1671946, 1561121, 1815335, 4248564, 4816593, 2272090, 3081532, 2546829, 3347796, 3506900, 2929501, 2268881, 2680722, 11320282, 17699745, 9164253, 12545601, 13122833, 6852345, 6648672, 4212487, 6890935, 3456345, 4280781, 3947574, 2586787, 5071908, 2793086, 2496333, 3336279, 4579512, 4761302, 5700815, 7107841, 15055312, 10442327, 6325551, 8073358, 12331581];
-  var resistances = [{"Price": 700.0, "Pct": 2.6, "Type": "\u6574\u6578\u5fc3\u7406\u95dc\u5361", "Date": "2026-04-20"}, {"Price": 708.0, "Pct": 3.8, "Type": "\u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "Date": "2026-04-20"}];
-  var supports = [{"Price": 656.0, "Pct": -3.8, "Type": "\u5e36\u91cf\u7d05K\u5e95\u90e8", "Date": "2026-04-20"}, {"Price": 650.0, "Pct": -4.7, "Type": "\u6574\u6578\u5fc3\u7406\u95dc\u5361", "Date": "2026-04-20"}, {"Price": 621.8, "Pct": -8.8, "Type": "MA5\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 591.0, "Pct": -13.3, "Type": "\u524d\u4e00\u4ea4\u6613\u65e5\u4f4e\u9ede(\u91cf\u589e\u7d05K)", "Date": "2026-04-17"}, {"Price": 562.2, "Pct": -17.6, "Type": "MA10\u4f4d\u7f6e", "Date": "2026-04-20"}];
-  var curPrice = 682.0;
-
-  var candleColors = closes.map((c,i) => c >= opens[i] ? '#ff4b4b' : '#26a269');
-  var candleBorderColors = candleColors;
-
-  var shapes = [];
-  var annotations = [];
-
-  // Current price line
-  shapes.push({
-    type:'line', xref:'paper', yref:'y',
-    x0:0, x1:1, y0:curPrice, y1:curPrice,
-    line:{color:'rgba(251,191,36,0.85)', width:1.5, dash:'dash'}
-  });
-  annotations.push({
-    xref:'paper', yref:'y', x:0.01, y:curPrice,
-    text:'現價 '+curPrice.toLocaleString(), showarrow:false,
-    font:{color:'#fbbf24', size:11}, bgcolor:'rgba(15,15,26,0.7)',
-    bordercolor:'#fbbf24', borderwidth:1, xanchor:'left'
-  });
-
-  // Resistance lines
-  resistances.forEach((r,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:r.Price, y1:r.Price,
-      line:{color:'rgba(74,222,128,0.6)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:r.Price,
-      text:'P'+(i+1)+' '+r.Price.toFixed(0)+' '+r.Type,
-      showarrow:false, font:{color:'#4ade80', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  // Support lines
-  supports.forEach((s,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:s.Price, y1:s.Price,
-      line:{color:'rgba(248,113,113,0.8)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:s.Price,
-      text:'S'+(i+1)+' '+s.Price.toFixed(0)+' '+s.Type,
-      showarrow:false, font:{color:'#f87171', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  var candleTrace = {
-    type:'candlestick',
-    x: dates,
-    open: opens, high: highs, low: lows, close: closes,
-    increasing:{line:{color:'#ff4b4b'}, fillcolor:'#ff4b4b'},
-    decreasing:{line:{color:'#26a269'}, fillcolor:'#26a269'},
-    name:'K線', yaxis:'y'
-  };
-
-  var volTrace = {
-    type:'bar',
-    x: dates,
-    y: vols,
-    marker:{color: closes.map((c,i)=>c>=opens[i]?'rgba(255,75,75,0.5)':'rgba(38,162,105,0.5)')},
-    name:'成交量', yaxis:'y2'
-  };
-
-  var layout = {
-    paper_bgcolor:'#16213e',
-    plot_bgcolor:'#16213e',
-    font:{color:'#e2e8f0', size:11},
-    margin:{l:60, r:160, t:20, b:40},
-    xaxis:{
-      rangeslider:{visible:false},
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:10}
-    },
-    yaxis:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8'},
-      domain:[0.25,1]
-    },
-    yaxis2:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:9},
-      domain:[0,0.22]
-    },
-    legend:{font:{color:'#94a3b8'}, bgcolor:'rgba(0,0,0,0)'},
-    shapes: shapes,
-    annotations: annotations
-  };
-
-  Plotly.newPlot('chart_6531', [candleTrace, volTrace], layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-<div class="stock-section">
-<div class="stock-header">
-  <span class="sid">2344</span>
-  <span class="sname">華邦電</span>
-  <span class="sprice">▶ 85.7</span>
-  <span class="sverdict verdict-mid">🔻 偏空、反彈賣</span>
-</div>
-<div class="chart-container">
-  <div id="chart_2344" style="width:100%;height:480px;"></div>
-</div>
-<div class="analysis-grid">
-  <div class="acard">
-    <h3>📈 走勢回顧</h3>
-    <p>近60日從129元高點持續下跌，目前85.7元已創60日新低，跌幅達33%。近10日從89元緩步下跌，量偏大（平均1.3億）且收盤價逐日走低，顯示有大量籌碼持續出脫，無止跌訊號。</p>
-  </div>
-  <div class="acard">
-    <h3>🏦 法人動向</h3>
-    <p>壓力側「法人大賣黑K頂部」在96.6（4/15），代表法人近期出貨位，反彈到此賣壓沉重。支撐側無法人大買訊號，缺乏護盤力道。</p>
-  </div>
-  <div class="acard">
-    <h3>📊 均線多空判斷</h3>
-    <p>MA5/MA10/MA20全在上方壓制（完美空頭排列），現價就在MA120=85.64支撐邊緣，一旦跌破轉為全面空頭。</p>
-  </div>
-  <div class="acard">
-    <h3>🎯 操作建議</h3>
-    <div class="action-item aggressive">🔥 積極做法：<span>空單進場：反彈至MA5=89~91賣出；目標一83.8（波段低），目標二80整數；停損92（MA10上破）。</span></div>
-    <div class="action-item conservative">🛡 保守做法：<span>持有部位先出場觀望，等MA5轉向上彎且站回MA20以上再重新評估多頭機會。</span></div>
-    <div class="action-item risk">⚠️ 風險提示：<span>若MA120=85.64守住且成交量大幅萎縮，可能短線止跌反彈；須注意DRAM產業訂單好轉消息造成跳空反彈。</span></div>
-  </div>
-</div>
-<div class="section-title">支撐壓力詳細列表</div>
-<div class="level-table-wrap">
-<table class="level-table">
-<thead><tr><th>類型</th><th>價格</th><th>距現價%</th><th>說明</th><th>日期</th></tr></thead>
-<tbody>
-
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">89.36</td>
-  <td class="pct-pos">+4.3%</td>
-  <td>MA5位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">91.07</td>
-  <td class="pct-pos">+6.3%</td>
-  <td>MA10位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">93.99</td>
-  <td class="pct-pos">+9.7%</td>
-  <td>MA20位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">96.60</td>
-  <td class="pct-pos">+12.7%</td>
-  <td>法人大賣黑K頂部</td>
-  <td>2026-04-15</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">98.00</td>
-  <td class="pct-pos">+14.4%</td>
-  <td>波段相對高點</td>
-  <td>2026-04-14</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">85.64</td>
-  <td class="pct-neg">-0.1%</td>
-  <td>MA120位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">83.80</td>
-  <td class="pct-neg">-2.2%</td>
-  <td>波段相對低點</td>
-  <td>2026-04-20</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-
-<script>
-(function(){
-  var dates = ["2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20"];
-  var opens = [103.95573024846904, 98.4843760248654, 99.28021544682748, 101.46875, 114.40104668744132, 104.95052320767293, 111.41666936648402, 112.90885969098105, 106.44271361712114, 106.44271074143131, 112.90885416666666, 119.87240065927581, 132.30729687030498, 131.8099010779236, 120.86719016371102, 122.85677381036406, 104.45312746109502, 101.96614837646484, 99.47916512271546, 105.44792168195858, 107.4375, 100.97135661337613, 113.90365089748218, 114.40104406388079, 121.36458859201205, 118.87760912836814, 114.40104166666666, 124.34895833333333, 105.44791925870454, 112.90885932104929, 109.42708333333333, 95.40052476598095, 107.4375026033953, 108.43229166666666, 113.90365117624265, 108.43229675292969, 112.90885416666666, 120.8671900019472, 128.32812756299973, 122.85677340773285, 123.35416953346946, 102.96094239700672, 108.92969029872262, 98.48437395843611, 99.47916666666666, 90.19999694824219, 91.19999694824219, 88.0, 97.0999984741211, 96.0, 95.0, 93.0999984741211, 96.0, 93.0, 93.80000305175781, 96.80000305175781, 95.5999984741211, 90.5999984741211, 90.0, 87.5];
-  var highs = [103.95573024846904, 99.97656354039366, 99.47917075246906, 107.4375, 116.39063010809247, 113.90364841022323, 111.41666936648402, 112.90885969098105, 106.44271361712114, 112.41146087646484, 119.87239583333333, 126.33854675292969, 135.29167198768027, 135.29167204979328, 121.86198185230124, 122.85677381036406, 110.91927344678184, 106.94010683385336, 101.46874842516976, 106.94010925292969, 108.43229166666666, 108.43229429416748, 115.39583846382473, 122.85677340773285, 123.35417201155323, 123.35417181521046, 126.33854166666666, 124.34895833333333, 108.92969017762404, 113.40625517708915, 112.41145833333333, 100.47396087646484, 108.43229429416748, 114.40104166666666, 116.88802631623155, 113.90365117624265, 117.38541666666666, 125.3437525946119, 128.82552340626717, 124.84635678275686, 123.85156537836248, 108.92969268089116, 108.92969029872262, 102.4635405830194, 103.95572916666666, 92.4000015258789, 96.80000305175781, 95.5, 97.19999694824219, 97.5999984741211, 95.80000305175781, 95.80000305175781, 96.19999694824219, 97.5, 95.19999694824219, 98.0, 96.5999984741211, 90.9000015258789, 90.69999694824219, 88.4000015258789];
-  var lows = [97.98698018635598, 98.4843760248654, 98.58385669776516, 99.9765625, 114.40104668744132, 104.95052320767293, 102.4635441495344, 103.95573425292969, 98.88229809308909, 106.44271074143131, 109.42708333333333, 119.37500480591783, 123.35417151817909, 127.83073425292969, 115.39583587646484, 103.95573168569267, 103.95573161604219, 100.47396083924828, 94.50520686657968, 100.47396311205488, 101.96614583333333, 100.97135661337613, 111.9140674756921, 112.41146068885678, 114.40104662361792, 115.395838149713, 114.40104166666666, 111.9140625, 101.46875249422513, 108.43229661669051, 104.95052083333333, 95.40052476598095, 100.97135661337613, 106.94010416666666, 108.43229675292969, 107.43750503960005, 112.41145833333333, 118.87760662742954, 119.87239822745323, 119.37500250144082, 109.42708587646484, 102.96094239700672, 96.4947941459004, 97.58905994997328, 95.5, 87.19999694824219, 90.5999984741211, 85.19999694824219, 91.30000305175781, 91.80000305175781, 89.0999984741211, 92.19999694824219, 90.30000305175781, 92.30000305175781, 91.5, 93.5, 90.0999984741211, 88.30000305175781, 86.80000305175781, 83.80000305175781];
-  var closes = [99.28021240234375, 99.28021240234375, 98.68333435058594, 105.9453125, 115.89323425292969, 112.41146087646484, 104.95052337646484, 103.95573425292969, 102.46354675292969, 112.41146087646484, 114.8984375, 126.33854675292969, 129.3229217529297, 127.83073425292969, 115.39583587646484, 104.95052337646484, 107.93489837646484, 101.96614837646484, 97.2906265258789, 106.94010925292969, 102.9609375, 104.95052337646484, 114.40104675292969, 121.36458587646484, 117.38542175292969, 121.86198425292969, 123.8515625, 111.9140625, 103.45833587646484, 111.41667175292969, 105.9453125, 100.47396087646484, 104.95052337646484, 113.40625, 108.43229675292969, 108.43229675292969, 116.390625, 122.85677337646484, 127.33333587646484, 121.36458587646484, 109.42708587646484, 106.94010925292969, 98.98177337646484, 97.68853759765625, 95.5, 92.4000015258789, 93.0, 90.19999694824219, 93.0999984741211, 91.80000305175781, 89.4000015258789, 95.5999984741211, 91.0, 93.5, 94.4000015258789, 93.5, 90.19999694824219, 89.5999984741211, 87.80000305175781, 85.69999694824219];
-  var vols = [41949387, 23207546, 22209895, 50187737, 53878993, 50919746, 63561383, 56609929, 48889584, 58355135, 278718118, 181306216, 387822875, 248256361, 162798671, 446395429, 208672622, 145713292, 231242639, 153756321, 197884652, 201852742, 170398493, 247211557, 168820084, 179034587, 154454824, 187993914, 180166754, 164400380, 121644964, 166319493, 162997237, 180693023, 166186883, 171591816, 199547521, 234411445, 294009796, 196236526, 333969259, 146975829, 219474874, 197568906, 187684038, 156697189, 151065269, 246396898, 204494213, 182614532, 168420585, 170255203, 133744895, 165392603, 95066611, 166319361, 126143808, 110222111, 118916574, 164660840];
-  var resistances = [{"Price": 89.36, "Pct": 4.3, "Type": "MA5\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 91.07, "Pct": 6.3, "Type": "MA10\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 93.99, "Pct": 9.7, "Type": "MA20\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 96.5999984741211, "Pct": 12.7, "Type": "\u6cd5\u4eba\u5927\u8ce3\u9ed1K\u9802\u90e8", "Date": "2026-04-15"}, {"Price": 98.0, "Pct": 14.4, "Type": "\u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "Date": "2026-04-14"}];
-  var supports = [{"Price": 85.64, "Pct": -0.1, "Type": "MA120\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 83.80000305175781, "Pct": -2.2, "Type": "\u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "Date": "2026-04-20"}];
-  var curPrice = 85.69999694824219;
-
-  var candleColors = closes.map((c,i) => c >= opens[i] ? '#ff4b4b' : '#26a269');
-  var candleBorderColors = candleColors;
-
-  var shapes = [];
-  var annotations = [];
-
-  // Current price line
-  shapes.push({
-    type:'line', xref:'paper', yref:'y',
-    x0:0, x1:1, y0:curPrice, y1:curPrice,
-    line:{color:'rgba(251,191,36,0.85)', width:1.5, dash:'dash'}
-  });
-  annotations.push({
-    xref:'paper', yref:'y', x:0.01, y:curPrice,
-    text:'現價 '+curPrice.toLocaleString(), showarrow:false,
-    font:{color:'#fbbf24', size:11}, bgcolor:'rgba(15,15,26,0.7)',
-    bordercolor:'#fbbf24', borderwidth:1, xanchor:'left'
-  });
-
-  // Resistance lines
-  resistances.forEach((r,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:r.Price, y1:r.Price,
-      line:{color:'rgba(74,222,128,0.6)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:r.Price,
-      text:'P'+(i+1)+' '+r.Price.toFixed(0)+' '+r.Type,
-      showarrow:false, font:{color:'#4ade80', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  // Support lines
-  supports.forEach((s,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:s.Price, y1:s.Price,
-      line:{color:'rgba(248,113,113,0.8)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:s.Price,
-      text:'S'+(i+1)+' '+s.Price.toFixed(0)+' '+s.Type,
-      showarrow:false, font:{color:'#f87171', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  var candleTrace = {
-    type:'candlestick',
-    x: dates,
-    open: opens, high: highs, low: lows, close: closes,
-    increasing:{line:{color:'#ff4b4b'}, fillcolor:'#ff4b4b'},
-    decreasing:{line:{color:'#26a269'}, fillcolor:'#26a269'},
-    name:'K線', yaxis:'y'
-  };
-
-  var volTrace = {
-    type:'bar',
-    x: dates,
-    y: vols,
-    marker:{color: closes.map((c,i)=>c>=opens[i]?'rgba(255,75,75,0.5)':'rgba(38,162,105,0.5)')},
-    name:'成交量', yaxis:'y2'
-  };
-
-  var layout = {
-    paper_bgcolor:'#16213e',
-    plot_bgcolor:'#16213e',
-    font:{color:'#e2e8f0', size:11},
-    margin:{l:60, r:160, t:20, b:40},
-    xaxis:{
-      rangeslider:{visible:false},
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:10}
-    },
-    yaxis:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8'},
-      domain:[0.25,1]
-    },
-    yaxis2:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:9},
-      domain:[0,0.22]
-    },
-    legend:{font:{color:'#94a3b8'}, bgcolor:'rgba(0,0,0,0)'},
-    shapes: shapes,
-    annotations: annotations
-  };
-
-  Plotly.newPlot('chart_2344', [candleTrace, volTrace], layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-<div class="stock-section">
-<div class="stock-header">
-  <span class="sid">2408</span>
-  <span class="sname">南亞科</span>
-  <span class="sprice">▶ 207.0</span>
-  <span class="sverdict verdict-mid">🔻 偏空、反彈賣</span>
-</div>
-<div class="chart-container">
-  <div id="chart_2408" style="width:100%;height:480px;"></div>
-</div>
-<div class="analysis-grid">
-  <div class="acard">
-    <h3>📈 走勢回顧</h3>
-    <p>近60日從326.5高點大跌至198.5，跌幅近40%。近10日在200~225間劇烈震盪，4/9反彈到225.5（帶量近1億）後再度走弱，目前207元仍在壓力帶下方，反彈力道不足，屬下跌趨勢中的弱勢反彈。</p>
-  </div>
-  <div class="acard">
-    <h3>🏦 法人動向</h3>
-    <p>壓力側「法人大賣黑K頂部」在222（4/9）、帶量黑K227，顯示法人在兩波高點出貨；支撐側無法人大買，缺乏下檔保護。</p>
-  </div>
-  <div class="acard">
-    <h3>📊 均線多空判斷</h3>
-    <p>MA5/MA20均在上方壓制，且MA20(215.6)>MA5(212.4)，均線死叉偏空；MA120=204.58是最後防線。</p>
-  </div>
-  <div class="acard">
-    <h3>🎯 操作建議</h3>
-    <div class="action-item aggressive">🔥 積極做法：<span>空單進場：反彈至210~212.4賣出；目標一202（波段低），目標二200整數；停損215（MA20上破）。</span></div>
-    <div class="action-item conservative">🛡 保守做法：<span>等價格站回MA20=215.6以上，且量能配合，再考慮偏多操作；目前不宜追多。</span></div>
-    <div class="action-item risk">⚠️ 風險提示：<span>200元整數心理支撐若守住且量縮，可能出現技術反彈；DRAM報價上漲消息可能引發短線軋空。</span></div>
-  </div>
-</div>
-<div class="section-title">支撐壓力詳細列表</div>
-<div class="level-table-wrap">
-<table class="level-table">
-<thead><tr><th>類型</th><th>價格</th><th>距現價%</th><th>說明</th><th>日期</th></tr></thead>
-<tbody>
-
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">210.00</td>
-  <td class="pct-pos">+1.4%</td>
-  <td>整數心理關卡</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">212.40</td>
-  <td class="pct-pos">+2.6%</td>
-  <td>MA5位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">215.60</td>
-  <td class="pct-pos">+4.2%</td>
-  <td>MA20位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">222.00</td>
-  <td class="pct-pos">+7.2%</td>
-  <td>法人大賣黑K頂部</td>
-  <td>2026-04-09</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">227.00</td>
-  <td class="pct-pos">+9.7%</td>
-  <td>帶量黑K頂部</td>
-  <td>2026-03-24</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">204.58</td>
-  <td class="pct-neg">-1.2%</td>
-  <td>MA120位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">202.00</td>
-  <td class="pct-neg">-2.4%</td>
-  <td>波段相對低點</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">200.00</td>
-  <td class="pct-neg">-3.4%</td>
-  <td>整數心理關卡</td>
-  <td>2026-04-20</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-
-<script>
-(function(){
-  var dates = ["2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20"];
-  var opens = [245.0, 225.0, 235.5, 244.5, 270.0, 247.5, 266.0, 270.0, 275.0, 279.5, 283.0, 288.0, 306.0, 303.5, 310.0, 312.0, 279.5, 282.0, 260.0, 282.5, 276.5, 266.5, 295.0, 292.0, 298.0, 290.0, 268.0, 287.0, 238.0, 257.5, 259.0, 210.0, 220.0, 245.0, 257.0, 237.5, 247.0, 267.0, 284.5, 268.5, 264.5, 217.5, 226.5, 226.5, 249.0, 217.0, 215.0, 207.5, 211.5, 217.0, 210.5, 217.0, 222.0, 211.0, 218.5, 238.5, 227.5, 212.5, 215.0, 206.0];
-  var highs = [245.0, 236.5, 242.5, 255.0, 275.0, 274.0, 267.0, 276.0, 282.5, 295.0, 286.0, 299.5, 313.0, 326.5, 310.0, 314.5, 298.0, 286.0, 277.5, 283.0, 281.0, 281.0, 298.5, 303.0, 298.0, 291.5, 291.0, 288.0, 246.5, 257.5, 262.0, 210.0, 231.0, 254.0, 261.5, 245.5, 261.5, 284.5, 288.5, 272.5, 264.5, 230.0, 227.0, 229.5, 249.0, 220.0, 227.0, 210.0, 213.0, 219.0, 212.0, 223.5, 222.0, 220.0, 227.5, 240.0, 229.5, 216.5, 217.0, 209.0];
-  var lows = [224.5, 225.0, 235.5, 244.5, 270.0, 247.5, 245.0, 262.0, 256.0, 274.5, 274.0, 285.0, 287.0, 303.5, 294.0, 265.0, 273.5, 269.0, 251.0, 269.0, 263.5, 264.5, 286.5, 286.0, 283.0, 277.0, 267.5, 256.5, 231.0, 257.5, 232.5, 210.0, 215.0, 240.0, 239.0, 235.0, 245.5, 266.5, 271.5, 260.0, 234.0, 217.5, 204.0, 218.5, 225.0, 207.0, 213.5, 198.5, 205.0, 200.0, 202.5, 214.5, 204.0, 209.0, 214.5, 220.0, 211.5, 208.5, 205.0, 202.0];
-  var closes = [230.0, 236.5, 237.5, 250.0, 275.0, 272.0, 251.0, 266.5, 271.5, 286.0, 277.0, 297.0, 297.0, 326.5, 294.0, 277.5, 295.0, 275.0, 264.0, 274.5, 271.0, 278.0, 289.0, 298.0, 288.0, 285.5, 285.0, 256.5, 234.5, 257.5, 233.0, 210.0, 231.0, 254.0, 239.5, 238.0, 261.5, 271.5, 276.0, 260.0, 234.0, 223.0, 216.5, 226.5, 225.5, 219.5, 220.5, 198.5, 211.0, 200.5, 206.0, 223.0, 205.0, 215.0, 225.5, 220.0, 211.5, 213.5, 210.0, 207.0];
-  var vols = [10571290, 9783721, 7439479, 15747022, 12798774, 26189068, 27644945, 22120755, 165232150, 111161380, 75560007, 117090721, 126434701, 126113999, 97058085, 175086747, 101351124, 86466349, 131687996, 87673937, 95685271, 90906529, 91296194, 92986109, 66784821, 64832341, 52496960, 87454156, 105278188, 21082824, 158410557, 20638661, 114034338, 89192007, 149941247, 94195866, 91624503, 130911740, 100661642, 81924960, 154684660, 76862997, 147786363, 96516285, 181359174, 131297286, 124793584, 144693809, 120891443, 118678529, 72854559, 94079973, 88390863, 92689098, 96214475, 159108831, 104925775, 52221009, 67233540, 67942536];
-  var resistances = [{"Price": 210.0, "Pct": 1.4, "Type": "\u6574\u6578\u5fc3\u7406\u95dc\u5361", "Date": "2026-04-20"}, {"Price": 212.4, "Pct": 2.6, "Type": "MA5\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 215.6, "Pct": 4.2, "Type": "MA20\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 222.0, "Pct": 7.2, "Type": "\u6cd5\u4eba\u5927\u8ce3\u9ed1K\u9802\u90e8", "Date": "2026-04-09"}, {"Price": 227.0, "Pct": 9.7, "Type": "\u5e36\u91cf\u9ed1K\u9802\u90e8", "Date": "2026-03-24"}];
-  var supports = [{"Price": 204.58, "Pct": -1.2, "Type": "MA120\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 202.0, "Pct": -2.4, "Type": "\u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "Date": "2026-04-20"}, {"Price": 200.0, "Pct": -3.4, "Type": "\u6574\u6578\u5fc3\u7406\u95dc\u5361", "Date": "2026-04-20"}];
-  var curPrice = 207.0;
-
-  var candleColors = closes.map((c,i) => c >= opens[i] ? '#ff4b4b' : '#26a269');
-  var candleBorderColors = candleColors;
-
-  var shapes = [];
-  var annotations = [];
-
-  // Current price line
-  shapes.push({
-    type:'line', xref:'paper', yref:'y',
-    x0:0, x1:1, y0:curPrice, y1:curPrice,
-    line:{color:'rgba(251,191,36,0.85)', width:1.5, dash:'dash'}
-  });
-  annotations.push({
-    xref:'paper', yref:'y', x:0.01, y:curPrice,
-    text:'現價 '+curPrice.toLocaleString(), showarrow:false,
-    font:{color:'#fbbf24', size:11}, bgcolor:'rgba(15,15,26,0.7)',
-    bordercolor:'#fbbf24', borderwidth:1, xanchor:'left'
-  });
-
-  // Resistance lines
-  resistances.forEach((r,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:r.Price, y1:r.Price,
-      line:{color:'rgba(74,222,128,0.6)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:r.Price,
-      text:'P'+(i+1)+' '+r.Price.toFixed(0)+' '+r.Type,
-      showarrow:false, font:{color:'#4ade80', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  // Support lines
-  supports.forEach((s,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:s.Price, y1:s.Price,
-      line:{color:'rgba(248,113,113,0.8)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:s.Price,
-      text:'S'+(i+1)+' '+s.Price.toFixed(0)+' '+s.Type,
-      showarrow:false, font:{color:'#f87171', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  var candleTrace = {
-    type:'candlestick',
-    x: dates,
-    open: opens, high: highs, low: lows, close: closes,
-    increasing:{line:{color:'#ff4b4b'}, fillcolor:'#ff4b4b'},
-    decreasing:{line:{color:'#26a269'}, fillcolor:'#26a269'},
-    name:'K線', yaxis:'y'
-  };
-
-  var volTrace = {
-    type:'bar',
-    x: dates,
-    y: vols,
-    marker:{color: closes.map((c,i)=>c>=opens[i]?'rgba(255,75,75,0.5)':'rgba(38,162,105,0.5)')},
-    name:'成交量', yaxis:'y2'
-  };
-
-  var layout = {
-    paper_bgcolor:'#16213e',
-    plot_bgcolor:'#16213e',
-    font:{color:'#e2e8f0', size:11},
-    margin:{l:60, r:160, t:20, b:40},
-    xaxis:{
-      rangeslider:{visible:false},
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:10}
-    },
-    yaxis:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8'},
-      domain:[0.25,1]
-    },
-    yaxis2:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:9},
-      domain:[0,0.22]
-    },
-    legend:{font:{color:'#94a3b8'}, bgcolor:'rgba(0,0,0,0)'},
-    shapes: shapes,
-    annotations: annotations
-  };
-
-  Plotly.newPlot('chart_2408', [candleTrace, volTrace], layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-<div class="stock-section">
-<div class="stock-header">
-  <span class="sid">2454</span>
-  <span class="sname">聯發科</span>
-  <span class="sprice">▶ 1,900.0</span>
-  <span class="sverdict verdict-mid">⚡ 短線整理、中線偏多</span>
-</div>
-<div class="chart-container">
-  <div id="chart_2454" style="width:100%;height:480px;"></div>
-</div>
-<div class="analysis-grid">
-  <div class="acard">
-    <h3>📈 走勢回顧</h3>
-    <p>近60日從1465低點強勢反彈至1925（+31%），近10日從1470急速飆漲至1925後拉回1900，顯示多方強勁但接近壓力壓制。4/16~4/17爆量（20~15百萬）帶動突破1800、1900整數關，攻擊訊號明確。最新量能縮至11.6百萬，短線需消化獲利賣壓。</p>
-  </div>
-  <div class="acard">
-    <h3>🏦 法人動向</h3>
-    <p>支撐側有三個「法人大買紅K底部」（1760/1810/1830），法人持續建倉，護盤力道極強。壓力側1910有法人大賣紀錄，此關若突破代表法人轉為淨買超，多頭將更強。</p>
-  </div>
-  <div class="acard">
-    <h3>📊 均線多空判斷</h3>
-    <p>MA5=1846在支撐側，多頭排列偏多。MA10=1705在遠下方（支撐），顯示強勁上漲趨勢。</p>
-  </div>
-  <div class="acard">
-    <h3>🎯 操作建議</h3>
-    <div class="action-item aggressive">🔥 積極做法：<span>突破1910確認後進場（收盤站上為準）；目標一1950，目標二1975；停損1846（MA5跌破）。或現價1900分批買，等突破。</span></div>
-    <div class="action-item conservative">🛡 保守做法：<span>等拉回測試MA5=1846~1830支撐區，確認量縮不破再進場；風險報酬最佳。</span></div>
-    <div class="action-item risk">⚠️ 風險提示：<span>若無法突破1910法人大賣壓力，可能出現雙頂，拉回測試1830~1810；需注意中美貿易政策對晶片設計股的衝擊。</span></div>
-  </div>
-</div>
-<div class="section-title">支撐壓力詳細列表</div>
-<div class="level-table-wrap">
-<table class="level-table">
-<thead><tr><th>類型</th><th>價格</th><th>距現價%</th><th>說明</th><th>日期</th></tr></thead>
-<tbody>
-
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">1,910.00</td>
-  <td class="pct-pos">+0.5%</td>
-  <td>法人大賣黑K頂部</td>
-  <td>2026-03-03</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">1,950.00</td>
-  <td class="pct-pos">+2.6%</td>
-  <td>整數心理關卡</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="resist-row">
-  <td>壓力</td>
-  <td class="resist">1,975.00</td>
-  <td class="pct-pos">+3.9%</td>
-  <td>波段相對高點</td>
-  <td>2026-02-26</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,846.00</td>
-  <td class="pct-neg">-2.8%</td>
-  <td>MA5位置</td>
-  <td>2026-04-20</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,830.00</td>
-  <td class="pct-neg">-3.7%</td>
-  <td>法人大買紅K底部</td>
-  <td>2026-02-25</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,810.00</td>
-  <td class="pct-neg">-4.7%</td>
-  <td>法人大買紅K底部</td>
-  <td>2026-04-16</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,760.00</td>
-  <td class="pct-neg">-7.4%</td>
-  <td>法人大買紅K底部</td>
-  <td>2026-02-09</td>
-</tr>
-<tr class="support-row">
-  <td>支撐</td>
-  <td class="support">1,705.00</td>
-  <td class="pct-neg">-10.3%</td>
-  <td>MA10位置</td>
-  <td>2026-04-20</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-
-<script>
-(function(){
-  var dates = ["2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20"];
-  var opens = [1455.0, 1485.0, 1500.0, 1500.0, 1510.0, 1480.0, 1470.0, 1495.0, 1525.0, 1740.0, 1755.0, 1755.0, 1780.0, 1770.0, 1715.0, 1740.0, 1760.0, 1750.0, 1745.0, 1760.0, 1860.0, 1795.0, 1880.0, 1810.0, 1840.0, 1895.0, 1945.0, 1900.0, 1760.0, 1760.0, 1745.0, 1620.0, 1730.0, 1760.0, 1745.0, 1730.0, 1720.0, 1730.0, 1730.0, 1700.0, 1685.0, 1630.0, 1655.0, 1665.0, 1610.0, 1560.0, 1540.0, 1525.0, 1550.0, 1500.0, 1480.0, 1520.0, 1600.0, 1600.0, 1645.0, 1645.0, 1805.0, 1850.0, 1930.0, 1960.0];
-  var highs = [1485.0, 1500.0, 1500.0, 1525.0, 1510.0, 1500.0, 1495.0, 1525.0, 1630.0, 1790.0, 1820.0, 1800.0, 1815.0, 1775.0, 1740.0, 1805.0, 1810.0, 1800.0, 1755.0, 1870.0, 1865.0, 1865.0, 1880.0, 1825.0, 1870.0, 1975.0, 1945.0, 1910.0, 1780.0, 1800.0, 1790.0, 1665.0, 1730.0, 1780.0, 1815.0, 1745.0, 1740.0, 1740.0, 1745.0, 1705.0, 1715.0, 1645.0, 1665.0, 1665.0, 1640.0, 1585.0, 1555.0, 1540.0, 1550.0, 1510.0, 1480.0, 1585.0, 1600.0, 1605.0, 1665.0, 1745.0, 1845.0, 1930.0, 1955.0, 1965.0];
-  var lows = [1450.0, 1480.0, 1465.0, 1490.0, 1465.0, 1470.0, 1450.0, 1465.0, 1525.0, 1720.0, 1750.0, 1740.0, 1770.0, 1735.0, 1685.0, 1720.0, 1740.0, 1740.0, 1690.0, 1760.0, 1820.0, 1795.0, 1790.0, 1795.0, 1830.0, 1850.0, 1880.0, 1815.0, 1715.0, 1750.0, 1735.0, 1610.0, 1685.0, 1720.0, 1735.0, 1720.0, 1710.0, 1715.0, 1725.0, 1665.0, 1655.0, 1600.0, 1600.0, 1620.0, 1590.0, 1545.0, 1505.0, 1490.0, 1460.0, 1445.0, 1430.0, 1505.0, 1550.0, 1570.0, 1620.0, 1640.0, 1770.0, 1810.0, 1885.0, 1895.0];
-  var closes = [1485.0, 1500.0, 1490.0, 1505.0, 1485.0, 1485.0, 1465.0, 1485.0, 1630.0, 1770.0, 1775.0, 1780.0, 1780.0, 1760.0, 1705.0, 1795.0, 1800.0, 1770.0, 1710.0, 1830.0, 1845.0, 1855.0, 1795.0, 1825.0, 1870.0, 1945.0, 1900.0, 1815.0, 1720.0, 1775.0, 1765.0, 1665.0, 1705.0, 1765.0, 1785.0, 1720.0, 1710.0, 1730.0, 1730.0, 1680.0, 1700.0, 1625.0, 1620.0, 1620.0, 1590.0, 1585.0, 1510.0, 1490.0, 1465.0, 1465.0, 1470.0, 1580.0, 1575.0, 1575.0, 1620.0, 1720.0, 1790.0, 1895.0, 1925.0, 1900.0];
-  var vols = [9900355, 6058106, 7795923, 10170235, 5649790, 5623268, 8433519, 7732602, 21949189, 23813770, 11706065, 9806198, 9803415, 10669850, 8793337, 11037015, 11261034, 15699947, 10786108, 11613075, 10813438, 8232637, 15948909, 6740003, 7857623, 13692370, 8811661, 9621376, 11024269, 7826693, 4418206, 11475137, 5273491, 5783121, 6354849, 6467628, 4423319, 4260491, 6009078, 6764438, 7874444, 6372639, 5324085, 5839950, 7031916, 6833766, 7235491, 10218910, 10756280, 8691522, 6910617, 12976420, 8061675, 5381936, 8802674, 11909857, 20848384, 16504496, 15450213, 11656022];
-  var resistances = [{"Price": 1910.0, "Pct": 0.5, "Type": "\u6cd5\u4eba\u5927\u8ce3\u9ed1K\u9802\u90e8", "Date": "2026-03-03"}, {"Price": 1950.0, "Pct": 2.6, "Type": "\u6574\u6578\u5fc3\u7406\u95dc\u5361", "Date": "2026-04-20"}, {"Price": 1975.0, "Pct": 3.9, "Type": "\u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "Date": "2026-02-26"}];
-  var supports = [{"Price": 1846.0, "Pct": -2.8, "Type": "MA5\u4f4d\u7f6e", "Date": "2026-04-20"}, {"Price": 1830.0, "Pct": -3.7, "Type": "\u6cd5\u4eba\u5927\u8cb7\u7d05K\u5e95\u90e8", "Date": "2026-02-25"}, {"Price": 1810.0, "Pct": -4.7, "Type": "\u6cd5\u4eba\u5927\u8cb7\u7d05K\u5e95\u90e8", "Date": "2026-04-16"}, {"Price": 1760.0, "Pct": -7.4, "Type": "\u6cd5\u4eba\u5927\u8cb7\u7d05K\u5e95\u90e8", "Date": "2026-02-09"}, {"Price": 1705.0, "Pct": -10.3, "Type": "MA10\u4f4d\u7f6e", "Date": "2026-04-20"}];
-  var curPrice = 1900.0;
-
-  var candleColors = closes.map((c,i) => c >= opens[i] ? '#ff4b4b' : '#26a269');
-  var candleBorderColors = candleColors;
-
-  var shapes = [];
-  var annotations = [];
-
-  // Current price line
-  shapes.push({
-    type:'line', xref:'paper', yref:'y',
-    x0:0, x1:1, y0:curPrice, y1:curPrice,
-    line:{color:'rgba(251,191,36,0.85)', width:1.5, dash:'dash'}
-  });
-  annotations.push({
-    xref:'paper', yref:'y', x:0.01, y:curPrice,
-    text:'現價 '+curPrice.toLocaleString(), showarrow:false,
-    font:{color:'#fbbf24', size:11}, bgcolor:'rgba(15,15,26,0.7)',
-    bordercolor:'#fbbf24', borderwidth:1, xanchor:'left'
-  });
-
-  // Resistance lines
-  resistances.forEach((r,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:r.Price, y1:r.Price,
-      line:{color:'rgba(74,222,128,0.6)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:r.Price,
-      text:'P'+(i+1)+' '+r.Price.toFixed(0)+' '+r.Type,
-      showarrow:false, font:{color:'#4ade80', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  // Support lines
-  supports.forEach((s,i)=>{
-    shapes.push({
-      type:'line', xref:'paper', yref:'y',
-      x0:0, x1:1, y0:s.Price, y1:s.Price,
-      line:{color:'rgba(248,113,113,0.8)', width:1.2, dash:'dot'}
-    });
-    annotations.push({
-      xref:'paper', yref:'y', x:1.01, y:s.Price,
-      text:'S'+(i+1)+' '+s.Price.toFixed(0)+' '+s.Type,
-      showarrow:false, font:{color:'#f87171', size:10},
-      bgcolor:'rgba(15,15,26,0.7)', xanchor:'left'
-    });
-  });
-
-  var candleTrace = {
-    type:'candlestick',
-    x: dates,
-    open: opens, high: highs, low: lows, close: closes,
-    increasing:{line:{color:'#ff4b4b'}, fillcolor:'#ff4b4b'},
-    decreasing:{line:{color:'#26a269'}, fillcolor:'#26a269'},
-    name:'K線', yaxis:'y'
-  };
-
-  var volTrace = {
-    type:'bar',
-    x: dates,
-    y: vols,
-    marker:{color: closes.map((c,i)=>c>=opens[i]?'rgba(255,75,75,0.5)':'rgba(38,162,105,0.5)')},
-    name:'成交量', yaxis:'y2'
-  };
-
-  var layout = {
-    paper_bgcolor:'#16213e',
-    plot_bgcolor:'#16213e',
-    font:{color:'#e2e8f0', size:11},
-    margin:{l:60, r:160, t:20, b:40},
-    xaxis:{
-      rangeslider:{visible:false},
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:10}
-    },
-    yaxis:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8'},
-      domain:[0.25,1]
-    },
-    yaxis2:{
-      gridcolor:'#1e2a40', linecolor:'#2d3a50',
-      tickfont:{color:'#94a3b8', size:9},
-      domain:[0,0.22]
-    },
-    legend:{font:{color:'#94a3b8'}, bgcolor:'rgba(0,0,0,0)'},
-    shapes: shapes,
-    annotations: annotations
-  };
-
-  Plotly.newPlot('chart_2454', [candleTrace, volTrace], layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-</div>
-<div style="text-align:center;padding:24px;color:#475569;font-size:.8rem;border-top:1px solid #1e1e3f;margin-top:20px;">
-  台股支撐壓力分析報告 · 2026-04-20 · 僅供技術分析參考，不構成投資建議
-</div>
-</body></html>
+</body>
+</html>
