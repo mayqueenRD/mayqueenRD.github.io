@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>美股支撐壓力分析 2026-09-30</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0f0f1a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;}
+h1,h2,h3,h4{font-weight:600;}
+a{color:#60a5fa;}
+.container{max-width:1200px;margin:0 auto;padding:20px 16px;}
+.header{background:linear-gradient(135deg,#1e1b4b,#0f172a);padding:24px;border-radius:12px;margin-bottom:24px;border:1px solid #1e2a4a;}
+.overview-table{width:100%;border-collapse:collapse;margin-bottom:24px;background:#16213e;border-radius:8px;overflow:hidden;}
+.overview-table th{background:#1e2a4a;padding:10px 12px;text-align:left;font-size:0.85rem;color:#94a3b8;}
+.overview-table td{padding:10px 12px;border-bottom:1px solid #1e2a4a;font-size:0.9rem;}
+.overview-table tr:hover{background:#1a2744;}
+.card{background:#16213e;border:1px solid #1e2a4a;border-radius:8px;padding:14px;}
+.card h4{color:#94a3b8;font-size:0.8rem;text-transform:uppercase;margin-bottom:8px;}
+.card p{font-size:0.88rem;line-height:1.6;color:#cbd5e1;}
+.fin-pill{background:#1e2a4a;border-radius:6px;padding:6px 10px;font-size:0.8rem;color:#94a3b8;}
+.chip-pill{background:#16213e;border-radius:6px;padding:8px 12px;font-size:0.82rem;color:#cbd5e1;line-height:1.4;}
+.chip-card table.lvl-table th{background:#0d1220;}
+.lvl-table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+.lvl-table th{background:#1a2744;padding:6px 10px;text-align:left;color:#64748b;}
+.lvl-table td{padding:5px 10px;border-bottom:1px solid #1e2a4a;}
+details summary::-webkit-details-marker{color:#94a3b8;}
+@media(max-width:640px){
+  .card{margin-bottom:8px;}
+  div[style*="grid-template-columns:1fr 1fr"]{display:block!important;}
+  div[style*="grid-template-columns:1fr 1fr"] .card{margin-bottom:10px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1 style="font-size:1.6rem;color:#f1f5f9;">📊 美股支撐壓力技術分析報告</h1>
+    <p style="color:#64748b;margin-top:6px;">分析日期：2026-09-30 | <span style="color:#fbbf24">⚠️ 盤中快照 2026-09-30 12:34 ET，最後一根 K 線未收盤</span> | 共 2 支股票 | 資料來源：yfinance（價格 / GAAP 季報 / 分析師共識 / 空單 / 持股） | 漲綠跌紅、壓力紅支撐綠（美股慣例） | <a href="index.html">← 台股報告</a></p>
+  </div>
+  <h3 style="color:#94a3b8;margin-bottom:12px;font-size:0.95rem;">📋 總覽（點擊跳至個股）</h3>
+  <div style="overflow-x:auto;border-radius:8px;">
+    <table class="overview-table">
+      <thead><tr><th>代號</th><th>名稱</th><th>現價</th><th>最近壓力</th><th>最近支撐</th><th>操作判斷</th><th>機構評分</th><th>估值(fwd PE)</th></tr></thead>
+      <tbody><tr onclick="document.getElementById('sAVGO').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
+      <td><strong>AVGO</strong></td><td>Broadcom Inc.</td>
+      <td style="color:#fbbf24;font-weight:bold;">$352.80</td>
+      <td style="color:#f87171;">353.14</td><td style="color:#4ade80;">352.13</td>
+      <td><span style="padding:4px 10px;border-radius:12px;font-size:0.8rem;background:#713f12;white-space:nowrap;">⚡ 短線整理、中線偏多（9/16 築底 335.81 後反彈，但 360~366 年線區兩週攻不過；FY27E 僅 18.2x）</span></td>
+      <td style="color:#4ade80;font-weight:bold;white-space:nowrap;">🟢 偏多 +75</td>
+      <td style="color:#4ade80;font-weight:bold;white-space:nowrap;">18x <span style="color:#64748b;font-size:0.72rem;">FY2027E(11月結)</span></td></tr><tr onclick="document.getElementById('sNXPI').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
+      <td><strong>NXPI</strong></td><td>NXP Semiconductors N.V.</td>
+      <td style="color:#fbbf24;font-weight:bold;">$234.00</td>
+      <td style="color:#f87171;">235.01</td><td style="color:#4ade80;">233.64</td>
+      <td><span style="padding:4px 10px;border-radius:12px;font-size:0.8rem;background:#713f12;white-space:nowrap;">⚡ 短線整理、中線偏多（箱型突破後三度攻 239~240 未過 MA60 241.45；FY27E 12.9x 兩檔最便宜）</span></td>
+      <td style="color:#4ade80;font-weight:bold;white-space:nowrap;">🟢 偏多 +45</td>
+      <td style="color:#4ade80;font-weight:bold;white-space:nowrap;">13x <span style="color:#64748b;font-size:0.72rem;">FY2027E</span></td></tr></tbody>
+    </table>
+  </div>
+  
+<section id="sAVGO" style="margin:0 0 48px;padding:24px;background:#0d1220;border-radius:12px;border:1px solid #1e2a4a;">
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;flex-wrap:wrap;">
+    <h2 style="margin:0;font-size:1.4rem;color:#e2e8f0;">AVGO <span style="font-size:1rem;color:#94a3b8;">Broadcom Inc.</span></h2>
+    <span style="color:#fbbf24;font-size:1.2rem;font-weight:bold;">▶ $352.80</span>
+    <span style="font-size:0.8rem;color:#64748b;">2026-09-30</span>
+    <span style="margin-left:auto;padding:6px 14px;border-radius:20px;font-weight:bold;background:#713f12;color:#f1f5f9;">⚡ 短線整理、中線偏多（9/16 築底 335.81 後反彈，但 360~366 年線區兩週攻不過；FY27E 僅 18.2x）</span>
+    <span style="font-size:0.75rem;color:#94a3b8;padding:4px 10px;border-radius:12px;border:1px solid #334155;">背離持續：FQ3 營收 YoY +85%、營益率 54.3% 創高 vs 股價仍在 MA60 377 與年線下方</span>
+  </div>
+  
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px;">
+  <div class="fin-pill">市值 <span style="color:#e2e8f0">$1,684B</span></div>
+  <div class="fin-pill">52 週 <span style="color:#4ade80">289.96</span> ~ <span style="color:#f87171">495.00</span> ｜ 現價位於區間 <span style="color:#e2e8f0">31%</span></div>
+  <div class="fin-pill">殖利率 <span style="color:#e2e8f0">0.73%</span></div>
+  <div class="fin-pill">下次財報 <span style="color:#a78bfa">2026-12-09</span></div>
+  <div class="fin-pill">Technology / Semiconductors</div>
+</div>
+  <div id="kline-AVGO" style="height:380px;border-radius:8px;overflow:hidden;"></div>
+  <script>
+  (function(){
+    var dates=["2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30"], opens=[377.5199890136719, 402.19000244140625, 398.5, 393.4800109863281, 395.7200012207031, 396.0899963378906, 384.5400085449219, 366.04998779296875, 378.760009765625, 390.2099914550781, 380.20001220703125, 392.19000244140625, 387.67999267578125, 389.82000732421875, 374.3599853515625, 380.6400146484375, 380.3500061035156, 394.8299865722656, 384.4100036621094, 402.9700012207031, 421.70001220703125, 420.54998779296875, 428.3999938964844, 426.989990234375, 426.07000732421875, 426.260009765625, 415.80999755859375, 411.9599914550781, 397.260009765625, 384.32000732421875, 372.3999938964844, 364.3900146484375, 370.69000244140625, 364.9700012207031, 361.1000061035156, 357.1199951171875, 361.7900085449219, 373.6000061035156, 369.5199890136719, 364.25, 369.67999267578125, 351.739990234375, 359.70001220703125, 363.67999267578125, 366.2300109863281, 360.0299987792969, 364.8500061035156, 349.6300048828125, 346.0400085449219, 342.3699951171875, 346.6199951171875, 352.0799865722656, 358.6600036621094, 363.2300109863281, 362.20001220703125, 349.2099914550781, 352.6199951171875, 352.8699951171875, 357.0, 356.9549865722656], highs=[395.0899963378906, 407.5199890136719, 402.44000244140625, 395.75, 397.3299865722656, 399.0, 386.739990234375, 377.3500061035156, 383.5899963378906, 390.5799865722656, 398.5899963378906, 397.6099853515625, 389.2699890136719, 389.8999938964844, 385.79998779296875, 386.1199951171875, 388.67999267578125, 399.9200134277344, 392.6099853515625, 422.07000732421875, 427.0, 428.0299987792969, 430.8399963378906, 432.7300109863281, 426.760009765625, 426.5, 424.9200134277344, 412.5, 399.3599853515625, 385.7799987792969, 373.9100036621094, 367.1199951171875, 375.1300048828125, 366.1700134277344, 362.989990234375, 359.4700012207031, 371.7200012207031, 376.5899963378906, 372.75, 371.3999938964844, 371.0899963378906, 359.3999938964844, 360.1600036621094, 372.70001220703125, 368.010009765625, 365.2699890136719, 366.7799987792969, 350.25, 347.260009765625, 344.1499938964844, 350.94000244140625, 363.2799987792969, 363.9700012207031, 366.54998779296875, 362.8999938964844, 351.44000244140625, 354.42999267578125, 355.8599853515625, 361.8599853515625, 357.8999938964844], lows=[376.8900146484375, 387.92999267578125, 395.70001220703125, 383.4200134277344, 384.6400146484375, 386.739990234375, 371.8999938964844, 357.79998779296875, 375.9599914550781, 379.2200012207031, 380.0, 386.82000732421875, 378.75, 373.5, 371.5199890136719, 369.510009765625, 377.5400085449219, 379.7099914550781, 374.6099853515625, 400.67999267578125, 416.8900146484375, 410.760009765625, 421.6099853515625, 420.1600036621094, 413.2300109863281, 414.6099853515625, 411.4100036621094, 388.5, 391.30999755859375, 377.010009765625, 357.6099853515625, 362.25, 365.04998779296875, 358.7099914550781, 355.30999755859375, 350.05999755859375, 360.6099853515625, 365.3500061035156, 366.29998779296875, 362.0, 364.6499938964844, 342.3299865722656, 353.70001220703125, 362.739990234375, 359.25, 357.75, 361.6400146484375, 343.9100036621094, 337.8999938964844, 335.80999755859375, 345.30999755859375, 351.3299865722656, 353.5, 359.2900085449219, 354.010009765625, 346.8900146484375, 349.42999267578125, 347.32000732421875, 354.0, 352.4527893066406], closes=[388.69000244140625, 401.1099853515625, 399.9700012207031, 384.04998779296875, 389.1099853515625, 394.2799987792969, 374.45001220703125, 370.8299865722656, 378.1600036621094, 386.5, 396.80999755859375, 392.4700012207031, 381.9200134277344, 383.2200012207031, 380.9100036621094, 370.32000732421875, 387.8399963378906, 389.2799987792969, 392.2300109863281, 418.1600036621094, 418.2799987792969, 420.57000732421875, 427.760009765625, 422.3999938964844, 416.0799865722656, 416.04998779296875, 417.82000732421875, 392.989990234375, 392.42999267578125, 380.0, 362.4800109863281, 364.0299987792969, 368.45001220703125, 358.760009765625, 356.739990234375, 355.5899963378906, 371.5400085449219, 368.7900085449219, 370.3399963378906, 369.67999267578125, 367.239990234375, 357.1600036621094, 357.8999938964844, 368.55999755859375, 364.3800048828125, 360.8299865722656, 361.989990234375, 344.7200012207031, 339.2699890136719, 339.510009765625, 347.29998779296875, 357.6099853515625, 362.6600036621094, 364.5400085449219, 354.989990234375, 350.3599853515625, 352.80999755859375, 349.57000732421875, 355.1000061035156, 352.79998779296875], vols=[31624100, 28074000, 14595900, 21294500, 20118700, 16324100, 23407200, 23272200, 14420500, 17291100, 16966200, 16348700, 15149400, 18502100, 20328400, 21374400, 23639800, 20391000, 17315100, 29564200, 16880400, 13907500, 14698300, 13854100, 12882700, 15859200, 13180500, 29513600, 20042600, 22878200, 35091400, 19729800, 19037100, 18717200, 18014900, 19196300, 21330000, 16596100, 21948000, 19288900, 38874600, 60242600, 32863300, 30464900, 25918200, 23994300, 21166900, 32662800, 24783900, 23152500, 24389600, 44032800, 26498600, 20570800, 23387700, 20930400, 16255500, 21527900, 19144700, 6728125];
+    var colors = closes.map(function(c,i){ return c >= opens[i] ? '#26a269' : '#ff4b4b'; });
+    Plotly.newPlot('kline-AVGO',[
+      {type:'candlestick',x:dates,open:opens,high:highs,low:lows,close:closes,
+        increasing:{line:{color:'#26a269'},fillcolor:'#26a269'},decreasing:{line:{color:'#ff4b4b'},fillcolor:'#ff4b4b'},name:'K線'},
+      {type:'bar',x:dates,y:vols,name:'成交量',yaxis:'y2',marker:{color:colors,opacity:0.6}}
+    ],{
+      paper_bgcolor:'#16213e',plot_bgcolor:'#16213e',font:{color:'#e2e8f0',size:10},
+      xaxis:{color:'#94a3b8',gridcolor:'#2a2a4a',rangeslider:{visible:false},type:'category',nticks:12},
+      yaxis:{color:'#94a3b8',gridcolor:'#2a2a4a',domain:[0.3,1]},
+      yaxis2:{color:'#64748b',gridcolor:'#1e2a4a',domain:[0,0.28],showticklabels:false},
+      shapes:[{"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 352.8, "y1": 352.8, "line": {"color": "rgba(251,191,36,0.85)", "width": 1.5, "dash": "dash"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 353.14, "y1": 353.14, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 360.0, "y1": 360.0, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 366.55, "y1": 366.55, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 371.09, "y1": 371.09, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 376.59, "y1": 376.59, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 352.13, "y1": 352.13, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 342.33, "y1": 342.33, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 335.81, "y1": 335.81, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 308.51, "y1": 308.51, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 289.96, "y1": 289.96, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}],annotations:[{"xref": "paper", "yref": "y", "x": 0.01, "y": 352.8, "text": "\u73fe\u50f9 352.80", "showarrow": false, "font": {"color": "#fbbf24", "size": 11}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 353.14, "text": "P1 353.14 \u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 360.0, "text": "P2 360.00 \u6574\u6578\u5fc3\u7406\u95dc\u5361", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 366.55, "text": "P3 366.55 \u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 371.09, "text": "P4 371.09 \u5e36\u91cf\u9ed1K\u9802\u90e8", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 376.59, "text": "P5 376.59 \u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 352.13, "text": "S1 352.13 MA5\u4f4d\u7f6e", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 342.33, "text": "S2 342.33 \u5e36\u91cf\u7d05K\u5e95\u90e8", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 335.81, "text": "S3 335.81 \u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 308.51, "text": "S4 308.51 \u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 289.96, "text": "S5 289.96 \u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}],
+      margin:{t:20,b:30,l:60,r:170},showlegend:false,height:380
+    },{responsive:true,displayModeBar:false});
+  })();
+  </script>
+  
+<div id="fin-AVGO" style="height:280px;margin:12px 0;border-radius:8px;overflow:hidden;"></div>
+<script>
+(function(){
+  var q=["2025-07", "2025-10", "2026-01", "2026-04", "2026-07"], gm=[67.1, 68.0, 68.1, 69.5, 69.1], om=[38.1, 42.5, 44.9, 48.9, 54.3], nm=[26.0, 47.3, 38.1, 42.0, 44.2], rev=[15952.0, 18015.0, 19311.0, 22187.0, 29591.0];
+  Plotly.newPlot('fin-AVGO',[
+    {name:'營收($M)',type:'bar',x:q,y:rev,yaxis:'y',marker:{color:'#60a5fa'},opacity:0.7},
+    {name:'毛利率%',type:'scatter',x:q,y:gm,yaxis:'y2',line:{color:'#4ade80',width:2},connectgaps:true},
+    {name:'營益率%',type:'scatter',x:q,y:om,yaxis:'y2',line:{color:'#a78bfa',width:2},connectgaps:true},
+    {name:'淨利率%',type:'scatter',x:q,y:nm,yaxis:'y2',line:{color:'#fbbf24',width:2},connectgaps:true}
+  ],{
+    title:{text:'AVGO Broadcom Inc. 季度財務趨勢（GAAP，季末年月）',font:{color:'#e2e8f0',size:13}},
+    paper_bgcolor:'#16213e',plot_bgcolor:'#16213e',font:{color:'#e2e8f0',size:10},
+    legend:{font:{color:'#e2e8f0',size:10}},
+    xaxis:{color:'#94a3b8',gridcolor:'#2a2a4a',type:'category'},
+    yaxis:{title:'營收($M)',color:'#60a5fa',gridcolor:'#2a2a4a'},
+    yaxis2:{title:'利率%',overlaying:'y',side:'right',color:'#4ade80',gridcolor:'#2a2a4a'},
+    margin:{t:40,b:30,l:60,r:60},height:280
+  },{responsive:true,displayModeBar:false});
+})();
+</script>
+  
+<div class="chip-card" style="background:linear-gradient(135deg,rgba(167,139,250,0.08),#0d1220);border:1px solid #1e2a4a;border-left:4px solid #4ade80;border-radius:8px;padding:16px;margin:16px 0;">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap;">
+    <h4 style="margin:0;color:#e2e8f0;font-size:0.95rem;">💵 EPS 估值分析</h4>
+    <span style="font-size:0.78rem;color:#94a3b8;">GAAP 已實現 vs non-GAAP 前瞻，兩者基準不同、比較 PE 時請看同一列</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px;margin-bottom:8px;"><div class="fin-pill">近4季 GAAP EPS（2025-10~2026-07 GAAP）<span style="color:#e2e8f0">7.83</span> ｜ PE <span style="color:#f87171">45.1x</span></div><div class="fin-pill">近4季 non-GAAP EPS（財報公布值）<span style="color:#e2e8f0">9.76</span> ｜ PE <span style="color:#f87171">36.1x</span></div><div class="fin-pill">FY2025 全年 GAAP EPS <span style="color:#e2e8f0">4.77</span> ｜ PE <span style="color:#f87171">74.0x</span></div><div class="fin-pill">FY2026E(11月結) 預估 EPS <span style="color:#a78bfa">11.66</span> <span style="color:#64748b;font-size:0.72rem">(11.35~12.38，47 位，YoY 71%)</span> ｜ forward PE <span style="color:#fbbf24">30.3x</span></div><div class="fin-pill">FY2027E(11月結) 預估 EPS <span style="color:#a78bfa">19.38</span> <span style="color:#64748b;font-size:0.72rem">(17.47~22.44，48 位，YoY 66%)</span> ｜ forward PE <span style="color:#4ade80">18.2x</span></div><div class="fin-pill">次年 EPS 預估 30 日修正 <span style="color:#f87171">-1.0%</span> <span style="color:#64748b;font-size:0.72rem">(19.57 → 19.38)</span></div></div>
+  <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:10px 12px;margin:8px 0;font-size:0.85rem;line-height:1.6;color:#cbd5e1;">📝 GAAP TTM EPS 7.83（PE 45.1x）含大量 VMware 併購攤銷，失真；non-GAAP TTM 9.76 → PE 36.1x 才是可比基準。前瞻 FY2026E（11 月結）共識 11.66（+70.9%）→ forward PE 30.3x；FY2027E 19.38（+66.3%）→ 18.2x。以 AI 半導體合理區間 25~30x 衡量，現價 352.80 只反應到 FY2026 全年＋FY2027 的一小段：FY27E × 25~30x = 485~581，分析師均值 532（27.4x）落在區間中段。較 9/12（361.99、18.7x）股價再跌、共識幾乎不變，估值由合理轉為偏便宜。唯一警訊是 FY27E 共識 30 日 -1.0%，若 12/9 財報後下修擴大需重估。</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+  <div style="margin-top:10px;">
+    <div style="font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">合理價區間（以 FY2027E(11月結) 預估 EPS 19.38 × 本益比）｜現價 352.80 ≈ <span style="color:#4ade80">18.2x</span></div>
+    <table class="lvl-table" style="font-size:0.8rem;max-width:420px;"><thead><tr><th>本益比</th><th>對應股價</th><th>評價</th></tr></thead><tbody><tr><td>15x</td><td style="color:#e2e8f0">290.70</td><td style="color:#94a3b8;font-size:0.78rem;">低估</td></tr><tr style="background:rgba(251,191,36,0.12);"><td>20x</td><td style="color:#e2e8f0">387.60</td><td style="color:#94a3b8;font-size:0.78rem;">低估 <span style="color:#fbbf24;font-size:0.72rem;">← 現價約此</span></td></tr><tr><td>25x</td><td style="color:#e2e8f0">484.50</td><td style="color:#94a3b8;font-size:0.78rem;">合理</td></tr><tr><td>30x</td><td style="color:#e2e8f0">581.40</td><td style="color:#94a3b8;font-size:0.78rem;">合理</td></tr><tr><td>35x</td><td style="color:#e2e8f0">678.30</td><td style="color:#94a3b8;font-size:0.78rem;">偏高</td></tr></tbody></table>
+  </div><div style="margin-top:10px;"><div style="font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">近 4 次財報 EPS（non-GAAP）預估 vs 實際</div><table class="lvl-table" style="font-size:0.8rem;max-width:420px;"><thead><tr><th>日期</th><th>預估</th><th>實際</th><th>驚喜</th></tr></thead><tbody><tr><td style="color:#94a3b8">2026-09-02</td><td>3.24</td><td style="color:#e2e8f0">3.32</td><td style="color:#4ade80">+2.5%</td></tr><tr><td style="color:#94a3b8">2026-06-03</td><td>2.4</td><td style="color:#e2e8f0">2.44</td><td style="color:#4ade80">+1.7%</td></tr><tr><td style="color:#94a3b8">2026-03-04</td><td>2.02</td><td style="color:#e2e8f0">2.05</td><td style="color:#4ade80">+1.3%</td></tr><tr><td style="color:#94a3b8">2025-12-11</td><td>1.87</td><td style="color:#e2e8f0">1.95</td><td style="color:#4ade80">+4.4%</td></tr></tbody></table></div></div>
+  <div style="font-size:0.74rem;color:#64748b;margin-top:6px;">分析師目標價：均值 <span style="color:#4ade80">531.85（+50.8%）</span>，中位 535.0，區間 215.88~715.0，47 位 ｜ 前瞻 EPS 為 yfinance 彙整之分析師共識（non-GAAP），會隨財報滾動修正</div>
+</div>
+  
+<div class="chip-card" style="background:linear-gradient(135deg,rgba(74,222,128,0.1),#0d1220);border:1px solid #1e2a4a;border-left:4px solid #4ade80;border-radius:8px;padding:16px;margin:16px 0;">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap;">
+    <h4 style="margin:0;color:#e2e8f0;font-size:0.95rem;">🎯 機構動向與市場情緒</h4>
+    <span style="font-size:1.1rem;font-weight:bold;color:#4ade80;">🟢 偏多 +75</span>
+    <span style="font-size:0.78rem;color:#94a3b8;">主要理由：空單僅 1.11% 流通股、空單月減 7.6%、分析師 94% 買進評等、買進評等月增 2 家、目標價上檔 50.8%、近 120 日調升 19 vs 調降 7</span>
+  </div>
+  <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:10px 12px;margin:8px 0 12px;font-size:0.85rem;line-height:1.6;color:#cbd5e1;">📝 🟢 機構面 +75 偏多（較 9/12 的 +50 上升）：空單僅 1.11% 且月減 7.6%、94% 買進評等且家數月增 2、目標價上檔 50.8%、近 120 日調升 19 對 7。前六大機構 Q2 除 Vanguard Portfolio 微減 -1.1% 外全數加碼，FMR +16.3% 最積極。內部人賣壓隨 7 月大單滾出窗口而淡化。唯一扣分是 FY27E 30 日 -1.0% 微幅下修。</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px;margin-bottom:12px;"><div class="chip-pill" style="border-left:3px solid #4ade80;">空單 1.11% 流通股 ｜ 回補天數 2.0 ｜ 月變化 -7.6%</div><div class="chip-pill" style="border-left:3px solid #94a3b8;">機構持股 79.8% ｜ 內部人持股 1.94%</div><div class="chip-pill" style="border-left:3px solid #94a3b8;">內部人 90 日：賣出 3 筆 / 51,890 股（約 $20.2M），買進 0 筆</div><div class="chip-pill" style="border-left:3px solid #4ade80;">分析師評等：買進 47 / 持有 3 / 賣出 0（買進 94%）</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+    <div>
+      <div style="font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">近 120 日評等 / 目標價異動（最新 8 筆）</div>
+      <table class="lvl-table" style="font-size:0.78rem;"><thead><tr><th>日期</th><th>券商</th><th>評等</th><th>動作</th><th>目標價</th></tr></thead><tbody><tr><td style="color:#94a3b8;font-size:0.75rem">09-10</td><td>Piper Sandler</td><td>Overweight</td><td style="color:#a78bfa">初評</td><td style="color:#a78bfa">新 460</td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">09-04</td><td>Citigroup</td><td>Buy</td><td style="color:#94a3b8">維持</td><td style="color:#4ade80">↑ 515 <span style="color:#64748b">(500)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">09-04</td><td>DA Davidson</td><td>Neutral</td><td style="color:#94a3b8">維持</td><td style="color:#f87171">↓ 350 <span style="color:#64748b">(400)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">09-03</td><td>Macquarie</td><td>Outperform</td><td style="color:#4ade80">調升</td><td style="color:#a78bfa">新 490</td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">09-03</td><td>Raymond James</td><td>Outperform</td><td style="color:#94a3b8">維持</td><td style="color:#4ade80">↑ 475 <span style="color:#64748b">(450)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">09-03</td><td>Evercore ISI Group</td><td>Outperform</td><td style="color:#94a3b8">維持</td><td style="color:#f87171">↓ 578 <span style="color:#64748b">(582)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">09-03</td><td>TD Cowen</td><td>Buy</td><td style="color:#94a3b8">維持</td><td style="color:#f87171">↓ 475 <span style="color:#64748b">(500)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">09-03</td><td>Truist Securities</td><td>Buy</td><td style="color:#94a3b8">維持</td><td style="color:#f87171">↓ 520 <span style="color:#64748b">(550)</span></td></tr></tbody></table>
+    </div>
+    <div>
+      
+<div id="rec-AVGO" style="height:200px;border-radius:8px;overflow:hidden;margin:8px 0;"></div>
+<script>
+(function(){
+  var p=["3\u6708\u524d", "2\u6708\u524d", "1\u6708\u524d", "\u672c\u6708"];
+  Plotly.newPlot('rec-AVGO',[
+    {type:'bar',x:p,y:[7, 7, 8, 7],name:'強力買進',marker:{color:'#15803d'}},
+    {type:'bar',x:p,y:[37, 37, 37, 40],name:'買進',marker:{color:'#4ade80'}},
+    {type:'bar',x:p,y:[4, 4, 4, 3],name:'持有',marker:{color:'#fbbf24'}},
+    {type:'bar',x:p,y:[0, 0, 0, 0],name:'賣出',marker:{color:'#f87171'}}
+  ],{
+    barmode:'stack',title:{text:'分析師評等分佈（家數）',font:{color:'#94a3b8',size:11}},
+    paper_bgcolor:'#0d1220',plot_bgcolor:'#0d1220',font:{color:'#94a3b8',size:9},
+    legend:{font:{color:'#94a3b8',size:9},orientation:'h',y:-0.2},
+    xaxis:{color:'#64748b',showgrid:false},yaxis:{color:'#64748b',gridcolor:'#1e2a4a'},
+    margin:{t:30,b:40,l:30,r:10},height:200
+  },{responsive:true,displayModeBar:false});
+})();
+</script>
+      <div style="font-size:0.8rem;color:#94a3b8;margin:8px 0 4px;">前六大機構持股（季度變化）</div>
+      <table class="lvl-table" style="font-size:0.78rem;"><thead><tr><th>機構</th><th>持股</th><th>QoQ</th></tr></thead><tbody><tr><td>Blackrock Inc.</td><td>8.34%</td><td style="color:#4ade80">+3.2%</td></tr><tr><td>Vanguard Capital Management LLC</td><td>6.48%</td><td style="color:#4ade80">+0.4%</td></tr><tr><td>State Street Corporation</td><td>4.12%</td><td style="color:#4ade80">+2.9%</td></tr><tr><td>FMR, LLC</td><td>3.02%</td><td style="color:#4ade80">+16.3%</td></tr><tr><td>Vanguard Portfolio Management LLC</td><td>2.66%</td><td style="color:#f87171">-1.1%</td></tr><tr><td>Capital World Investors</td><td>2.55%</td><td style="color:#4ade80">+4.9%</td></tr></tbody></table>
+    </div>
+  </div>
+</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;">
+    <div class="card"><h4>📈 走勢回顧</h4><p>60 日區間 335.81~432.73。8/10 見高 432.73 後一路修正，9/2 財報（non-GAAP EPS 3.32 勝 3.24）隔日 9/3 爆量 2.19 倍、盤中殺到 342.33 收 357.16。9/8 反彈 368.56 失敗後再探底，9/16 見 335.81（財報後新低、較高點 -22%）。9/17~9/18 連兩紅，9/18 帶量 1.6 倍長紅（357.61）確認止跌，9/22 反彈到 366.55 後遇年線區賣壓，9/23 黑K 回落 354.99，之後 6 天在 346.9~361.9 窄幅整理。9/30 盤中 352.80（-0.6%），最後一根量僅 0.24 倍是盤中未收盤，不代表縮量。整體結構：低點 335.81 → 342~347 的兩次回測都守住＝底部墊高中，但上緣 366.55 還沒過，屬整理而非趨勢翻多。</p></div>
+    <div class="card"><h4>🏛️ 機構與分析師動向</h4><p>9/3 財報後券商動作偏多：調升 Citi 500→515、Raymond James 450→475、Morgan Stanley 502→505，新表態 Macquarie 升評 Outperform 490、Piper Sandler 9/10 初評 Overweight 460；調降 TD Cowen 500→475、Truist 550→520、Evercore 582→578 幅度都小，唯一實質看空是 DA Davidson 400→350（Neutral）。47 位分析師目標均值 531.85（上檔 +50.8%）、中位 535，買進評等 47/50＝94%、本月買進家數 +2（45→47）。近 120 日調升 19 vs 調降 7。空單 1.11% 流通股、月減 7.6%，空方持續回補。內部人 90 日只剩 3 筆賣出（5.2 萬股、約 2,000 萬美元，7 月那批大量賣出已滾出窗口），壓力減輕。扣分：FY27E 共識 30 日小幅下修 -1.0%（19.57→19.38），連第三個月微下修。</p></div>
+    <div class="card"><h4>📊 均線多空判斷</h4><p>短線均線纏繞、中長均線仍在上方壓：MA5 352.13（-0.2%）與 MA20 355.46（+0.8%，被 353.14 波段高合併）夾住現價，是 5 日與 20 日的中性區；壓力側 360 整數、366.55（9/22 反彈高，年線約 366~367 同位）、371.09（9/2 帶量黑K頂）、376.59/MA60 377.01（兩者重疊，被合併）。多空關鍵仍是 366~367：收盤站回才算中線轉折、目標 MA60 377；支撐側 342.33（9/3 帶量紅K底）→ 335.81（9/16 波段低）是底部雙防線。</p></div>
+    <div class="card"><h4>💰 基本面概況</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0;">
+  <div class="fin-pill">毛利率 <span style="color:#4ade80">69.1%</span> ↓收縮</div>
+  <div class="fin-pill">淨利率 <span style="color:#fbbf24">44.2%</span></div>
+  <div class="fin-pill">最新季營收 <span style="color:#60a5fa">$29,591M</span> <span style="color:#4ade80">YoY +85.5%</span></div>
+  <div class="fin-pill">負債比 <span style="color:#4ade80">47.0%</span></div>
+  <div class="fin-pill">自由現金流 <span style="color:#4ade80">$13,665M</span></div>
+</div><p style="margin:6px 0 0;font-size:0.85rem;color:#94a3b8">FQ3（季末 2026-07）全面創高：營收 29,591M（QoQ +33.4%、YoY +85.5%，15,952→18,015→19,311→22,187→29,591 連 5 季加速）、毛利率 69.1% 高檔持平、營益率 54.3%（連 5 季擴張 38.1→54.3）、FCF 13,665M 單季新高、負債比 55.8→47.0% 連 4 季下降。分析師預估本年度營收 +65.9%、明年 +64.0%，成長沒有放緩跡象。基本面與股價背離＝這波修正是 AI capex 情緒與高檔估值消化，不是基本面轉弱。</p></div>
+  </div>
+  <div class="card" style="margin-bottom:12px;border-left:3px solid #eab308;">
+    <h4>💡 操作建議</h4>
+    <p><strong style="color:#4ade80">積極做法：</strong>(a) 突破買：日收盤站上 366.55（反彈高＋年線）進場，目標 377（MA60 與 376.59 重疊）→ 400 整數，停損 352（MA5）；(b) 拉回買：回測 342.33~346.9（9/3 帶量紅K底＋近 6 日低）止跌進場，目標 366.55 → 377，停損 335.81（9/16 波段低，-2%）。現價 352.8 在區間中段，上下空間各約 4%，追價不划算。</p>
+    <p><strong style="color:#fbbf24">保守做法：</strong>等收盤站回 366~367 年線區確認中線轉折再進場；未站回前視為 335.81~366.55 箱型，只在下緣分批、不追上緣。12/9 下次財報前估值保護充足（FY27E 18.2x），可分批不必一次買滿。</p>
+    <p><strong style="color:#f87171">風險提示：</strong>335.81 是財報後新低也是底部唯一支撐，失守後 308.51、289.96（52 週低）之間沒有密集成交區，下檔真空 -12%~-18%。FY27E 共識已連三個月微幅下修，若 12/9 財報指引不及預期，低估值會被動抬高。AI capex 情緒仍是最大外部變數。9/30 為盤中快照，若收盤跌破 MA5 352 並收在 350 以下，短線會先回測 342。</p>
+  </div>
+  <details style="margin-top:12px;">
+    <summary style="cursor:pointer;color:#94a3b8;font-size:0.9rem;padding:8px 0;">▶ 支撐壓力詳細表格</summary>
+    <div style="overflow-x:auto;margin-top:8px;"><table class="lvl-table"><thead><tr><th>#</th><th>價格</th><th>類型</th><th>日期</th><th>距離%</th></tr></thead><tbody><tr><td>P1</td><td style="color:#f87171">353.14</td><td>波段相對高點</td><td style="color:#94a3b8">2026-03-10</td><td style="color:#f87171">+0.1%</td></tr><tr><td>P2</td><td style="color:#f87171">360.00</td><td>整數心理關卡</td><td style="color:#94a3b8">2026-09-30</td><td style="color:#f87171">+2.0%</td></tr><tr><td>P3</td><td style="color:#f87171">366.55</td><td>波段相對高點</td><td style="color:#94a3b8">2026-09-22</td><td style="color:#f87171">+3.9%</td></tr><tr><td>P4</td><td style="color:#f87171">371.09</td><td>帶量黑K頂部</td><td style="color:#94a3b8">2026-09-02</td><td style="color:#f87171">+5.2%</td></tr><tr><td>P5</td><td style="color:#f87171">376.59</td><td>波段相對高點</td><td style="color:#94a3b8">2026-08-28</td><td style="color:#f87171">+6.7%</td></tr><tr><td>S1</td><td style="color:#4ade80">352.13</td><td>MA5位置</td><td style="color:#94a3b8">2026-09-30</td><td style="color:#4ade80">-0.2%</td></tr><tr><td>S2</td><td style="color:#4ade80">342.33</td><td>帶量紅K底部</td><td style="color:#94a3b8">2026-09-03</td><td style="color:#4ade80">-3.0%</td></tr><tr><td>S3</td><td style="color:#4ade80">335.81</td><td>波段相對低點</td><td style="color:#94a3b8">2026-09-16</td><td style="color:#4ade80">-4.8%</td></tr><tr><td>S4</td><td style="color:#4ade80">308.51</td><td>波段相對低點</td><td style="color:#94a3b8">2026-03-19</td><td style="color:#4ade80">-12.6%</td></tr><tr><td>S5</td><td style="color:#4ade80">289.96</td><td>波段相對低點</td><td style="color:#94a3b8">2026-03-30</td><td style="color:#4ade80">-17.8%</td></tr></tbody></table></div>
+  </details>
+  <div style="margin-top:16px;text-align:center;"><a href="https://finance.yahoo.com/quote/AVGO/analysis/" target="_blank" style="color:#60a5fa;text-decoration:none;font-size:0.95rem;">📊 Yahoo Finance 分析師頁 →</a></div>
+</section>
+<section id="sNXPI" style="margin:0 0 48px;padding:24px;background:#0d1220;border-radius:12px;border:1px solid #1e2a4a;">
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;flex-wrap:wrap;">
+    <h2 style="margin:0;font-size:1.4rem;color:#e2e8f0;">NXPI <span style="font-size:1rem;color:#94a3b8;">NXP Semiconductors N.V.</span></h2>
+    <span style="color:#fbbf24;font-size:1.2rem;font-weight:bold;">▶ $234.00</span>
+    <span style="font-size:0.8rem;color:#64748b;">2026-09-30</span>
+    <span style="margin-left:auto;padding:6px 14px;border-radius:20px;font-weight:bold;background:#713f12;color:#f1f5f9;">⚡ 短線整理、中線偏多（箱型突破後三度攻 239~240 未過 MA60 241.45；FY27E 12.9x 兩檔最便宜）</span>
+    <span style="font-size:0.75rem;color:#94a3b8;padding:4px 10px;border-radius:12px;border:1px solid #334155;">基本面同向轉強、技術面卡關：營益率 30.8% 五季新高、EPS 共識 90 日上修 vs 價格被 MA60 壓了兩週</span>
+  </div>
+  
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px;">
+  <div class="fin-pill">市值 <span style="color:#e2e8f0">$59B</span></div>
+  <div class="fin-pill">52 週 <span style="color:#4ade80">183.00</span> ~ <span style="color:#f87171">339.95</span> ｜ 現價位於區間 <span style="color:#e2e8f0">32%</span></div>
+  <div class="fin-pill">殖利率 <span style="color:#e2e8f0">1.72%</span></div>
+  <div class="fin-pill">下次財報 <span style="color:#a78bfa">2026-10-27</span></div>
+  <div class="fin-pill">Technology / Semiconductors</div>
+</div>
+  <div id="kline-NXPI" style="height:380px;border-radius:8px;overflow:hidden;"></div>
+  <script>
+  (function(){
+    var dates=["2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30"], opens=[271.7900085449219, 292.3399963378906, 285.4200134277344, 283.45001220703125, 288.82000732421875, 287.9599914550781, 274.2900085449219, 260.0199890136719, 269.79998779296875, 277.010009765625, 270.05999755859375, 271.6199951171875, 273.7200012207031, 272.7200012207031, 263.04998779296875, 252.9600067138672, 248.32000732421875, 249.1999969482422, 222.25, 230.0, 235.02000427246094, 228.49000549316406, 237.30999755859375, 240.25, 236.11000061035156, 242.07000732421875, 233.4600067138672, 231.61000061035156, 235.36000061035156, 229.55999755859375, 230.75, 226.6199951171875, 225.25999450683594, 223.14999389648438, 224.9600067138672, 224.75, 225.57000732421875, 225.66000366210938, 226.22000122070312, 221.6999969482422, 223.10000610351562, 225.22000122070312, 228.08999633789062, 230.22000122070312, 221.97000122070312, 219.75, 229.83999633789062, 226.75999450683594, 226.0399932861328, 227.99000549316406, 222.16000366210938, 231.36000061035156, 229.13999938964844, 231.8699951171875, 236.5, 232.33999633789062, 231.1999969482422, 238.69000244140625, 237.5800018310547, 236.47999572753906], highs=[285.9800109863281, 298.0400085449219, 293.8999938964844, 286.82000732421875, 289.7799987792969, 288.92999267578125, 276.2900085449219, 271.0899963378906, 273.4800109863281, 278.04998779296875, 279.7799987792969, 280.4599914550781, 278.20001220703125, 276.8800048828125, 266.1700134277344, 257.32000732421875, 251.0399932861328, 251.72000122070312, 225.8699951171875, 238.86000061035156, 237.22000122070312, 236.64999389648438, 240.2899932861328, 240.25999450683594, 241.0399932861328, 242.49000549316406, 236.5800018310547, 234.75, 238.17999267578125, 230.3800048828125, 231.66000366210938, 227.75, 226.0800018310547, 224.0800018310547, 225.30999755859375, 226.19000244140625, 228.0800018310547, 225.83999633789062, 227.24000549316406, 223.16000366210938, 229.99000549316406, 227.1199951171875, 228.6199951171875, 231.3000030517578, 227.22000122070312, 226.92999267578125, 238.60000610351562, 230.8699951171875, 228.97999572753906, 228.17999267578125, 228.27999877929688, 231.36000061035156, 233.05999755859375, 238.94000244140625, 236.89999389648438, 233.25, 239.24000549316406, 239.38999938964844, 239.8300018310547, 238.1999969482422], lows=[271.1000061035156, 289.0299987792969, 284.4599914550781, 277.55999755859375, 282.44000244140625, 274.42999267578125, 266.1199951171875, 258.5400085449219, 266.6300048828125, 270.010009765625, 269.1600036621094, 268.57000732421875, 267.010009765625, 262.1700134277344, 259.1000061035156, 239.0, 242.14999389648438, 229.05999755859375, 218.24000549316406, 229.16000366210938, 229.5, 226.75999450683594, 235.3699951171875, 233.08999633789062, 233.41000366210938, 233.1699981689453, 231.19000244140625, 231.10000610351562, 232.24000549316406, 223.50999450683594, 225.02000427246094, 222.60000610351562, 222.91000366210938, 217.97999572753906, 221.25999450683594, 222.25999450683594, 223.0, 220.5500030517578, 223.24000549316406, 217.3000030517578, 222.22000122070312, 222.80999755859375, 225.00999450683594, 222.32000732421875, 221.97000122070312, 218.4499969482422, 228.0, 223.9600067138672, 224.3000030517578, 216.66000366210938, 220.6699981689453, 224.86000061035156, 226.14999389648438, 231.0800018310547, 231.72999572753906, 229.36000061035156, 230.22000122070312, 233.24000549316406, 235.11000061035156, 232.92999267578125], closes=[283.80999755859375, 290.5400085449219, 292.260009765625, 278.3900146484375, 283.8699951171875, 279.010009765625, 270.6600036621094, 266.5299987792969, 267.17999267578125, 273.1499938964844, 278.79998779296875, 277.2900085449219, 269.239990234375, 267.6700134277344, 259.1199951171875, 240.97999572753906, 245.16000366210938, 229.16000366210938, 224.1699981689453, 237.60000610351562, 231.14999389648438, 231.77999877929688, 239.7100067138672, 233.42999267578125, 236.3800048828125, 233.41000366210938, 231.91000366210938, 234.7100067138672, 232.72000122070312, 228.55999755859375, 226.02000427246094, 222.97000122070312, 225.55999755859375, 222.44000244140625, 224.75, 223.14999389648438, 225.86000061035156, 223.5800018310547, 224.63999938964844, 222.39999389648438, 228.5, 224.99000549316406, 227.83999633789062, 223.8699951171875, 223.32000732421875, 226.47000122070312, 236.6199951171875, 224.22999572753906, 226.35000610351562, 218.97999572753906, 227.9499969482422, 227.99000549316406, 232.41000366210938, 237.57000732421875, 235.44000244140625, 230.16000366210938, 238.0800018310547, 236.32000732421875, 236.47000122070312, 233.99749755859375], vols=[3736900, 3690900, 1789100, 4592000, 3013300, 3786100, 4014700, 3433900, 2071400, 4672000, 2347400, 4124500, 4104000, 4222400, 6489000, 7554900, 7710200, 6301600, 5421300, 6542400, 5617100, 3064300, 3216800, 3285200, 2804800, 3187400, 3376200, 2825200, 3330400, 4995200, 3337100, 2124500, 2172500, 2971400, 2025200, 1815700, 2564200, 3328900, 2990600, 3181500, 2745500, 2332300, 2905900, 5537500, 3831700, 3078600, 3124500, 4657900, 2373300, 3342500, 5053500, 5216500, 4856200, 4153700, 4018700, 2943500, 2929000, 3629300, 2438800, 855205];
+    var colors = closes.map(function(c,i){ return c >= opens[i] ? '#26a269' : '#ff4b4b'; });
+    Plotly.newPlot('kline-NXPI',[
+      {type:'candlestick',x:dates,open:opens,high:highs,low:lows,close:closes,
+        increasing:{line:{color:'#26a269'},fillcolor:'#26a269'},decreasing:{line:{color:'#ff4b4b'},fillcolor:'#ff4b4b'},name:'K線'},
+      {type:'bar',x:dates,y:vols,name:'成交量',yaxis:'y2',marker:{color:colors,opacity:0.6}}
+    ],{
+      paper_bgcolor:'#16213e',plot_bgcolor:'#16213e',font:{color:'#e2e8f0',size:10},
+      xaxis:{color:'#94a3b8',gridcolor:'#2a2a4a',rangeslider:{visible:false},type:'category',nticks:12},
+      yaxis:{color:'#94a3b8',gridcolor:'#2a2a4a',domain:[0.3,1]},
+      yaxis2:{color:'#64748b',gridcolor:'#1e2a4a',domain:[0,0.28],showticklabels:false},
+      shapes:[{"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 234.0, "y1": 234.0, "line": {"color": "rgba(251,191,36,0.85)", "width": 1.5, "dash": "dash"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 235.01, "y1": 235.01, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 238.6, "y1": 238.6, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 241.45, "y1": 241.45, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 256.36, "y1": 256.36, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 262.4, "y1": 262.4, "line": {"color": "rgba(248,113,113,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 233.64, "y1": 233.64, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 230.0, "y1": 230.0, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 220.67, "y1": 220.67, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 218.24, "y1": 218.24, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}, {"type": "line", "xref": "paper", "yref": "y", "x0": 0, "x1": 1, "y0": 188.68, "y1": 188.68, "line": {"color": "rgba(74,222,128,0.7)", "width": 1, "dash": "dot"}}],annotations:[{"xref": "paper", "yref": "y", "x": 0.01, "y": 234.0, "text": "\u73fe\u50f9 234.00", "showarrow": false, "font": {"color": "#fbbf24", "size": 11}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 235.01, "text": "P1 235.01 MA5\u4f4d\u7f6e", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 238.6, "text": "P2 238.60 \u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 241.45, "text": "P3 241.45 MA60\u4f4d\u7f6e", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 256.36, "text": "P4 256.36 \u6ce2\u6bb5\u76f8\u5c0d\u9ad8\u9ede", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 262.4, "text": "P5 262.40 MA120\u4f4d\u7f6e", "showarrow": false, "font": {"color": "#f87171", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 233.64, "text": "S1 233.64 MA10\u4f4d\u7f6e", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 230.0, "text": "S2 230.00 \u6574\u6578\u5fc3\u7406\u95dc\u5361", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 220.67, "text": "S3 220.67 \u5e36\u91cf\u7d05K\u5e95\u90e8", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 218.24, "text": "S4 218.24 \u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}, {"xref": "paper", "yref": "y", "x": 1.01, "y": 188.68, "text": "S5 188.68 \u6ce2\u6bb5\u76f8\u5c0d\u4f4e\u9ede", "showarrow": false, "font": {"color": "#4ade80", "size": 9}, "xanchor": "left"}],
+      margin:{t:20,b:30,l:60,r:170},showlegend:false,height:380
+    },{responsive:true,displayModeBar:false});
+  })();
+  </script>
+  
+<div id="fin-NXPI" style="height:280px;margin:12px 0;border-radius:8px;overflow:hidden;"></div>
+<script>
+(function(){
+  var q=["2025-06", "2025-09", "2025-12", "2026-03", "2026-06"], gm=[53.4, 56.3, 54.2, 56.2, 57.3], om=[23.4, 28.2, 22.5, 27.8, 30.8], nm=[15.2, 19.9, 13.6, 35.3, 21.9], rev=[2926.0, 3173.0, 3335.0, 3181.0, 3496.0];
+  Plotly.newPlot('fin-NXPI',[
+    {name:'營收($M)',type:'bar',x:q,y:rev,yaxis:'y',marker:{color:'#60a5fa'},opacity:0.7},
+    {name:'毛利率%',type:'scatter',x:q,y:gm,yaxis:'y2',line:{color:'#4ade80',width:2},connectgaps:true},
+    {name:'營益率%',type:'scatter',x:q,y:om,yaxis:'y2',line:{color:'#a78bfa',width:2},connectgaps:true},
+    {name:'淨利率%',type:'scatter',x:q,y:nm,yaxis:'y2',line:{color:'#fbbf24',width:2},connectgaps:true}
+  ],{
+    title:{text:'NXPI NXP Semiconductors N.V. 季度財務趨勢（GAAP，季末年月）',font:{color:'#e2e8f0',size:13}},
+    paper_bgcolor:'#16213e',plot_bgcolor:'#16213e',font:{color:'#e2e8f0',size:10},
+    legend:{font:{color:'#e2e8f0',size:10}},
+    xaxis:{color:'#94a3b8',gridcolor:'#2a2a4a',type:'category'},
+    yaxis:{title:'營收($M)',color:'#60a5fa',gridcolor:'#2a2a4a'},
+    yaxis2:{title:'利率%',overlaying:'y',side:'right',color:'#4ade80',gridcolor:'#2a2a4a'},
+    margin:{t:40,b:30,l:60,r:60},height:280
+  },{responsive:true,displayModeBar:false});
+})();
+</script>
+  
+<div class="chip-card" style="background:linear-gradient(135deg,rgba(167,139,250,0.08),#0d1220);border:1px solid #1e2a4a;border-left:4px solid #4ade80;border-radius:8px;padding:16px;margin:16px 0;">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap;">
+    <h4 style="margin:0;color:#e2e8f0;font-size:0.95rem;">💵 EPS 估值分析</h4>
+    <span style="font-size:0.78rem;color:#94a3b8;">GAAP 已實現 vs non-GAAP 前瞻，兩者基準不同、比較 PE 時請看同一列</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px;margin-bottom:8px;"><div class="fin-pill">近4季 GAAP EPS（2025-09~2026-06 GAAP）<span style="color:#e2e8f0">11.72</span> ｜ PE <span style="color:#fbbf24">20.0x</span></div><div class="fin-pill">近4季 non-GAAP EPS（財報公布值）<span style="color:#e2e8f0">13.12</span> ｜ PE <span style="color:#4ade80">17.8x</span></div><div class="fin-pill">FY2025 全年 GAAP EPS <span style="color:#e2e8f0">7.95</span> ｜ PE <span style="color:#fbbf24">29.4x</span></div><div class="fin-pill">FY2026E 預估 EPS <span style="color:#a78bfa">15.06</span> <span style="color:#64748b;font-size:0.72rem">(14.28~15.65，25 位，YoY 28%)</span> ｜ forward PE <span style="color:#4ade80">15.5x</span></div><div class="fin-pill">FY2027E 預估 EPS <span style="color:#a78bfa">18.13</span> <span style="color:#64748b;font-size:0.72rem">(16.26~20.38，25 位，YoY 20%)</span> ｜ forward PE <span style="color:#4ade80">12.9x</span></div><div class="fin-pill">次年 EPS 預估 30 日修正 <span style="color:#4ade80">+0.2%</span> <span style="color:#64748b;font-size:0.72rem">(18.1 → 18.13)</span></div></div>
+  <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:10px 12px;margin:8px 0;font-size:0.85rem;line-height:1.6;color:#cbd5e1;">📝 GAAP TTM EPS 11.72（PE 20.0x）與 non-GAAP TTM 13.12（PE 17.8x）差距小，財報品質高、沒有大量併購攤銷雜訊。前瞻 FY2026E 共識 15.06（+27.5%）→ forward PE 15.5x；FY2027E 18.13（+20.4%）→ 12.9x，仍是兩檔中最便宜。以類比/車用半導體合理區間 15~22x 衡量，現價 234.00 只反應到 FY2026 的 15.5x、對 FY2027 明顯低估：FY27E × 15~20x = 272~363，分析師均值 311（17.2x）對應 +33% 上檔。共識 90 日上修 +2.4%、30 日持平，低估值有實質 EPS 支撐；唯一不確定是 10/27 財報的 Q4 指引。</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+  <div style="margin-top:10px;">
+    <div style="font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">合理價區間（以 FY2027E 預估 EPS 18.13 × 本益比）｜現價 234.00 ≈ <span style="color:#4ade80">12.9x</span></div>
+    <table class="lvl-table" style="font-size:0.8rem;max-width:420px;"><thead><tr><th>本益比</th><th>對應股價</th><th>評價</th></tr></thead><tbody><tr><td>15x</td><td style="color:#e2e8f0">271.95</td><td style="color:#94a3b8;font-size:0.78rem;">低估</td></tr><tr><td>20x</td><td style="color:#e2e8f0">362.60</td><td style="color:#94a3b8;font-size:0.78rem;">低估</td></tr><tr><td>25x</td><td style="color:#e2e8f0">453.25</td><td style="color:#94a3b8;font-size:0.78rem;">合理</td></tr><tr><td>30x</td><td style="color:#e2e8f0">543.90</td><td style="color:#94a3b8;font-size:0.78rem;">合理</td></tr><tr><td>35x</td><td style="color:#e2e8f0">634.55</td><td style="color:#94a3b8;font-size:0.78rem;">偏高</td></tr></tbody></table>
+  </div><div style="margin-top:10px;"><div style="font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">近 4 次財報 EPS（non-GAAP）預估 vs 實際</div><table class="lvl-table" style="font-size:0.8rem;max-width:420px;"><thead><tr><th>日期</th><th>預估</th><th>實際</th><th>驚喜</th></tr></thead><tbody><tr><td style="color:#94a3b8">2026-07-28</td><td>3.53</td><td style="color:#e2e8f0">3.61</td><td style="color:#4ade80">+2.4%</td></tr><tr><td style="color:#94a3b8">2026-04-28</td><td>2.98</td><td style="color:#e2e8f0">3.05</td><td style="color:#4ade80">+2.2%</td></tr><tr><td style="color:#94a3b8">2026-02-02</td><td>3.31</td><td style="color:#e2e8f0">3.35</td><td style="color:#4ade80">+1.2%</td></tr><tr><td style="color:#94a3b8">2025-10-27</td><td>3.12</td><td style="color:#e2e8f0">3.11</td><td style="color:#f87171">-0.3%</td></tr></tbody></table></div></div>
+  <div style="font-size:0.74rem;color:#64748b;margin-top:6px;">分析師目標價：均值 <span style="color:#4ade80">311.1（+33.0%）</span>，中位 310.0，區間 190.0~400.0，29 位 ｜ 前瞻 EPS 為 yfinance 彙整之分析師共識（non-GAAP），會隨財報滾動修正</div>
+</div>
+  
+<div class="chip-card" style="background:linear-gradient(135deg,rgba(74,222,128,0.1),#0d1220);border:1px solid #1e2a4a;border-left:4px solid #4ade80;border-radius:8px;padding:16px;margin:16px 0;">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap;">
+    <h4 style="margin:0;color:#e2e8f0;font-size:0.95rem;">🎯 機構動向與市場情緒</h4>
+    <span style="font-size:1.1rem;font-weight:bold;color:#4ade80;">🟢 偏多 +45</span>
+    <span style="font-size:0.78rem;color:#94a3b8;">主要理由：空單月減 22.1%、分析師 73% 買進評等、目標價上檔 33.0%</span>
+  </div>
+  <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:10px 12px;margin:8px 0 12px;font-size:0.85rem;line-height:1.6;color:#cbd5e1;">📝 🟢 機構面 +45 偏多：空單月減 22.1%（3.22% 流通股）、73% 買進評等、目標價上檔 33.0%。扣分：7 月財報後的目標價下修潮還沒被新的調升抵銷（近期無新評等）、JPMorgan 減持 -14.5%。FY27E 共識 30 日持平（+0.2%）、90 日上修 +2.4%（17.71→18.13），方向正確但動能放緩。</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px;margin-bottom:12px;"><div class="chip-pill" style="border-left:3px solid #fbbf24;">空單 3.22% 流通股 ｜ 回補天數 2.3 ｜ 月變化 -22.1%</div><div class="chip-pill" style="border-left:3px solid #94a3b8;">機構持股 99.4% ｜ 內部人持股 0.14%</div><div class="chip-pill" style="border-left:3px solid #94a3b8;">內部人 90 日：賣出 1 筆 / 1,000 股（約 $0.2M），買進 0 筆</div><div class="chip-pill" style="border-left:3px solid #4ade80;">分析師評等：買進 22 / 持有 7 / 賣出 1（買進 73%）</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+    <div>
+      <div style="font-size:0.8rem;color:#94a3b8;margin-bottom:4px;">近 120 日評等 / 目標價異動（最新 8 筆）</div>
+      <table class="lvl-table" style="font-size:0.78rem;"><thead><tr><th>日期</th><th>券商</th><th>評等</th><th>動作</th><th>目標價</th></tr></thead><tbody><tr><td style="color:#94a3b8;font-size:0.75rem">08-17</td><td>Cantor Fitzgerald</td><td>Overweight</td><td style="color:#94a3b8">重申</td><td style="color:#94a3b8">= 400</td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">08-03</td><td>UBS</td><td>Neutral</td><td style="color:#f87171">調降</td><td style="color:#f87171">↓ 270 <span style="color:#64748b">(305)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">07-29</td><td>TD Cowen</td><td>Buy</td><td style="color:#94a3b8">維持</td><td style="color:#f87171">↓ 290 <span style="color:#64748b">(340)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">07-29</td><td>Wells Fargo</td><td>Equal-Weight</td><td style="color:#94a3b8">維持</td><td style="color:#f87171">↓ 280 <span style="color:#64748b">(290)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">07-29</td><td>Mizuho</td><td>Underperform</td><td style="color:#94a3b8">維持</td><td style="color:#f87171">↓ 190 <span style="color:#64748b">(200)</span></td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">07-29</td><td>Cantor Fitzgerald</td><td>Overweight</td><td style="color:#94a3b8">重申</td><td style="color:#94a3b8">= 400</td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">07-29</td><td>Needham</td><td>Buy</td><td style="color:#94a3b8">重申</td><td style="color:#94a3b8">= 300</td></tr><tr><td style="color:#94a3b8;font-size:0.75rem">07-24</td><td>Oppenheimer</td><td>Outperform</td><td style="color:#94a3b8">維持</td><td style="color:#4ade80">↑ 325 <span style="color:#64748b">(300)</span></td></tr></tbody></table>
+    </div>
+    <div>
+      
+<div id="rec-NXPI" style="height:200px;border-radius:8px;overflow:hidden;margin:8px 0;"></div>
+<script>
+(function(){
+  var p=["3\u6708\u524d", "2\u6708\u524d", "1\u6708\u524d", "\u672c\u6708"];
+  Plotly.newPlot('rec-NXPI',[
+    {type:'bar',x:p,y:[6, 6, 6, 6],name:'強力買進',marker:{color:'#15803d'}},
+    {type:'bar',x:p,y:[17, 17, 16, 16],name:'買進',marker:{color:'#4ade80'}},
+    {type:'bar',x:p,y:[6, 6, 7, 7],name:'持有',marker:{color:'#fbbf24'}},
+    {type:'bar',x:p,y:[1, 1, 1, 1],name:'賣出',marker:{color:'#f87171'}}
+  ],{
+    barmode:'stack',title:{text:'分析師評等分佈（家數）',font:{color:'#94a3b8',size:11}},
+    paper_bgcolor:'#0d1220',plot_bgcolor:'#0d1220',font:{color:'#94a3b8',size:9},
+    legend:{font:{color:'#94a3b8',size:9},orientation:'h',y:-0.2},
+    xaxis:{color:'#64748b',showgrid:false},yaxis:{color:'#64748b',gridcolor:'#1e2a4a'},
+    margin:{t:30,b:40,l:30,r:10},height:200
+  },{responsive:true,displayModeBar:false});
+})();
+</script>
+      <div style="font-size:0.8rem;color:#94a3b8;margin:8px 0 4px;">前六大機構持股（季度變化）</div>
+      <table class="lvl-table" style="font-size:0.78rem;"><thead><tr><th>機構</th><th>持股</th><th>QoQ</th></tr></thead><tbody><tr><td>FMR, LLC</td><td>10.01%</td><td style="color:#4ade80">+0.4%</td></tr><tr><td>Blackrock Inc.</td><td>9.48%</td><td style="color:#4ade80">+5.3%</td></tr><tr><td>JPMORGAN CHASE & CO</td><td>6.87%</td><td style="color:#f87171">-14.5%</td></tr><tr><td>State Street Corporation</td><td>4.64%</td><td style="color:#4ade80">+6.4%</td></tr><tr><td>Invesco Ltd.</td><td>4.35%</td><td style="color:#f87171">-1.3%</td></tr><tr><td>Vanguard Capital Management LLC</td><td>3.25%</td><td style="color:#4ade80">+1.5%</td></tr></tbody></table>
+    </div>
+  </div>
+</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;">
+    <div class="card"><h4>📈 走勢回顧</h4><p>60 日區間 216.66~298.04。7/9 見高 298.04 後，7/28 財報（EPS 3.61 勝 3.53）隔日 7/29 爆量 2.09 倍、殺到 239 收 240.98，7/30、8/4 續爆量，確認高檔結束。8 月在 217~238 打底，9/16 再探 216.66（波段新低）後 9/17 帶量 1.4 倍紅K（底 220.67）反轉，9/17~9/22 連 4 天量增（1.3~1.4 倍）推到 237.57，買盤明確。之後在 229~240 整理：9/22 238.94、9/25 239.24、9/29 239.83 三度摸同一價位都收不上去，形成明顯的 240 上緣。9/30 盤中 234.00（-1.0%），0.24 倍量是盤中未收盤，不作縮量解讀。9/12 判斷的「箱型突破」有延續（低點墊高），但動能在 MA60 前明顯鈍化。</p></div>
+    <div class="card"><h4>🏛️ 機構與分析師動向</h4><p>7/28 財報後券商以下修目標價為主：UBS 降評 Neutral、305→270，TD Cowen 340→290、Wells Fargo 290→280、Mizuho Underperform 200→190；維持看多的有 Cantor Overweight 400（8/17 重申）、Needham Buy 300、Oppenheimer 7/24 調升 325。8/17 之後沒有新的評等異動＝市場在等 10/27 財報。29 位分析師目標均值 311.1（上檔 +33.0%）、中位 310；買進評等 22/30＝73%，本月無變化。空單 3.22% 流通股、月減 22.1%，空方大幅回補是這波反彈的推力之一。內部人 90 日只有 COO Micallef 9/15 在 226.04 賣 1,000 股（約 22.6 萬美元），量極小、屬例行。前六大機構 JPMorgan 減持 -14.5% 是唯一明顯賣方，Blackrock +5.3%、State Street +6.4% 加碼。</p></div>
+    <div class="card"><h4>📊 均線多空判斷</h4><p>短均線翻多、中長均線壓頂：MA5 235.01（+0.4%）與 MA10 233.64（-0.2%）黏在現價、MA20 229.88 在下方上彎＝短線多頭排列；但壓力側 MA60 241.45（+3.2%）剛好在三次上攻高點 239.8 上方 1%，MA120 262.4（+12.1%）更遠。關鍵：日收盤站上 241.45 才算中期轉折，目標 256.36 波段高 → MA120 262.4；支撐 230 整數（MA20 229.88 同位）→ 220.67（9/17 帶量紅K底）。</p></div>
+    <div class="card"><h4>💰 基本面概況</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0;">
+  <div class="fin-pill">毛利率 <span style="color:#4ade80">57.3%</span> ↑擴張</div>
+  <div class="fin-pill">淨利率 <span style="color:#fbbf24">21.9%</span></div>
+  <div class="fin-pill">最新季營收 <span style="color:#60a5fa">$3,496M</span> <span style="color:#4ade80">YoY +19.5%</span></div>
+  <div class="fin-pill">負債比 <span style="color:#4ade80">55.9%</span></div>
+  <div class="fin-pill">自由現金流 <span style="color:#4ade80">$754M</span></div>
+</div><p style="margin:6px 0 0;font-size:0.85rem;color:#94a3b8">季末 2026-06 那季營收 3,496M（QoQ +9.9%、YoY +19.5%），毛利率 57.3%、營益率 30.8% 皆為近五季新高；FCF 754M 穩定、負債比 60.6→55.9% 下降。淨利率 21.9%（上季 35.3% 含一次性項目，以營益率判斷趨勢）。分析師預估本年度營收 +16.1%、明年 +11.5%，車用/工業庫存去化完成後的復甦軌跡清楚。</p></div>
+  </div>
+  <div class="card" style="margin-bottom:12px;border-left:3px solid #eab308;">
+    <h4>💡 操作建議</h4>
+    <p><strong style="color:#4ade80">積極做法：</strong>(a) 突破買：日收盤站上 241.45（MA60）進場，目標 256.36 → 262.4（MA120），停損 233.6（MA10）；(b) 拉回買：回測 229.9~230（MA20＋整數）止跌進場，目標 239.8 → 241.45，停損 220.67（9/17 帶量紅K底，-4%）。10/27 財報前突破成功的話可續抱過財報，失敗則財報前減碼。</p>
+    <p><strong style="color:#fbbf24">保守做法：</strong>等 10/27 財報後再決定：若財報維持指引且股價站上 MA60 241.45，再以 230~235 為停損進場；財報前在 230~240 箱型內不追高。FY27E 12.9x 的估值讓時間站在買方，不急。</p>
+    <p><strong style="color:#f87171">風險提示：</strong>240 三度攻不過，若跌破 230 整數＋MA20，短線會回到 217~221 底部區重新整理。10/27 財報是最大事件風險：7 月財報後就是爆量下殺 -7%，市場對指引非常敏感。車用需求若再度延後，目前 +11.5% 的明年營收預估有下修空間。9/30 為盤中快照，收盤若失守 MA10 233.6 須降低短線預期。</p>
+  </div>
+  <details style="margin-top:12px;">
+    <summary style="cursor:pointer;color:#94a3b8;font-size:0.9rem;padding:8px 0;">▶ 支撐壓力詳細表格</summary>
+    <div style="overflow-x:auto;margin-top:8px;"><table class="lvl-table"><thead><tr><th>#</th><th>價格</th><th>類型</th><th>日期</th><th>距離%</th></tr></thead><tbody><tr><td>P1</td><td style="color:#f87171">235.01</td><td>MA5位置</td><td style="color:#94a3b8">2026-09-30</td><td style="color:#f87171">+0.4%</td></tr><tr><td>P2</td><td style="color:#f87171">238.60</td><td>波段相對高點</td><td style="color:#94a3b8">2026-09-11</td><td style="color:#f87171">+2.0%</td></tr><tr><td>P3</td><td style="color:#f87171">241.45</td><td>MA60位置</td><td style="color:#94a3b8">2026-09-30</td><td style="color:#f87171">+3.2%</td></tr><tr><td>P4</td><td style="color:#f87171">256.36</td><td>波段相對高點</td><td style="color:#94a3b8">2026-02-12</td><td style="color:#f87171">+9.6%</td></tr><tr><td>P5</td><td style="color:#f87171">262.40</td><td>MA120位置</td><td style="color:#94a3b8">2026-09-30</td><td style="color:#f87171">+12.1%</td></tr><tr><td>S1</td><td style="color:#4ade80">233.64</td><td>MA10位置</td><td style="color:#94a3b8">2026-09-30</td><td style="color:#4ade80">-0.2%</td></tr><tr><td>S2</td><td style="color:#4ade80">230.00</td><td>整數心理關卡</td><td style="color:#94a3b8">2026-09-30</td><td style="color:#4ade80">-1.7%</td></tr><tr><td>S3</td><td style="color:#4ade80">220.67</td><td>帶量紅K底部</td><td style="color:#94a3b8">2026-09-17</td><td style="color:#4ade80">-5.7%</td></tr><tr><td>S4</td><td style="color:#4ade80">218.24</td><td>波段相對低點</td><td style="color:#94a3b8">2026-08-03</td><td style="color:#4ade80">-6.7%</td></tr><tr><td>S5</td><td style="color:#4ade80">188.68</td><td>波段相對低點</td><td style="color:#94a3b8">2026-03-19</td><td style="color:#4ade80">-19.4%</td></tr></tbody></table></div>
+  </details>
+  <div style="margin-top:16px;text-align:center;"><a href="https://finance.yahoo.com/quote/NXPI/analysis/" target="_blank" style="color:#60a5fa;text-decoration:none;font-size:0.95rem;">📊 Yahoo Finance 分析師頁 →</a></div>
+</section>
+  <div style="text-align:center;padding:20px;color:#374151;font-size:0.8rem;">本報告僅供參考，不構成投資建議。投資人須自行評估風險。</div>
+</div>
+</body>
+</html>
